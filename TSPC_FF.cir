@@ -1,10 +1,10 @@
-Implementing a TSPC Flipflop using 180nm technology
+Implementing a TSPC Flipflop using 180nm technology - Modifications required in 4 Lines
 
 .include "TSMC_180nm.txt"
 .param SUPPLY = 1.8
 .param LAMBDA = 0.09u
-.param width_N = {2 * LAMBDA} ; Vary the width
-.param width_P = {2 * width_N} ; Vary the width
+.param width_N = {3 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
 .global gnd vdd
 
 .subckt Inverter in out high low
@@ -52,8 +52,8 @@ Implementing a TSPC Flipflop using 180nm technology
 * Input source description (square waveform)
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
 Vdd vdd gnd 'SUPPLY'
-VClk clk_line gnd pulse 0 SUPPLY 0 10p 10p 4ns 8ns ; No Skew Currently, add a skew for practical measurements
-VD D gnd pulse 0 SUPPLY 0 10p 10p 3ns 6ns ; No Skew Currently, add a skew for practical measurements
+VClk clk_line gnd pulse 0 SUPPLY 0 10p 10p 4ns 8ns ; No Skew Currently, add a skew for practical measurements (3)
+VD D gnd pulse 0 SUPPLY 0 10p 10p 3ns 6ns ; No Skew Currently, add a skew for practical measurements (4)
 
 XFlipFlop D Q clk_line vdd gnd TSPC_FF
 
@@ -65,7 +65,17 @@ XFlipFlop D Q clk_line vdd gnd TSPC_FF
 + TRIG V(Q) VAL = '9 * SUPPLY / 10' TD = 15ns TO = 20ns FALL = 1
 + TARG V(Q) VAL = 'SUPPLY / 10' TD = 15ns TO = 20ns FALL = 1
 
-.measure tran delay param = '(trise + tfall)     / 2'
+.measure tran delay param = '(trise + tfall) / 2'
+
+.measure tran tcqrise
++ TRIG V(clk_line) VAL = 'SUPPLY / 2' RISE = 2
++ TARG V(Q) VAL = 'SUPPLY / 2' RISE = 1 
+
+.measure tran tcqfall
++ TRIG V(clk_line) VAL = 'SUPPLY / 2' RISE = 3
++ TARG V(Q) VAL = 'SUPPLY / 2' FALL = 1
+
+.measure tran tcq param = '(tcqrise + tcqfall) / 2'
 
 .tran 1ps 50ns
 
