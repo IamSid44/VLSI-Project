@@ -1,4 +1,4 @@
-Netlist for the C0 bit - (9)
+Netlist for the C2 bit - (9)
 
 .include "TSMC_180nm.txt"
 .param SUPPLY = 1.8
@@ -15,9 +15,9 @@ Netlist for the C0 bit - (9)
 .ends Inverter
 
 * Modified the Widths to equalize the delay to a minimum sized inverter
-.subckt C1_Bit_Logic clk A1_not A0_not B1_not B0_not Cin_not out high low 
+.subckt C2_Bit_Logic clk A2_not A1_not A0_not B2_not B1_not B0_not Cin_not out high low 
 
-    MC1_PUN_01 high clk out high CMOSP W={width_P} L={2*LAMBDA}
+    MC2_PUN_01 high clk out high CMOSP W={width_P} L={2*LAMBDA}
     + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
 
     * Keeper Circuit
@@ -25,34 +25,45 @@ Netlist for the C0 bit - (9)
     MKeeper high outFinal out high CMOSP W = {width_P} L = {2*LAMBDA}
     + AS = {5*width_P*LAMBDA} PS = {10*LAMBDA+2*width_P} AD = {5*width_P*LAMBDA} PD = {10*LAMBDA+2*width_P}
 
-    MC1_PDN_01 out clk C1_Inter_05 C1_Inter_05 CMOSN W={4*width_N} L={2*LAMBDA}   
-    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC2_PDN_01 out clk C2_Inter_07 C2_Inter_07 CMOSN W={5*width_N} L={2*LAMBDA}   
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
 
-    * 8/3 Wn approximated to 3Wn
-    MC1_PDN_10 C1_Inter_05 A1_not C1_Inter_04 C1_Inter_04 CMOSN W={3*width_N} L={2*LAMBDA}
+    * 5/2 Wn approximated to 3Wn
+    MC2_PDN_14 C2_Inter_07 A2_not C2_Inter_06 C2_Inter_06 CMOSN W={3*width_N} L={2*LAMBDA}
     + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
-    MC1_PDN_09 C1_Inter_04 B1_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    MC2_PDN_13 C2_Inter_06 B2_not low low CMOSN W={3*width_N} L={2*LAMBDA}
     + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
 
-    MC1_PDN_08 C1_Inter_05 A1_not C1_Inter_03 C1_Inter_03 CMOSN W={4*width_N} L={2*LAMBDA}
-    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
-    MC1_PDN_07 C1_Inter_05 B1_not C1_Inter_03 C1_Inter_03 CMOSN W={4*width_N} L={2*LAMBDA}
-    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC2_PDN_12 C2_Inter_07 A2_not C2_Inter_05 C2_Inter_05 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+    MC2_PDN_11 C2_Inter_07 B2_not C2_Inter_05 C2_Inter_05 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
 
-    MC0_PDN_06 C1_Inter_03 A0_not C1_Inter_02 C1_Inter_02 CMOSN W={4*width_N} L={2*LAMBDA}
-    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
-    MC0_PDN_05 C1_Inter_02 B0_not low low CMOSN W={4*width_N} L={2*LAMBDA}
-    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    * 10/3 Wn approximated to 3Wn
+    MC1_PDN_10 C2_Inter_05 A1_not C2_Inter_04 C2_Inter_04 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MC1_PDN_09 C2_Inter_04 B1_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
 
-    MC0_PDN_04 C1_Inter_03 Cin_not C1_Inter_01 C1_Inter_01 CMOSN W={4*width_N} L={2*LAMBDA}
-    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC1_PDN_08 C2_Inter_05 A1_not C2_Inter_03 C2_Inter_03 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+    MC1_PDN_07 C2_Inter_05 B1_not C2_Inter_03 C2_Inter_03 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
 
-    MC0_PDN_03 C1_Inter_01 A0_not low low CMOSN W={4*width_N} L={2*LAMBDA}
-    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
-    MC0_PDN_02 C1_Inter_01 B0_not low low CMOSN W={4*width_N} L={2*LAMBDA}
-    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC0_PDN_06 C2_Inter_03 A0_not C2_Inter_02 C2_Inter_02 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+    MC0_PDN_05 C2_Inter_02 B0_not low low CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
 
-.ends C1_Bit_Logic
+    MC0_PDN_04 C2_Inter_03 Cin_not C2_Inter_01 C2_Inter_01 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+
+    MC0_PDN_03 C2_Inter_01 A0_not low low CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+    MC0_PDN_02 C2_Inter_01 B0_not low low CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+
+.ends C2_Bit_Logic
 
 * .subckt InverterLoad in out high low
 *     M1 high in out high CMOSP W={20*LAMBDA} L={2*LAMBDA}
@@ -64,19 +75,23 @@ Netlist for the C0 bit - (9)
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
 VDD vdd gnd 'SUPPLY'
 VClk clk_line gnd pulse gnd SUPPLY 0 1p 1p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (3)
-VA1_not A1_not gnd pulse gnd SUPPLY 1.3n 1p 1p 7ns 14ns ; No Skew Currently, add a skew for practical measurements (4)
-VA0_not A0_not gnd pulse gnd SUPPLY 0.3n 1p 1p 2ns 4ns ; No Skew Currently, add a skew for practical measurements (5)
-VB1_not B1_not gnd pulse gnd SUPPLY 1.8n 1p 1p 9ns 18ns ; No Skew Currently, add a skew for practical measurements (6)
-VB0_not B0_not gnd pulse gnd SUPPLY 0.8n 1p 1p 3ns 6ns ; No Skew Currently, add a skew for practical measurements (7)
-VCin_not Cin_not gnd pulse gnd SUPPLY 1.3n 1p 1p 7ns 14ns ; No Skew Currently, add a skew for practical measurements (9)
+VA2_not A2_not gnd pulse gnd SUPPLY 0.5n 1p 1p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (4)
+VA1_not A1_not gnd pulse gnd SUPPLY 0.75n 1p 1p 3ns 6ns ; No Skew Currently, add a skew for practical measurements (5)
+VA0_not A0_not gnd pulse gnd SUPPLY 1.35n 1p 1p 3.5ns 7ns ; No Skew Currently, add a skew for practical measurements (6)
+VB2_not B2_not gnd pulse gnd SUPPLY 0 1p 1p 5ns 10ns ; No Skew Currently, add a skew for practical measurements (7)
+VB1_not B1_not gnd pulse gnd SUPPLY 1n 1p 1p 7ns 14ns ; No Skew Currently, add a skew for practical measurements (8)
+VB0_not B0_not gnd pulse gnd SUPPLY 0.6n 1p 1p 1.5ns 3ns ; No Skew Currently, add a skew for practical measurements (9)
+VCin_not Cin_not gnd pulse gnd SUPPLY 0 1p 1p 11ns 22ns ; No Skew Currently, add a skew for practical measurements (10)
 
+* VA2_not A2_not gnd 0
 * VA1_not A1_not gnd 0
-* VA0_not A0_not gnd 0
-* VB1_not B1_not gnd 0
+* VA0_not A0_not gnd 'SUPPLY'
+* VB2_not B2_not gnd 'SUPPLY'
+* VB1_not B1_not gnd 'SUPPLY'
 * VB0_not B0_not gnd 0
 * VCin_not Cin_not gnd 0
 
-XC1_Bit_Logic clk_line A1_not A0_not B1_not B0_not Cin_not out vdd gnd C1_Bit_Logic
+XC2_Bit_Logic clk_line A2_not A1_not A0_not B2_not B1_not B0_not Cin_not out vdd gnd C2_Bit_Logic
 
 * Load
 * XInverterL out temp vdd gnd InverterLoad
@@ -113,14 +128,16 @@ set curplottitle = "Siddarth Gottumukkula 2023102040"
 set xbrushwidth = 3
 set ybrushwidth = 3
 
-let clock = 'clk_line + 12'
-let in_a1_bar = 'A1_not + 10'
-let in_a0_bar = 'A0_not + 8'
+let clock = 'clk_line + 16'
+let in_a2_bar = 'A2_not + 14'
+let in_a1_bar = 'A1_not + 12'
+let in_a0_bar = 'A0_not + 10'
+let in_b2_bar = 'B2_not + 8'
 let in_b1_bar = 'B1_not + 6'
 let in_b0_bar = 'B0_not + 4'
 let in_cin_bar = 'Cin_not + 2'
 let output = 'out'
-plot clock in_a1_bar in_a0_bar in_b1_bar in_b0_bar in_cin_bar output
+plot clock in_a2_bar in_a1_bar in_a0_bar in_b2_bar in_b1_bar in_b0_bar in_cin_bar output
 
 .endc
 
