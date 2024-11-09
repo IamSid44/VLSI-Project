@@ -1,0 +1,15 @@
+Netlist for the C0 bit
+
+.include "TSMC_180nm.txt"
+.param SUPPLY = 1.8
+.param LAMBDA = 0.09u
+.param width_N = {20 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.global gnd vdd
+
+.subckt Inverter in out high low
+    M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out in low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends Inverter

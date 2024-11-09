@@ -17,10 +17,10 @@ Implementing a TSPC Flipflop using 180nm technology - Modifications required in 
 .subckt HighLevelLatchElement in out clk high low
     M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
     + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
-    M2 out clk inter inter CMOSN W={width_N} L={2*LAMBDA} ; Reduced the effect of Body effect
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-    M3 inter in low low CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    M2 out clk inter inter CMOSN W={2*width_N} L={2*LAMBDA} ; Reduced the effect of Body effect
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+    M3 inter in low low CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
 .ends HighLevelLatchElement
 
 .subckt TSPC_Latch_HighLevel in out clk high low
@@ -28,11 +28,12 @@ Implementing a TSPC Flipflop using 180nm technology - Modifications required in 
     XSlave inter out clk high low HighLevelLatchElement
 .ends TSPC_Latch_HighLevel
 
+* Equate path resistances in sizing to inverter
 .subckt LowLevelLatchElement in out clk high low
-    M1 high in inter high CMOSP W={width_P} L={2*LAMBDA}
-    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
-    M2 inter clk out inter CMOSP W={width_P} L={2*LAMBDA} ; Reduced the effect of Body effect
-    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M1 high in inter high CMOSP W={2*width_P} L={2*LAMBDA}
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+    M2 inter clk out inter CMOSP W={2*width_P} L={2*LAMBDA} ; Reduced the effect of Body effect
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
     M3 out in low low CMOSN W={width_N} L={2*LAMBDA}
     + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 .ends LowLevelLatchElement
@@ -42,18 +43,13 @@ Implementing a TSPC Flipflop using 180nm technology - Modifications required in 
     XSlave inter out clk high low LowLevelLatchElement
 .ends TSPC_Latch_LowLevel
 
+* Repeater Tradeoff - Rise and Fall times vs C to Q delay
 .subckt TSPC_FF in out clk high low
     XMaster in inter1 clk high low TSPC_Latch_LowLevel
-    * XInverter1 inter1 inter vdd gnd Inverter
-    XSlave inter1 out clk high low TSPC_Latch_HighLevel
-    * XInverter2 inter2 out vdd gnd Inverter
+    XInverter1 inter1 inter vdd gnd Inverter
+    XSlave inter inter2 clk high low TSPC_Latch_HighLevel
+    XInverter2 inter2 out vdd gnd Inverter
 .ends TSPC_FF
-
-* Input source description (square waveform)
-* vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
-Vdd vdd gnd 'SUPPLY'
-VClk clk_line gnd pulse SUPPLY 0 0 1p 1p 10ns 20ns ; No Skew Currently, add a skew for practical measurements (3)
-VD D gnd pulse 0 SUPPLY 0 1p 1p 20ns 40ns ; No Skew Currently, add a skew for practical measurements (4)
 
 .subckt InverterLoad in out high low
     M1 high in out high CMOSP W={20*LAMBDA} L={2*LAMBDA}
@@ -61,6 +57,12 @@ VD D gnd pulse 0 SUPPLY 0 1p 1p 20ns 40ns ; No Skew Currently, add a skew for pr
     M2 out in low low CMOSN W={10*LAMBDA} L={2*LAMBDA}
     + AS={5*10*LAMBDA*LAMBDA} PS={10*LAMBDA+2*10*LAMBDA} AD={5*10*LAMBDA*LAMBDA} PD={10*LAMBDA+2*10*LAMBDA}
 .ends InverterLoad
+
+* Input source description (square waveform)
+* vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
+Vdd vdd gnd 'SUPPLY'
+VClk clk_line gnd pulse SUPPLY 0 0 1p 1p 10ns 20ns ; No Skew Currently, add a skew for practical measurements (3)
+VD D gnd pulse 0 SUPPLY 0 1p 1p 20ns 40ns ; No Skew Currently, add a skew for practical measurements (4)
 
 * Load 
 XInverterL Q temp vdd gnd InverterLoad
@@ -101,7 +103,7 @@ set curplottitle = "Siddarth Gottumukkula 2023102040"
 let clock = 'clk_line + 4'
 let input = 'D + 2'
 let output = 'Q'
-plot clock input output
+* plot clock input output
 
 .endc
 
