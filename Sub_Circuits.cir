@@ -1,0 +1,254 @@
+.subckt Inverter in out high low
+    M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out in low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends Inverter
+
+.subckt HighLevelLatchElement in out clk high low
+    M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out clk inter inter CMOSN W={2*width_N} L={2*LAMBDA} ; Reduced the effect of Body effect
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+    M3 inter in low low CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+.ends HighLevelLatchElement
+
+.subckt TSPC_Latch_HighLevel in out clk high low
+    XMaster in inter clk high low HighLevelLatchElement
+    XSlave inter out clk high low HighLevelLatchElement
+.ends TSPC_Latch_HighLevel
+
+* Equate path resistances in sizing to inverter
+.subckt LowLevelLatchElement in out clk high low
+    M1 high in inter high CMOSP W={2*width_P} L={2*LAMBDA}
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+    M2 inter clk out inter CMOSP W={2*width_P} L={2*LAMBDA} ; Reduced the effect of Body effect
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+    M3 out in low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends LowLevelLatchElement
+
+.subckt TSPC_Latch_LowLevel in out clk high low
+    XMaster in inter clk high low LowLevelLatchElement
+    XSlave inter out clk high low LowLevelLatchElement
+.ends TSPC_Latch_LowLevel
+
+* Repeater Tradeoff - Rise and Fall times vs C to Q delay
+.subckt TSPC_FF in out clk high low
+    XMaster in inter1 clk high low TSPC_Latch_LowLevel
+    XInverter1 inter1 inter vdd gnd Inverter
+    XSlave inter inter2 clk high low TSPC_Latch_HighLevel
+    XInverter2 inter2 out vdd gnd Inverter
+.ends TSPC_FF
+
+.subckt C0_Bit_Logic clk A0_not B0_not Cin_not out high low 
+
+    MC0_PUN_01 high clk out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    * Keeper Circuit
+    XKeeperInverter out outFinal vdd gnd Inverter
+    MKeeper high outFinal out high CMOSP W = {width_P} L = {2*LAMBDA}
+    + AS = {5*width_P*LAMBDA} PS = {10*LAMBDA+2*width_P} AD = {5*width_P*LAMBDA} PD = {10*LAMBDA+2*width_P}
+
+    MC0_PDN_01 out clk CO_Inter_03 CO_Inter_03 CMOSN W={3*width_N} L={2*LAMBDA}   
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+    MC0_PDN_06 CO_Inter_03 A0_not C0_Inter_02 C0_Inter_02 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MC0_PDN_05 C0_Inter_02 B0_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+    MC0_PDN_04 CO_Inter_03 Cin_not C0_Inter_01 C0_Inter_01 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+    MC0_PDN_03 C0_Inter_01 A0_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MC0_PDN_02 C0_Inter_01 B0_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+.ends C0_Bit_Logic
+
+.subckt C1_Bit_Logic clk A1_not A0_not B1_not B0_not Cin_not out high low 
+
+    MC1_PUN_01 high clk out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    * Keeper Circuit
+    XKeeperInverter out outFinal high low Inverter
+    MKeeper high outFinal out high CMOSP W = {width_P} L = {2*LAMBDA}
+    + AS = {5*width_P*LAMBDA} PS = {10*LAMBDA+2*width_P} AD = {5*width_P*LAMBDA} PD = {10*LAMBDA+2*width_P}
+
+    MC1_PDN_01 out clk C1_Inter_05 C1_Inter_05 CMOSN W={4*width_N} L={2*LAMBDA}   
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    * 8/3 Wn approximated to 3Wn
+    MC1_PDN_10 C1_Inter_05 A1_not C1_Inter_04 C1_Inter_04 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MC1_PDN_09 C1_Inter_04 B1_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+    MC1_PDN_08 C1_Inter_05 A1_not C1_Inter_03 C1_Inter_03 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC1_PDN_07 C1_Inter_05 B1_not C1_Inter_03 C1_Inter_03 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    MC0_PDN_06 C1_Inter_03 A0_not C1_Inter_02 C1_Inter_02 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC0_PDN_05 C1_Inter_02 B0_not low low CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    MC0_PDN_04 C1_Inter_03 Cin_not C1_Inter_01 C1_Inter_01 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    MC0_PDN_03 C1_Inter_01 A0_not low low CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC0_PDN_02 C1_Inter_01 B0_not low low CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+.ends C1_Bit_Logic
+
+.subckt C2_Bit_Logic clk A2_not A1_not A0_not B2_not B1_not B0_not Cin_not out high low 
+
+    MC2_PUN_01 high clk out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    * Keeper Circuit
+    XKeeperInverter out outFinal high low Inverter
+    MKeeper high outFinal out high CMOSP W = {width_P} L = {2*LAMBDA}
+    + AS = {5*width_P*LAMBDA} PS = {10*LAMBDA+2*width_P} AD = {5*width_P*LAMBDA} PD = {10*LAMBDA+2*width_P}
+
+    MC2_PDN_01 out clk C2_Inter_07 C2_Inter_07 CMOSN W={5*width_N} L={2*LAMBDA}   
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+
+    * 5/2 Wn approximated to 3Wn
+    MC2_PDN_14 C2_Inter_07 A2_not C2_Inter_06 C2_Inter_06 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MC2_PDN_13 C2_Inter_06 B2_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+    MC2_PDN_12 C2_Inter_07 A2_not C2_Inter_05 C2_Inter_05 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+    MC2_PDN_11 C2_Inter_07 B2_not C2_Inter_05 C2_Inter_05 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+
+    * 10/3 Wn approximated to 3Wn
+    MC1_PDN_10 C2_Inter_05 A1_not C2_Inter_04 C2_Inter_04 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MC1_PDN_09 C2_Inter_04 B1_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+    MC1_PDN_08 C2_Inter_05 A1_not C2_Inter_03 C2_Inter_03 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+    MC1_PDN_07 C2_Inter_05 B1_not C2_Inter_03 C2_Inter_03 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+
+    MC0_PDN_06 C2_Inter_03 A0_not C2_Inter_02 C2_Inter_02 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+    MC0_PDN_05 C2_Inter_02 B0_not low low CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+
+    MC0_PDN_04 C2_Inter_03 Cin_not C2_Inter_01 C2_Inter_01 CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+
+    MC0_PDN_03 C2_Inter_01 A0_not low low CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+    MC0_PDN_02 C2_Inter_01 B0_not low low CMOSN W={5*width_N} L={2*LAMBDA}
+    + AS={5*5*width_N*LAMBDA} PS={10*LAMBDA+2*5*width_N} AD={5*5*width_N*LAMBDA} PD={10*LAMBDA+2*5*width_N}
+
+.ends C2_Bit_Logic
+
+.subckt C3_Bit_Logic clk A3_not A2_not A1_not A0_not B3_not B2_not B1_not B0_not Cin_not out high low 
+
+    MC3_PUN_01 high clk out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    * Keeper Circuit
+    XKeeperInverter out outFinal high low Inverter
+    MKeeper high outFinal out high CMOSP W = {2*width_P} L = {2*LAMBDA}
+    + AS = {5*2*width_P*LAMBDA} PS = {10*LAMBDA+2*2*width_P} AD = {5*2*width_P*LAMBDA} PD = {10*LAMBDA+2*2*width_P}
+
+    MC3_PDN_01 out clk C3_Inter_09 C3_Inter_09 CMOSN W={6*width_N} L={2*LAMBDA}   
+    + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}
+
+    * 12 / 5 Wn approximated to 2 Wn
+    MC3_PDN_18 C3_Inter_09 A3_not C3_Inter_08 C3_Inter_08 CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+    MC3_PDN_17 C3_Inter_08 B3_not low low CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+
+    MC3_PDN_16 C3_Inter_09 A3_not C3_Inter_07 C3_Inter_07 CMOSN W={6*width_N} L={2*LAMBDA}
+    + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}
+    MC3_PDN_15 C3_Inter_09 B3_not C3_Inter_07 C3_Inter_07 CMOSN W={6*width_N} L={2*LAMBDA}
+    + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}
+
+    * 3Wn
+    MC2_PDN_14 C3_Inter_07 A2_not C3_Inter_06 C3_Inter_06 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MC2_PDN_13 C3_Inter_06 B2_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+    MC2_PDN_12 C3_Inter_07 A2_not C3_Inter_05 C3_Inter_05 CMOSN W={6*width_N} L={2*LAMBDA}
+    + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}
+    MC2_PDN_11 C3_Inter_07 B2_not C3_Inter_05 C3_Inter_05 CMOSN W={6*width_N} L={2*LAMBDA}
+    + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}
+
+    * 4Wn
+    MC1_PDN_10 C3_Inter_05 A1_not C3_Inter_04 C3_Inter_04 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC1_PDN_09 C3_Inter_04 B1_not low low CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    MC1_PDN_08 C3_Inter_05 A1_not C3_Inter_03 C3_Inter_03 CMOSN W={5*6*width_N} L={2*LAMBDA}
+    + AS={5*5*6*width_N*LAMBDA} PS={10*LAMBDA+2*5*6*width_N} AD={5*5*6*width_N*LAMBDA} PD={10*LAMBDA+2*5*6*width_N}
+    MC1_PDN_07 C3_Inter_05 B1_not C3_Inter_03 C3_Inter_03 CMOSN W={5*6*width_N} L={2*LAMBDA}
+    + AS={5*5*6*width_N*LAMBDA} PS={10*LAMBDA+2*5*6*width_N} AD={5*5*6*width_N*LAMBDA} PD={10*LAMBDA+2*5*6*width_N}
+
+    MC0_PDN_06 C3_Inter_03 A0_not C3_Inter_02 C3_Inter_02 CMOSN W={6*width_N} L={2*LAMBDA}
+    + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}
+    MC0_PDN_05 C3_Inter_02 B0_not low low CMOSN W={6*width_N} L={2*LAMBDA}
+    + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}
+
+    MC0_PDN_04 C3_Inter_03 Cin_not C3_Inter_01 C3_Inter_01 CMOSN W={6*width_N} L={2*LAMBDA}
+    + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}
+
+    MC0_PDN_03 C3_Inter_01 A0_not low low CMOSN W={6*width_N} L={2*LAMBDA}
+    + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}
+    MC0_PDN_02 C3_Inter_01 B0_not low low CMOSN W={6*width_N} L={2*LAMBDA}
+    + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}
+
+.ends C3_Bit_Logic
+
+.subckt Sum_Bit_Logic clk A_not B_not Cin_not Co out high low 
+
+    MS_PUN_01 high clk out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    * Keeper Circuit
+    XKeeperInverter out outFinal vdd gnd Inverter
+    MKeeper high outFinal out high CMOSP W = {width_P} L = {2*LAMBDA}
+    + AS = {5*width_P*LAMBDA} PS = {10*LAMBDA+2*width_P} AD = {5*width_P*LAMBDA} PD = {10*LAMBDA+2*width_P}
+
+    MS_PDN_01 out clk S_Inter_01 S_Inter_01 CMOSN W={4*width_N} L={2*LAMBDA}   
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    MS_PDN_02 S_Inter_01 A_not S_Inter_02 S_Inter_02 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MS_PDN_03 S_Inter_02 B_not S_Inter_03 S_Inter_03 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MS_PDN_04 S_Inter_03 Cin_not low low CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    * 8/3 Wn approximated to 3Wn
+    MS_PDN_05 S_Inter_01 Co S_Inter_04 S_Inter_04 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+    MS_PDN_06 S_Inter_04 A_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MS_PDN_07 S_Inter_04 B_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MS_PDN_08 S_Inter_04 Cin_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+.ends Sum_Bit_Logic

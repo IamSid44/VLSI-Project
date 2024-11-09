@@ -9,23 +9,28 @@ NGSPICE Netlist for combining all the elements to make a 4 Bit CLA
 
 .include "Sub_Circuits.cir"
 
-.subckt CLA_4_Bit clk A3_not A2_not A1_not A0_not B3_not B2_not B1_not B0_not Cin_not S3 S2 S1 S0 C3 high low
+.subckt CLA_4_Bit clk A3_not A2_not A1_not A0_not B3_not B2_not B1_not B0_not Cin_not S3 S2 S1 S0 Latched_C3 high low
 
     XCarry0 clk A0_not B0_not Cin_not C0 high low C0_Bit_Logic
     XCarry1 clk A1_not A0_not B1_not B0_not Cin_not C1 high low C1_Bit_Logic
     XCarry2 clk A2_not A1_not A0_not B2_not B1_not B0_not Cin_not C2 high low C2_Bit_Logic
     XCarry3 clk A3_not A2_not A1_not A0_not B3_not B2_not B1_not B0_not Cin_not C3 high low C3_Bit_Logic
 
-    XInvClk clk clk_not high low Inverter
-    XInv0 C0 C0_not high low Inverter
-    XInv1 C1 C1_not high low Inverter
-    XInv2 C2 C2_not high low Inverter
-    XInv3 C3 C3_not high low Inverter
+    XLatchC0 C0 Latched_C0 clk high low TSPC_Latch_HighLevel
+    XLatchC1 C1 Latched_C1 clk high low TSPC_Latch_HighLevel
+    XLatchC2 C2 Latched_C2 clk high low TSPC_Latch_HighLevel
+    XLatchC3 C3 Latched_C3 clk high low TSPC_Latch_HighLevel
 
-    XSum0 clk_not A0_not B0_not Cin_not C0 S0 high low Sum_Bit_Logic
-    XSum1 clk_not A1_not B1_not C0_not C1 S1 high low Sum_Bit_Logic
-    XSum2 clk_not A2_not B2_not C1_not C2 S2 high low Sum_Bit_Logic
-    XSum3 clk_not A3_not B3_not C2_not C3 S3 high low Sum_Bit_Logic
+    XInvClk clk clk_not high low Inverter
+    XInv0 Latched_C0 C0_not high low Inverter
+    XInv1 Latched_C1 C1_not high low Inverter
+    XInv2 Latched_C2 C2_not high low Inverter
+    * XInv3 Latched_C3 C3_not high low Inverter
+
+    XSum0 clk_not A0_not B0_not Cin_not Latched_C0 S0 high low Sum_Bit_Logic
+    XSum1 clk_not A1_not B1_not C0_not Latched_C1 S1 high low Sum_Bit_Logic
+    XSum2 clk_not A2_not B2_not C1_not Latched_C2 S2 high low Sum_Bit_Logic
+    XSum3 clk_not A3_not B3_not C2_not Latched_C3 S3 high low Sum_Bit_Logic
 
 .ends CLA_4_Bit
 
@@ -53,7 +58,7 @@ VClk clk_line gnd pulse gnd SUPPLY 0 1p 1p 1ns 2ns ; No Skew Currently, add a sk
 
 * VCin_not Cin_not gnd pulse gnd SUPPLY 0 1p 1p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (12)
 
-* Test Case 0101 + 0101 + 1 = 01011
+* Test Case 0101 + 0101 + 1 = 1011
 
 VA3_not A3_not gnd 'SUPPLY'
 VA2_not A2_not gnd 0
@@ -67,28 +72,7 @@ VB0_not B0_not gnd 0
 
 VCin_not Cin_not gnd 0
 
-    XCarry0 clk_line A0_not B0_not Cin_not C0 vdd gnd C0_Bit_Logic
-    XCarry1 clk_line A1_not A0_not B1_not B0_not Cin_not C1 vdd gnd C1_Bit_Logic
-    XCarry2 clk_line A2_not A1_not A0_not B2_not B1_not B0_not Cin_not C2 vdd gnd C2_Bit_Logic
-    XCarry3 clk_line A3_not A2_not A1_not A0_not B3_not B2_not B1_not B0_not Cin_not C3 vdd gnd C3_Bit_Logic
-
-    XLatchC0 C0 Latched_C0 clk_line vdd gnd TSPC_Latch_HighLevel
-    XLatchC1 C1 Latched_C1 clk_line vdd gnd TSPC_Latch_HighLevel
-    XLatchC2 C2 Latched_C2 clk_line vdd gnd TSPC_Latch_HighLevel
-    XLatchC3 C3 Latched_C3 clk_line vdd gnd TSPC_Latch_HighLevel
-
-    XInvClk clk_line clk_not vdd gnd Inverter
-    XInv0 Latched_C0 C0_not vdd gnd Inverter
-    XInv1 Latched_C1 C1_not vdd gnd Inverter
-    XInv2 Latched_C2 C2_not vdd gnd Inverter
-    XInv3 Latched_C3 C3_not vdd gnd Inverter ; Can Take LITE
-
-    XSum0 clk_not A0_not B0_not Cin_not Latched_C0 S0 vdd gnd Sum_Bit_Logic
-    XSum1 clk_not A1_not B1_not C0_not Latched_C1 S1 vdd gnd Sum_Bit_Logic
-    XSum2 clk_not A2_not B2_not C1_not Latched_C2 S2 vdd gnd Sum_Bit_Logic
-    XSum3 clk_not A3_not B3_not C2_not Latched_C3 S3 vdd gnd Sum_Bit_Logic
-
-* XCLA clk_line A3_not A2_not A1_not A0_not B3_not B2_not B1_not B0_not Cin_not S3 S2 S1 S0 Cout high low CLA_4_Bit
+XCLA clk_line A3_not A2_not A1_not A0_not B3_not B2_not B1_not B0_not Cin_not S3 S2 S1 S0 Cout vdd gnd CLA_4_Bit
 
 * Load - (13)
 * XInverterL out temp vdd gnd InverterLoad
@@ -115,8 +99,6 @@ VCin_not Cin_not gnd 0
 
 .tran 10ps 16ns
 
-Xtempinv Cin_not Cin vdd gnd Inverter   
-
 .control
 
 run
@@ -137,30 +119,13 @@ let in_b2_bar = 'B2_not + 16'
 let in_b1_bar = 'B1_not + 14'
 let in_b0_bar = 'B0_not + 12'
 let in_cin_bar = 'Cin_not + 10'
-let out_Cout = 'Latched_C3 + 8'
+let out_Cout = 'Cout + 8'
 let out_S3 = 'S3 + 6'
 let out_S2 = 'S2 + 4'
 let out_S1 = 'S1 + 2'
 let out_S0 = 'S0'
 
 plot clock in_a3_bar in_a2_bar in_a1_bar in_a0_bar in_b3_bar in_b2_bar in_b1_bar in_b0_bar in_cin_bar out_Cout out_S3 out_S2 out_S1 out_S0
-
-let latch_c0 = 'Latched_C0 + 26'
-let latch_c1 = 'Latched_C1 + 24'
-let latch_c2 = 'Latched_C2 + 22'
-let latch_c3 = 'Latched_C3 + 20'
-let temp_Cin = 'Cin + 18'
-let temp_C0 = 'C0 + 16'
-let temp_C1 = 'C1 + 14'
-let temp_C2 = 'C2 + 12'
-let temp_C3 = 'C3 + 10'
-let temp_Cin_not = 'Cin_not + 8'
-let temp_c0_not = 'C0_not + 6'
-let temp_c1_not = 'C1_not + 4'
-let temp_c2_not = 'C2_not + 2'
-let temp_c3_not = 'C3_not'
-
-plot clock temp_Cin temp_C0 temp_C1 temp_C2 temp_C3 temp_Cin_not temp_c0_not temp_c1_not temp_c2_not temp_c3_not latch_c0 latch_c1 latch_c2 latch_c3
 
 .endc
 
