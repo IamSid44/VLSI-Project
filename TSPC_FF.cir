@@ -1,4 +1,4 @@
-Implementing a TSPC Flipflop using 180nm technology - Modifications required in 4 Lines
+Implementing a TSPC Flipflop using 180nm technology - Modifications required in (4) Lines
 
 .include "TSMC_180nm.txt"
 .param SUPPLY = 1.8

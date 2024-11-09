@@ -1,4 +1,4 @@
-Netlist for the C0 bit
+Netlist for the C0 bit - (6)
 
 .include "TSMC_180nm.txt"
 .param SUPPLY = 1.8
@@ -40,13 +40,13 @@ Netlist for the C0 bit
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
 VDD vdd gnd 'SUPPLY'
 VClk clk_line gnd pulse gnd SUPPLY 0 1p 1p 10ns 20ns ; No Skew Currently, add a skew for practical measurements (3)
-VA_not A0_not gnd pulse gnd SUPPLY 3n 1p 1p 20ns 40ns ; No Skew Currently, add a skew for practical measurements (4)
-VB_not B0_not gnd pulse gnd SUPPLY 8n 1p 1p 30ns 60ns ; No Skew Currently, add a skew for practical measurements (5)
+VA0_not A0_not gnd pulse gnd SUPPLY 3n 1p 1p 20ns 40ns ; No Skew Currently, add a skew for practical measurements (4)
+VB0_not B0_not gnd pulse gnd SUPPLY 8n 1p 1p 30ns 60ns ; No Skew Currently, add a skew for practical measurements (5)
 VCin_not Cin_not gnd pulse gnd SUPPLY 13n 1p 1p 70ns 140ns ; No Skew Currently, add a skew for practical measurements (6)
 
 * VClk clk_line gnd pulse SUPPLY gnd 0 1p 1p 10ns 20ns
-* VA_not A0_not gnd 0
-* VB_not B0_not gnd 0
+* VA0_not A0_not gnd 0
+* VB0_not B0_not gnd 0
 * VCin_not Cin_not gnd 'SUPPLY'
 
 XC0_Bit_Logic clk_line A0_not B0_not Cin_not out vdd gnd C0_Bit_Logic
@@ -85,11 +85,11 @@ set color1 = black
 set curplottitle = "Siddarth Gottumukkula 2023102040"
 
 let clock = 'clk_line + 8'
-let in_a_bar = 'A0_not + 6'
-let in_b_bar = 'B0_not + 4'
+let in_a0_bar = 'A0_not + 6'
+let in_b0_bar = 'B0_not + 4'
 let in_cin_bar = 'Cin_not + 2'
 let output = 'out'
-plot clock in_a_bar in_b_bar in_cin_bar output
+plot clock in_a0_bar in_b0_bar in_cin_bar output
 
 .endc
 
