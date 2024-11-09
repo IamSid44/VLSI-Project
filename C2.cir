@@ -1,4 +1,4 @@
-Netlist for the C2 bit - (9)
+Netlist for the C2 bit - (11)
 
 .include "TSMC_180nm.txt"
 .param SUPPLY = 1.8
@@ -93,7 +93,7 @@ VCin_not Cin_not gnd pulse gnd SUPPLY 0 1p 1p 11ns 22ns ; No Skew Currently, add
 
 XC2_Bit_Logic clk_line A2_not A1_not A0_not B2_not B1_not B0_not Cin_not out vdd gnd C2_Bit_Logic
 
-* Load
+* Load (11)
 * XInverterL out temp vdd gnd InverterLoad
 
 * .measure tran trise

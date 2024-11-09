@@ -68,7 +68,7 @@ VA1_not A1_not gnd pulse gnd SUPPLY 1.3n 1p 1p 7ns 14ns ; No Skew Currently, add
 VA0_not A0_not gnd pulse gnd SUPPLY 0.3n 1p 1p 2ns 4ns ; No Skew Currently, add a skew for practical measurements (5)
 VB1_not B1_not gnd pulse gnd SUPPLY 1.8n 1p 1p 9ns 18ns ; No Skew Currently, add a skew for practical measurements (6)
 VB0_not B0_not gnd pulse gnd SUPPLY 0.8n 1p 1p 3ns 6ns ; No Skew Currently, add a skew for practical measurements (7)
-VCin_not Cin_not gnd pulse gnd SUPPLY 1.3n 1p 1p 7ns 14ns ; No Skew Currently, add a skew for practical measurements (9)
+VCin_not Cin_not gnd pulse gnd SUPPLY 1.3n 1p 1p 7ns 14ns ; No Skew Currently, add a skew for practical measurements (8)
 
 * VA1_not A1_not gnd 0
 * VA0_not A0_not gnd 0
@@ -78,7 +78,7 @@ VCin_not Cin_not gnd pulse gnd SUPPLY 1.3n 1p 1p 7ns 14ns ; No Skew Currently, a
 
 XC1_Bit_Logic clk_line A1_not A0_not B1_not B0_not Cin_not out vdd gnd C1_Bit_Logic
 
-* Load
+* Load (9)
 * XInverterL out temp vdd gnd InverterLoad
 
 * .measure tran trise
