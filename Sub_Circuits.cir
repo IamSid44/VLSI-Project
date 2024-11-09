@@ -166,8 +166,8 @@
 
     * Keeper Circuit
     XKeeperInverter out outFinal high low Inverter
-    MKeeper high outFinal out high CMOSP W = {2*width_P} L = {2*LAMBDA}
-    + AS = {5*2*width_P*LAMBDA} PS = {10*LAMBDA+2*2*width_P} AD = {5*2*width_P*LAMBDA} PD = {10*LAMBDA+2*2*width_P}
+    MKeeper high outFinal out high CMOSP W = {width_P} L = {2*LAMBDA}
+    + AS = {5*width_P*LAMBDA} PS = {10*LAMBDA+2*width_P} AD = {5*width_P*LAMBDA} PD = {10*LAMBDA+2*width_P}
 
     MC3_PDN_01 out clk C3_Inter_09 C3_Inter_09 CMOSN W={6*width_N} L={2*LAMBDA}   
     + AS={5*6*width_N*LAMBDA} PS={10*LAMBDA+2*6*width_N} AD={5*6*width_N*LAMBDA} PD={10*LAMBDA+2*6*width_N}

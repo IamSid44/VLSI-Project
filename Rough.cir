@@ -39,7 +39,7 @@ NGSPICE Netlist for combining all the elements to make a 4 Bit CLA
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
 VDD vdd gnd 'SUPPLY'
 
-VClk clk_line gnd pulse gnd SUPPLY 0 1p 1p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (3)
+VClk clk_line gnd pulse gnd SUPPLY 0.5n 1p 1p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (3)
 
 * VA3_not A3_not gnd pulse gnd SUPPLY 0 1p 1p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (4)
 * VA2_not A2_not gnd pulse gnd SUPPLY 0 1p 1p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (5)
@@ -53,17 +53,17 @@ VClk clk_line gnd pulse gnd SUPPLY 0 1p 1p 1ns 2ns ; No Skew Currently, add a sk
 
 * VCin_not Cin_not gnd pulse gnd SUPPLY 0 1p 1p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (12)
 
-* Test Case 0101 + 0101 + 1 = 01011
+* Test Case 1010 + 0101 + 0 = 01011
 
 VA3_not A3_not gnd 'SUPPLY'
 VA2_not A2_not gnd 0
 VA1_not A1_not gnd 'SUPPLY'
 VA0_not A0_not gnd 0
 
-VB3_not B3_not gnd 'SUPPLY'
-VB2_not B2_not gnd 0
-VB1_not B1_not gnd 'SUPPLY'
-VB0_not B0_not gnd 0
+VB3_not B3_not gnd 0
+VB2_not B2_not gnd 'SUPPLY'
+VB1_not B1_not gnd 0
+VB0_not B0_not gnd 'SUPPLY'
 
 VCin_not Cin_not gnd 0
 
