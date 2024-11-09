@@ -21,7 +21,7 @@ Netlist for the C0 bit - (9)
     + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
 
     * Keeper Circuit
-    XKeeperInverter out outFinal high low Inverter
+    XKeeperInverter out outFinal vdd gnd Inverter
     MKeeper high outFinal out high CMOSP W = {width_P} L = {2*LAMBDA}
     + AS = {5*width_P*LAMBDA} PS = {10*LAMBDA+2*width_P} AD = {5*width_P*LAMBDA} PD = {10*LAMBDA+2*width_P}
 
@@ -77,7 +77,48 @@ VCin_not Cin_not gnd pulse gnd SUPPLY 1.3n 1p 1p 7ns 14ns ; No Skew Currently, a
 * VB0_not B0_not gnd 0
 * VCin_not Cin_not gnd 'SUPPLY'
 
-XC1_Bit_Logic clk_line A1_not A0_not B1_not B0_not Cin_not out vdd gnd C1_Bit_Logic
+* XC1_Bit_Logic clk_line A1_not A0_not B1_not B0_not Cin_not out vdd gnd C1_Bit_Logic
+    MC1_PUN_01 vdd clk_line out vdd CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    * Keeper Circuit
+    XKeeperInverter out outFinal vdd gnd Inverter
+    MKeeper vdd outFinal out vdd CMOSP W = {width_P} L = {2*LAMBDA}
+    + AS = {5*width_P*LAMBDA} PS = {10*LAMBDA+2*width_P} AD = {5*width_P*LAMBDA} PD = {10*LAMBDA+2*width_P}
+
+    MC1_PDN_01 out clk_line C1_Inter_05 C1_Inter_05 CMOSN W={4*width_N} L={2*LAMBDA}   
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    * TestSource2
+    VTestSource2 C1_Inter_04 Temp2 0
+
+    * 8/3 Wn approximated to 3Wn
+    MC1_PDN_10 C1_Inter_05 A1_not C1_Inter_04 C1_Inter_04 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MC1_PDN_09 Temp2 B1_not gnd gnd CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+    MC1_PDN_08 C1_Inter_05 A0_not C1_Inter_03 C1_Inter_03 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC1_PDN_07 C1_Inter_05 B0_not C1_Inter_03 C1_Inter_03 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    *Test Source
+    VTestSource C1_Inter_03 Temp 0
+
+    MC0_PDN_06 Temp A0_not C1_Inter_02 C1_Inter_02 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC0_PDN_05 C1_Inter_02 B0_not gnd gnd CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    MC0_PDN_04 Temp Cin_not C1_Inter_01 C1_Inter_01 CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
+    MC0_PDN_03 C1_Inter_01 A0_not gnd gnd CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+    MC0_PDN_02 C1_Inter_01 B0_not gnd gnd CMOSN W={4*width_N} L={2*LAMBDA}
+    + AS={5*4*width_N*LAMBDA} PS={10*LAMBDA+2*4*width_N} AD={5*4*width_N*LAMBDA} PD={10*LAMBDA+2*4*width_N}
+
 
 * Load
 * XInverterL out temp vdd gnd InverterLoad
@@ -112,7 +153,6 @@ set color0 = white
 set color1 = black
 set curplottitle = "Siddarth Gottumukkula 2023102040"
 set xbrushwidth = 3
-set ybrushwidth = 3
 
 let clock = 'clk_line + 12'
 let in_a1_bar = 'A1_not + 10'
@@ -121,6 +161,10 @@ let in_b1_bar = 'B1_not + 6'
 let in_b0_bar = 'B0_not + 4'
 let in_cin_bar = 'Cin_not + 2'
 let output = 'out'
+let curr1 = -(VTestSource#branch)
+let curr2 = -(VTestSource2#branch)
+plot curr1
+plot curr2
 plot clock in_a1_bar in_a0_bar in_b1_bar in_b0_bar in_cin_bar output
 
 .endc
