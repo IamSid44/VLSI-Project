@@ -12,20 +12,20 @@ Netlist for the C0 bit
     MC0_PUN_01 high clk out high CMOSP W={width_P} L={2*LAMBDA}
     + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
 
-    MC0_PDN_01 out clk CO_Inter_01 CO_Inter_01 CMOSN W={width_N} L={2*LAMBDA}   
+    MC0_PDN_01 out clk CO_Inter_03 CO_Inter_03 CMOSN W={width_N} L={2*LAMBDA}   
     + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
-    MC0_PDN_02 CO_Inter_01 A0_not C0_Inter_02 C0_Inter_02 CMOSN W={width_N} L={2*LAMBDA}
+    MC0_PDN_06 CO_Inter_03 A0_not C0_Inter_02 C0_Inter_02 CMOSN W={width_N} L={2*LAMBDA}
     + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-    MC0_PDN_03 C0_Inter_02 B0_not low low CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-
-    MC0_PDN_04 CO_Inter_01 Cin_not C0_Inter_03 C0_Inter_03 CMOSN W={width_N} L={2*LAMBDA}
+    MC0_PDN_05 C0_Inter_02 B0_not low low CMOSN W={width_N} L={2*LAMBDA}
     + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
-    MC0_PDN_05 C0_Inter_03 A0_not low low CMOSN W={width_N} L={2*LAMBDA}
+    MC0_PDN_04 CO_Inter_03 Cin_not C0_Inter_01 C0_Inter_01 CMOSN W={width_N} L={2*LAMBDA}
     + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-    MC0_PDN_06 C0_Inter_03 B0_not low low CMOSN W={width_N} L={2*LAMBDA}
+
+    MC0_PDN_03 C0_Inter_01 A0_not low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    MC0_PDN_02 C0_Inter_01 B0_not low low CMOSN W={width_N} L={2*LAMBDA}
     + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
 .ends C0_Bit_Logic
