@@ -7,26 +7,39 @@ Netlist for the C0 bit - (6)
 .param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
 .global gnd vdd
 
+.subckt Inverter in out high low
+    M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out in low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends Inverter
+
+* Modified the Widths to equalize the delay to a minimum sized inverter (3Wn)
 .subckt C0_Bit_Logic clk A0_not B0_not Cin_not out high low 
 
     MC0_PUN_01 high clk out high CMOSP W={width_P} L={2*LAMBDA}
     + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
 
-    MC0_PDN_01 out clk CO_Inter_03 CO_Inter_03 CMOSN W={width_N} L={2*LAMBDA}   
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    * Keeper Circuit
+    XKeeperInverter out outFinal vdd gnd Inverter
+    MKeeper high outFinal out high CMOSP W = {width_P} L = {2*LAMBDA}
+    + AS = {5*width_P*LAMBDA} PS = {10*LAMBDA+2*width_P} AD = {5*width_P*LAMBDA} PD = {10*LAMBDA+2*width_P}
 
-    MC0_PDN_06 CO_Inter_03 A0_not C0_Inter_02 C0_Inter_02 CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-    MC0_PDN_05 C0_Inter_02 B0_not low low CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    MC0_PDN_01 out clk CO_Inter_03 CO_Inter_03 CMOSN W={3*width_N} L={2*LAMBDA}   
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
 
-    MC0_PDN_04 CO_Inter_03 Cin_not C0_Inter_01 C0_Inter_01 CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    MC0_PDN_06 CO_Inter_03 A0_not C0_Inter_02 C0_Inter_02 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MC0_PDN_05 C0_Inter_02 B0_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
 
-    MC0_PDN_03 C0_Inter_01 A0_not low low CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
-    MC0_PDN_02 C0_Inter_01 B0_not low low CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    MC0_PDN_04 CO_Inter_03 Cin_not C0_Inter_01 C0_Inter_01 CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+
+    MC0_PDN_03 C0_Inter_01 A0_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
+    MC0_PDN_02 C0_Inter_01 B0_not low low CMOSN W={3*width_N} L={2*LAMBDA}
+    + AS={5*3*width_N*LAMBDA} PS={10*LAMBDA+2*3*width_N} AD={5*3*width_N*LAMBDA} PD={10*LAMBDA+2*3*width_N}
 
 .ends C0_Bit_Logic
 
@@ -39,10 +52,10 @@ Netlist for the C0 bit - (6)
 
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
 VDD vdd gnd 'SUPPLY'
-VClk clk_line gnd pulse gnd SUPPLY 0 1p 1p 10ns 20ns ; No Skew Currently, add a skew for practical measurements (3)
-VA0_not A0_not gnd pulse gnd SUPPLY 3n 1p 1p 20ns 40ns ; No Skew Currently, add a skew for practical measurements (4)
-VB0_not B0_not gnd pulse gnd SUPPLY 8n 1p 1p 30ns 60ns ; No Skew Currently, add a skew for practical measurements (5)
-VCin_not Cin_not gnd pulse gnd SUPPLY 13n 1p 1p 70ns 140ns ; No Skew Currently, add a skew for practical measurements (6)
+VClk clk_line gnd pulse gnd SUPPLY 0 1p 1p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (3)
+VA0_not A0_not gnd pulse gnd SUPPLY 0.3n 1p 1p 2ns 4ns ; No Skew Currently, add a skew for practical measurements (4)
+VB0_not B0_not gnd pulse gnd SUPPLY 0.8n 1p 1p 3ns 6ns ; No Skew Currently, add a skew for practical measurements (5)
+VCin_not Cin_not gnd pulse gnd SUPPLY 1.3n 1p 1p 7ns 14ns ; No Skew Currently, add a skew for practical measurements (6)
 
 * VClk clk_line gnd pulse SUPPLY gnd 0 1p 1p 10ns 20ns
 * VA0_not A0_not gnd 0
@@ -74,7 +87,7 @@ XC0_Bit_Logic clk_line A0_not B0_not Cin_not out vdd gnd C0_Bit_Logic
 
 * .measure tran tcq param = '(tcqrise + tcqfall) / 2'
 
-.tran 10ps 160ns
+.tran 10ps 16ns
 
 .control
 
@@ -89,8 +102,9 @@ let in_a0_bar = 'A0_not + 6'
 let in_b0_bar = 'B0_not + 4'
 let in_cin_bar = 'Cin_not + 2'
 let output = 'out'
+let curr1 = -(vdd#branch)
 plot clock in_a0_bar in_b0_bar in_cin_bar output
-
+plot curr1
 .endc
 
 .end

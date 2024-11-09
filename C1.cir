@@ -49,12 +49,12 @@ Netlist for the C0 bit - (9)
 
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
 VDD vdd gnd 'SUPPLY'
-VClk clk_line gnd pulse gnd SUPPLY 0 1p 1p 10ns 20ns ; No Skew Currently, add a skew for practical measurements (3)
-VA1_not A1_not gnd pulse gnd SUPPLY 13n 1p 1p 70ns 140ns ; No Skew Currently, add a skew for practical measurements (4)
-VA0_not A0_not gnd pulse gnd SUPPLY 3n 1p 1p 20ns 40ns ; No Skew Currently, add a skew for practical measurements (5)
-VB1_not B1_not gnd pulse gnd SUPPLY 18n 1p 1p 90ns 180ns ; No Skew Currently, add a skew for practical measurements (6)
-VB0_not B0_not gnd pulse gnd SUPPLY 8n 1p 1p 30ns 60ns ; No Skew Currently, add a skew for practical measurements (7)
-VCin_not Cin_not gnd pulse gnd SUPPLY 13n 1p 1p 70ns 140ns ; No Skew Currently, add a skew for practical measurements (9)
+VClk clk_line gnd pulse gnd SUPPLY 0 1p 1p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (3)
+VA1_not A1_not gnd pulse gnd SUPPLY 1.3n 1p 1p 7ns 14ns ; No Skew Currently, add a skew for practical measurements (4)
+VA0_not A0_not gnd pulse gnd SUPPLY 0.3n 1p 1p 2ns 4ns ; No Skew Currently, add a skew for practical measurements (5)
+VB1_not B1_not gnd pulse gnd SUPPLY 1.8n 1p 1p 9ns 18ns ; No Skew Currently, add a skew for practical measurements (6)
+VB0_not B0_not gnd pulse gnd SUPPLY 0.8n 1p 1p 3ns 6ns ; No Skew Currently, add a skew for practical measurements (7)
+VCin_not Cin_not gnd pulse gnd SUPPLY 1.3n 1p 1p 7ns 14ns ; No Skew Currently, add a skew for practical measurements (9)
 
 * VClk clk_line gnd pulse SUPPLY gnd 0 1p 1p 10ns 20ns
 * VA1_not A1_not gnd 0
@@ -88,7 +88,7 @@ XC1_Bit_Logic clk_line A1_not A0_not B1_not B0_not Cin_not out vdd gnd C1_Bit_Lo
 
 * .measure tran tcq param = '(tcqrise + tcqfall) / 2'
 
-.tran 10ps 160ns
+.tran 10ps 16ns
 
 .control
 
