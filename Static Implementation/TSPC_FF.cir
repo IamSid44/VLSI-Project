@@ -1,10 +1,10 @@
-Implementing a TSPC Flipflop using 180nm technology - Modifications required in (4) Lines
+Implementing a TSPC Flipflop using 180nm technology
 
 .include "TSMC_180nm.txt"
 .param SUPPLY = 1.8
 .param LAMBDA = 0.09u
-.param width_N = {5 * LAMBDA} ; Vary the width (1)
-.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.param width_N = {10 * LAMBDA}
+.param width_P = {2 * width_N}
 .global gnd vdd
 
 .subckt Inverter in out high low
@@ -44,29 +44,30 @@ Implementing a TSPC Flipflop using 180nm technology - Modifications required in 
 .ends TSPC_Latch_LowLevel
 
 * Repeater Tradeoff - Rise and Fall times vs C to Q delay
+* We want a smaller CQ delay value
 .subckt TSPC_FF in out clk high low
     XMaster in inter1 clk high low TSPC_Latch_LowLevel
-    XInverter1 inter1 inter vdd gnd Inverter
-    XSlave inter inter2 clk high low TSPC_Latch_HighLevel
-    XInverter2 inter2 out vdd gnd Inverter
+    * XInverter1 inter1 inter vdd gnd Inverter
+    XSlave inter1 out clk high low TSPC_Latch_HighLevel
+    * XInverter2 inter2 out vdd gnd Inverter
 .ends TSPC_FF
 
-* .subckt InverterLoad in out high low
-*     M1 high in out high CMOSP W={20*LAMBDA} L={2*LAMBDA}
-*     + AS={5*20*LAMBDA*LAMBDA} PS={10*LAMBDA+2*20*LAMBDA} AD={5*20*LAMBDA*LAMBDA} PD={10*LAMBDA+2*20*LAMBDA}
-*     M2 out in low low CMOSN W={10*LAMBDA} L={2*LAMBDA}
-*     + AS={5*10*LAMBDA*LAMBDA} PS={10*LAMBDA+2*10*LAMBDA} AD={5*10*LAMBDA*LAMBDA} PD={10*LAMBDA+2*10*LAMBDA}
-* .ends InverterLoad
+.subckt InverterLoad in out high low
+    M1 high in out high CMOSP W={20*LAMBDA} L={2*LAMBDA}
+    + AS={5*20*LAMBDA*LAMBDA} PS={10*LAMBDA+2*20*LAMBDA} AD={5*20*LAMBDA*LAMBDA} PD={10*LAMBDA+2*20*LAMBDA}
+    M2 out in low low CMOSN W={10*LAMBDA} L={2*LAMBDA}
+    + AS={5*10*LAMBDA*LAMBDA} PS={10*LAMBDA+2*10*LAMBDA} AD={5*10*LAMBDA*LAMBDA} PD={10*LAMBDA+2*10*LAMBDA}
+.ends InverterLoad
 
 * Input source description (square waveform)
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
 Vdd vdd gnd 'SUPPLY'
-VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (3)
-VD D gnd pulse 0 SUPPLY 0 50p 50p 2ns 4ns ; No Skew Currently, add a skew for practical measurements (4)
+VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 1ns 2ns
+VD D gnd pulse 0 SUPPLY 0 50p 50p 2ns 4ns
 
 * Load 
-XInverterL1 Q temp vdd gnd Inverter
-XInverterL2 Q temp2 vdd gnd Inverter
+XInverterL1 Q temp vdd gnd InverterLoad
+* XInverterL2 Q temp2 vdd gnd InverterLoad
 * XInverterL Q temp vdd gnd InverterLoad
 * CLoad Q gnd 10f
 
