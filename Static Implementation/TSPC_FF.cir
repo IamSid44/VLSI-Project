@@ -3,7 +3,7 @@ Implementing a TSPC Flipflop using 180nm technology - Modifications required in 
 .include "TSMC_180nm.txt"
 .param SUPPLY = 1.8
 .param LAMBDA = 0.09u
-.param width_N = {20 * LAMBDA} ; Vary the width (1)
+.param width_N = {5 * LAMBDA} ; Vary the width (1)
 .param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
 .global gnd vdd
 
@@ -51,32 +51,34 @@ Implementing a TSPC Flipflop using 180nm technology - Modifications required in 
     XInverter2 inter2 out vdd gnd Inverter
 .ends TSPC_FF
 
-.subckt InverterLoad in out high low
-    M1 high in out high CMOSP W={20*LAMBDA} L={2*LAMBDA}
-    + AS={5*20*LAMBDA*LAMBDA} PS={10*LAMBDA+2*20*LAMBDA} AD={5*20*LAMBDA*LAMBDA} PD={10*LAMBDA+2*20*LAMBDA}
-    M2 out in low low CMOSN W={10*LAMBDA} L={2*LAMBDA}
-    + AS={5*10*LAMBDA*LAMBDA} PS={10*LAMBDA+2*10*LAMBDA} AD={5*10*LAMBDA*LAMBDA} PD={10*LAMBDA+2*10*LAMBDA}
-.ends InverterLoad
+* .subckt InverterLoad in out high low
+*     M1 high in out high CMOSP W={20*LAMBDA} L={2*LAMBDA}
+*     + AS={5*20*LAMBDA*LAMBDA} PS={10*LAMBDA+2*20*LAMBDA} AD={5*20*LAMBDA*LAMBDA} PD={10*LAMBDA+2*20*LAMBDA}
+*     M2 out in low low CMOSN W={10*LAMBDA} L={2*LAMBDA}
+*     + AS={5*10*LAMBDA*LAMBDA} PS={10*LAMBDA+2*10*LAMBDA} AD={5*10*LAMBDA*LAMBDA} PD={10*LAMBDA+2*10*LAMBDA}
+* .ends InverterLoad
 
 * Input source description (square waveform)
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
 Vdd vdd gnd 'SUPPLY'
-VClk clk_line gnd pulse SUPPLY 0 0 1p 1p 10ns 20ns ; No Skew Currently, add a skew for practical measurements (3)
-VD D gnd pulse 0 SUPPLY 0 1p 1p 20ns 40ns ; No Skew Currently, add a skew for practical measurements (4)
+VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 1ns 2ns ; No Skew Currently, add a skew for practical measurements (3)
+VD D gnd pulse 0 SUPPLY 0 50p 50p 2ns 4ns ; No Skew Currently, add a skew for practical measurements (4)
 
 * Load 
-XInverterL Q temp vdd gnd InverterLoad
+XInverterL1 Q temp vdd gnd Inverter
+XInverterL2 Q temp2 vdd gnd Inverter
+* XInverterL Q temp vdd gnd InverterLoad
 * CLoad Q gnd 10f
 
 XFlipFlop D Q clk_line vdd gnd TSPC_FF
 
 .measure tran trise
-+ TRIG V(Q) VAL = 'SUPPLY / 10' TD = 5ns TO = 15ns RISE = 1
-+ TARG V(Q) VAL = '9 * SUPPLY / 10' TD = 5ns TO = 15ns RISE = 1
++ TRIG V(Q) VAL = 'SUPPLY / 10' RISE = 1
++ TARG V(Q) VAL = '9 * SUPPLY / 10' RISE = 1
 
 .measure tran tfall
-+ TRIG V(Q) VAL = '9 * SUPPLY / 10' TD = 25ns TO = 35ns FALL = 1
-+ TARG V(Q) VAL = 'SUPPLY / 10' TD = 25ns TO = 35ns FALL = 1
++ TRIG V(Q) VAL = '9 * SUPPLY / 10' FALL = 1
++ TARG V(Q) VAL = 'SUPPLY / 10' FALL = 1
 
 .measure tran delay param = '(trise + tfall) / 2'
 
@@ -90,7 +92,7 @@ XFlipFlop D Q clk_line vdd gnd TSPC_FF
 
 .measure tran tcq param = '(tcqrise + tcqfall) / 2'
 
-.tran 10ps 100ns
+.tran 1ps 5ns
 
 .control
 
@@ -105,7 +107,7 @@ set ybrushwidth = 3
 let clock = 'clk_line + 4'
 let input = 'D + 2'
 let output = 'Q'
-* plot clock input output
+plot clock input output
 
 .endc
 
