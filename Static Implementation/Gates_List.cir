@@ -5,6 +5,7 @@
     + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 .ends Inverter
 
+* Changed widths to make the circuit faster, NMOS to 1.5 times the size
 .subckt NOR_Gate A B out high low
 
     MPUN_01 high A NOR_Inter high CMOSP W={2*width_P} L={2*LAMBDA}
@@ -13,11 +14,11 @@
     MPUN_02 NOR_Inter B out NOR_Inter CMOSP W={2*width_P} L={2*LAMBDA}
     + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
 
-    MPDN_01 out A low low CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    MPDN_01 out A low low CMOSN W={1.5*width_N} L={2*LAMBDA}
+    + AS={5*1.5*width_N*LAMBDA} PS={10*LAMBDA+2*1.5*width_N} AD={5*1.5*width_N*LAMBDA} PD={10*LAMBDA+2*1.5*width_N}
 
-    MPDN_02 out B low low CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    MPDN_02 out B low low CMOSN W={1.5*width_N} L={2*LAMBDA}
+    + AS={5*1.5*width_N*LAMBDA} PS={10*LAMBDA+2*1.5*width_N} AD={5*1.5*width_N*LAMBDA} PD={10*LAMBDA+2*1.5*width_N}
 
 .ends NOR_Gate
 
@@ -51,18 +52,19 @@
 
 .ends AND_Gate
 
+* Changed widths to make the circuit faster, half the size
 .subckt XOR_Gate A A_not B out high low
 
     * Inverter logic - Careful with the body nodes
-    M3 A B out high CMOSP W={width_P} L={2*LAMBDA}
-    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
-    M4 out B A_not low CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    M3 A B out high CMOSP W={0.5*width_P} L={2*LAMBDA}
+    + AS={5*0.5*width_P*LAMBDA} PS={10*LAMBDA+2*0.5*width_P} AD={5*0.5*width_P*LAMBDA} PD={10*LAMBDA+2*0.5*width_P}
+    M4 out B A_not low CMOSN W={0.5*width_N} L={2*LAMBDA}
+    + AS={5*0.5*width_N*LAMBDA} PS={10*LAMBDA+2*0.5*width_N} AD={5*0.5*width_N*LAMBDA} PD={10*LAMBDA+2*0.5*width_N}
 
     * Analog Transmission gate
-    M1 out A B high CMOSP W={width_P} L={2*LAMBDA}
-    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
-    M2 out A_not B low CMOSN W={width_N} L={2*LAMBDA}
-    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+    M1 out A B high CMOSP W={0.5*width_P} L={2*LAMBDA}
+    + AS={5*0.5*width_P*LAMBDA} PS={10*LAMBDA+2*0.5*width_P} AD={5*0.5*width_P*LAMBDA} PD={10*LAMBDA+2*0.5*width_P}
+    M2 out A_not B low CMOSN W={0.5*width_N} L={2*LAMBDA}
+    + AS={5*0.5*width_N*LAMBDA} PS={10*LAMBDA+2*0.5*width_N} AD={5*0.5*width_N*LAMBDA} PD={10*LAMBDA+2*0.5*width_N}
 
 .ends XOR_Gate

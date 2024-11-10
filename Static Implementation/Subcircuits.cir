@@ -19,11 +19,11 @@
 
 .ends PG_Ckt
 
-.subckt Helper Gi_not Pi_not Gi-1_not Pi-1_not inter_nand inter_nor high low 
+.subckt Helper Gi_not Pi_not Gi_1_not Pi_1_not inter_nand inter_nor high low 
 
-    XOR Pi_not Gi-1_not temp high low OR_Gate
+    XOR Pi_not Gi_1_not temp high low OR_Gate
     XNAND Gi_not temp inter_nand high low NAND_Gate
-    XNOR Pi_not Pi-1_not inter_nor high low NOR_Gate
+    XNOR Pi_not Pi_1_not inter_nor high low NOR_Gate
 
 .ends Helper
 

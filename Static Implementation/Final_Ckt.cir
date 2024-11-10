@@ -4,7 +4,7 @@ NGSPCIE Netlist Integrating the CLA with the Flip FLops
 .param SUPPLY = 1.8
 .param LAMBDA = 0.09u
 .param width_N = {20 * LAMBDA} ; Vary the width (1)
-.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.param width_P = {2 * width_N}
 .global gnd vdd
 
 .include "Subcircuits.cir"
@@ -38,7 +38,7 @@ NGSPCIE Netlist Integrating the CLA with the Flip FLops
 Vdd vdd gnd 'SUPPLY'
 
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
-VClk clk_line gnd pulse SUPPLY 0 0 1p 1p 0.25ns 0.5ns ; No Skew Currently, add a skew for practical measurements (3)
+VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 0.5ns 1ns ; No Skew Currently, add a skew for practical measurements (3)
 
 * VA3 A3 gnd pulse SUPPLY 0 0 1p 1p 160ns 320ns
 * VA2 A2 gnd pulse SUPPLY 0 0 1p 1p 80ns 160ns
