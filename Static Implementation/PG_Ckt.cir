@@ -9,20 +9,22 @@ NGSPICE Netlist for the Propagate and Generate Bit generation os the 4-Bit CLA
 
 .include "Gates_List.cir"
 
-.subckt Propagate_Generate A B G_not P_not high low
+.subckt Propagate_Generate A B G_not P_not Inter_Sum high low
 
     XNAND A B G_not high low NAND_Gate
     XNOR A B P_not high low NOR_Gate
 
+    XInv A A_not high low Inverter
+    XXOR A A_not B Inter_Sum high low XOR_Gate
+
 .ends Propagate_Generate
 
-.subckt PG_Ckt A3 A2 A1 A0 B3 B2 B1 B0 G3_not G2_not G1_not G0_not P3_not P2_not P1_not P0_not high low
+.subckt PG_Ckt A3 A2 A1 A0 B3 B2 B1 B0 G3_not G2_not G1_not G0_not P3_not P2_not P1_not P0_not Inter_S0 Inter_S1 Inter_S2 Inter_S3 high low
 
-    XPG0 A0 B0 G0_not P0_not high low Propagate_Generate
-    XPG1 A1 B1 G1_not P1_not high low Propagate_Generate
-    XPG2 A2 B2 G2_not P2_not high low Propagate_Generate
-    XPG3 A3 B3 G3_not P3_not high low Propagate_Generate
-
+    XPG0 A0 B0 G0_not P0_not Inter_S0 high low Propagate_Generate
+    XPG1 A1 B1 G1_not P1_not Inter_S1 high low Propagate_Generate
+    XPG2 A2 B2 G2_not P2_not Inter_S2 high low Propagate_Generate
+    XPG3 A3 B3 G3_not P3_not Inter_S3 high low Propagate_Generate
 
 .ends PG_Ckt
 

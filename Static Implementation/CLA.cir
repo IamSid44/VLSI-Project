@@ -1,0 +1,62 @@
+NGSPICE Netlist for the Carry and Sum Logic of a 4-bit Carry Lookahead Adder
+
+.include "TSMC_180nm.txt"
+.param SUPPLY = 1.8
+.param LAMBDA = 0.09u
+.param width_N = {20 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.global gnd vdd
+
+.include "Subcircuits.cir"
+
+Vdd vdd gnd 'SUPPLY'
+
+VA3 A3 gnd 'SUPPLY'
+VA2 A2 gnd 'SUPPLY'
+VA1 A1 gnd 'SUPPLY'
+VA0 A0 gnd 'SUPPLY'
+
+VB3 B3 gnd 'SUPPLY'
+VB2 B2 gnd 'SUPPLY'
+VB1 B1 gnd 'SUPPLY'
+VB0 B0 gnd 'SUPPLY'
+
+VCin Cin gnd 'SUPPLY'
+
+XCarry_Sum_Logic A3 A2 A1 A0 B3 B2 B1 B0 Cin Cout S3 S2 S1 S0 vdd gnd Carry_Sum_Logic
+
+.tran 10p 10n
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+set ybrushwidth = 3
+
+let in_A3 = 'A3 + 26'
+let in_A2 = 'A2 + 24'
+let in_A1 = 'A1 + 22'
+let in_A0 = 'A0 + 20'
+
+let in_B3 = 'B3 + 18'
+let in_B2 = 'B2 + 16'
+let in_B1 = 'B1 + 14'
+let in_B0 = 'B0 + 12'
+
+let in_Cin = 'Cin + 10'
+
+let out_Cout = 'Cout + 8'
+let out_S3 = 'S3 + 6'
+let out_S2 = 'S2 + 4'
+let out_S1 = 'S1 + 2'
+let out_S0 = 'S0'
+
+plot in_A3 in_A2 in_A1 in_A0 in_B3 in_B2 in_B1 in_B0 in_Cin out_Cout out_S3 out_S2 out_S1 out_S0
+
+.endc
+
+.end
