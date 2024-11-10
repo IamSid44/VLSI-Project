@@ -23,6 +23,7 @@ NGSPICE Netlist for the Propagate and Generate Bit generation os the 4-Bit CLA
     XPG2 A2 B2 G2_not P2_not high low Propagate_Generate
     XPG3 A3 B3 G3_not P3_not high low Propagate_Generate
 
+
 .ends PG_Ckt
 
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period

@@ -1,0 +1,65 @@
+NGSPICE Netlist for the XOR Gate
+
+.include "TSMC_180nm.txt"
+.param SUPPLY = 1.8
+.param LAMBDA = 0.09u
+.param width_N = {20 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.global gnd vdd
+
+.subckt Inverter in out high low
+    M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out in low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends Inverter
+
+.subckt XOR_Gate A A_not B out high low
+
+    * Inverter logic - Careful with the body nodes
+    M3 A B out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M4 out B A_not low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+    * Analog Transmission gate
+    M1 out A B high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out A_not B low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+.ends XOR_Gate
+
+VDD vdd gnd 'SUPPLY'
+VA A gnd pulse 0 'SUPPLY' 0 1p 1p 1.5ns 3ns
+VB B gnd pulse 0 'SUPPLY' 0 1p 1p 2.5ns 5ns
+
+* VA A gnd 'SUPPLY'
+* VB B gnd 'SUPPLY'
+
+XInv A A_not vdd gnd Inverter
+XOR A A_not B out vdd gnd XOR_Gate
+
+* XORVeduBhai out A B vdd gnd XORpass
+
+.tran 10ps 16ns
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+let in_A_not = 'A_not + 6'
+let in_A = 'A + 4'
+let in_B = 'B + 2'
+let out = 'out'
+
+plot in_A in_B out in_A_not
+
+.endc
+
+.end
