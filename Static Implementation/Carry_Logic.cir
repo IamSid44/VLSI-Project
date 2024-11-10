@@ -1,0 +1,38 @@
+NGSPICE Netlist for the Carry Logic of a 4-bit Carry Lookahead Adder
+
+.include "TSMC_180nm.txt"
+.param SUPPLY = 1.8
+.param LAMBDA = 0.09u
+.param width_N = {20 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.global gnd vdd
+
+.include "Gates_List.cir"
+
+.subckt Helper Gi_not Pi_not Gi-1_not Pi-1_not inter_nand inter_nor high low 
+
+    XOR Pi_not Gi-1_not temp high low
+    XNAND Gi_not temp inter_nand high low NAND_Gate
+    XNOR Pi_not Pi-1_not inter_nor high low NOR_Gate
+
+.ends Helper
+
+.subckt Carry_Logic G3_not P3_not G2_not P2_not G1_not P1_not G0_not P0_not Cin C3 C2 C1 C0 high low
+
+    XInv00 Cin Cin_not high low Inverter
+
+    XOR01 P0_not Cin_not C0_inter_01 high low OR_Gate
+    XNAND02 G0_not C0_inter_01 C0 high low NAND_Gate
+
+    XHelper10 G1_not P1_not G0_not P0_not C1_inter_nand C1_inter_nor high low Helper
+    XAND11 Cin C1_inter_nor C1_inter_01 high low AND_Gate
+    XOR12 C1_inter_nand C1_inter_01 C1 high low OR_Gate
+
+    XHelper20 G2_not P2_not G1_not P1_not C2_inter_nand C2_inter_nor high low Helper
+    XAND21 C0 C2_inter_nor C2_inter_01 high low AND_Gate
+    XOR22 C2_inter_nand C2_inter_01 C2 high low OR_Gate
+
+    XHelper30 G3_not P3_not G2_not P2_not C3_inter_nand C3_inter_nor high low Helper
+
+
+.ends Carry_Logic

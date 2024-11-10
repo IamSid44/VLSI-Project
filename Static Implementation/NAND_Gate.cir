@@ -1,0 +1,52 @@
+NGSPICE Netlist for a 2 Input NAND gate 
+
+.include "TSMC_180nm.txt"
+.param SUPPLY = 1.8
+.param LAMBDA = 0.09u
+.param width_N = {20 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.global gnd vdd
+
+.subckt NAND_Gate A B out high low
+
+    MPUN_01 high A out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    MPUN_02 high B out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    MPDN_01 out A NAND_PDN_Inter NAND_PDN_Inter CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+
+    MPDN_02 NAND_PDN_Inter B low low CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+
+.ends NAND_Gate
+
+* vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
+VDD vdd gnd 'SUPPLY'
+VA A gnd pulse 0 'SUPPLY' 0 1p 1p 1.5ns 3ns
+VB B gnd pulse 0 'SUPPLY' 0 1p 1p 2.5ns 5ns
+
+XNAND A B out vdd gnd NAND_Gate
+
+.tran 10ps 16ns
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+let in_A = 'A + 4'
+let in_B = 'B + 2'
+let output = 'out'
+
+plot in_A in_B output
+
+.endc
+
+.end

@@ -1,0 +1,52 @@
+.subckt Inverter in out high low
+    M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out in low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends Inverter
+
+.subckt NOR_Gate A B out high low
+
+    MPUN_01 high A NOR_Inter high CMOSP W={2*width_P} L={2*LAMBDA}
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+
+    MPUN_02 NOR_Inter B out NOR_Inter CMOSP W={2*width_P} L={2*LAMBDA}
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+
+    MPDN_01 out A low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+    MPDN_02 out B low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+.ends NOR_Gate
+
+.subckt OR_Gate A B out high low
+
+    XNOR A B out_inter vdd gnd NOR_Gate
+    XInverter out_inter out vdd gnd Inverter
+
+.ends OR_Gate
+
+.subckt NAND_Gate A B out high low
+
+    MPUN_01 high A out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    MPUN_02 high B out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+
+    MPDN_01 out A NAND_PDN_Inter NAND_PDN_Inter CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+
+    MPDN_02 NAND_PDN_Inter B low low CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+
+.ends NAND_Gate
+
+.subckt AND_Gate A B out high low
+
+    XNAND A B out_inter vdd gnd NAND_Gate
+    XInverter out_inter out vdd gnd Inverter
+
+.ends AND_Gate
