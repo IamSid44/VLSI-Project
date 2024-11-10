@@ -11,22 +11,28 @@ NGSPICE Netlist for the Carry and Sum Logic of a 4-bit Carry Lookahead Adder
 
 Vdd vdd gnd 'SUPPLY'
 
-* 0110 + 0111 + 1 = 01110
-* 6 + 7 + 1 = 14
+* 0101 + 1010 + 1 = 10000
+* 5 + 10 + 1 = 16
 
 VA3 A3 gnd 0
 VA2 A2 gnd 'SUPPLY'
-VA1 A1 gnd 'SUPPLY'
-VA0 A0 gnd 0
+VA1 A1 gnd 0
+VA0 A0 gnd 'SUPPLY'
 
-VB3 B3 gnd 0
-VB2 B2 gnd 'SUPPLY'
+VB3 B3 gnd 'SUPPLY'
+VB2 B2 gnd 0
 VB1 B1 gnd 'SUPPLY'
-VB0 B0 gnd 'SUPPLY'
+VB0 B0 gnd 0
 
 VCin Cin gnd 'SUPPLY'
 
 XCarry_Sum_Logic A3 A2 A1 A0 B3 B2 B1 B0 Cin Cout S3 S2 S1 S0 vdd gnd Carry_Sum_Logic
+
+.measure tran C_out_measured FIND V(Cout) AT = 5n
+.measure tran S3_measured FIND V(S3) AT = 5n
+.measure tran S2_measured FIND V(S2) AT = 5n
+.measure tran S1_measured FIND V(S1) AT = 5n
+.measure tran S0_measured FIND V(S0) AT = 5n
 
 .tran 10p 10n
 
@@ -58,7 +64,7 @@ let out_S2 = 'S2 + 4'
 let out_S1 = 'S1 + 2'
 let out_S0 = 'S0'
 
-* plot in_A3 in_A2 _A1 in_A0 in_B3 in_B2 in_B1 in_B0 in_Cin out_Cout out_S3 out_S2 out_S1 out_S0
+* plot in_A3 in_A2 in_A1 in_A0 in_B3 in_B2 in_B1 in_B0 in_Cin out_Cout out_S3 out_S2 out_S1 out_S0
 plot out_Cout out_S3 out_S2 out_S1 out_S0
 
 .endc

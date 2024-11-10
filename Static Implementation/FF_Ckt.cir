@@ -1,0 +1,36 @@
+.subckt HighLevelLatchElement in out clk high low
+    M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out clk inter inter CMOSN W={2*width_N} L={2*LAMBDA} ; Reduced the effect of Body effect
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+    M3 inter in low low CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+.ends HighLevelLatchElement
+
+.subckt TSPC_Latch_HighLevel in out clk high low
+    XMaster in inter clk high low HighLevelLatchElement
+    XSlave inter out clk high low HighLevelLatchElement
+.ends TSPC_Latch_HighLevel
+
+* Equate path resistances in sizing to inverter
+.subckt LowLevelLatchElement in out clk high low
+    M1 high in inter high CMOSP W={2*width_P} L={2*LAMBDA}
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+    M2 inter clk out inter CMOSP W={2*width_P} L={2*LAMBDA} ; Reduced the effect of Body effect
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+    M3 out in low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends LowLevelLatchElement
+
+.subckt TSPC_Latch_LowLevel in out clk high low
+    XMaster in inter clk high low LowLevelLatchElement
+    XSlave inter out clk high low LowLevelLatchElement
+.ends TSPC_Latch_LowLevel
+
+* Repeater Tradeoff - Rise and Fall times vs C to Q delay
+.subckt TSPC_FF in out clk high low
+    XMaster in inter1 clk high low TSPC_Latch_LowLevel
+    XInverter1 inter1 inter vdd gnd Inverter
+    XSlave inter inter2 clk high low TSPC_Latch_HighLevel
+    XInverter2 inter2 out vdd gnd Inverter
+.ends TSPC_FF
