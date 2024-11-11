@@ -103,7 +103,6 @@ set color0 = white
 set color1 = black
 set curplottitle = "Siddarth Gottumukkula 2023102040"
 set xbrushwidth = 3
-set ybrushwidth = 3
 
 let clock = 'clk_line + 4'
 let input = 'D + 2'

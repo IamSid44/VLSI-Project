@@ -1,0 +1,858 @@
+# tech-file originally from MOSIS
+tech
+ scmos
+end
+
+version
+ version 2001a
+ description "SCMOS: Submit as technology.lambda: SCN6M_DEEP.09 [to process: TSMC18]"
+end
+
+planes
+  well,w
+  implant,i
+  select,s
+  active,a
+  metal1,m1
+  metal2,m2
+  metal3,m3
+  metal4,m4
+  metal5,m5
+  metal6,m6
+  metali,mi
+  oxide,ox
+  comment
+  xp
+  contact
+  via1,v1
+  via2,v2
+  via3,v3
+  via4,v4
+  via5,v5
+  viai,vi
+  fill
+end
+
+types
+  well  nwell,nw
+  active  nwr
+  well  pwell,pw
+  implant  n_field_implant,nfi
+  implant  p_field_implant,pfi
+  select  nselect,ns
+  select  pselect,ps
+  active  ntransistor,nfet
+  active  ptransistor,pfet
+  active  diffusion,diff
+  active  transistor,fet
+  active  ndiffusion,ndif,green
+  active  pdiffusion,pdif,brown
+  active  ndcontact,ndc
+  active  pdcontact,pdc
+  active  psubstratepdiff,pohmicdiff,pod,ppdiff,ppd,psd
+  active  nsubstratendiff,nohmicdiff,nod,nndiff,nnd,nsd
+  active  psubstratepcontact,pohmiccontact,poc,pwcontact,pwc,psc
+  active  nsubstratencontact,nohmiccontact,noc,nwcontact,nwc,nsc
+  active  nwsd
+  active  nwsc
+  active  polysilicon,red,poly,p
+  active  polycontact,pcontact,polycut,pc
+  active  polypplus,pp
+  active  polynplus,pn
+  active  polyppluscontact,ppcontact,ppc
+  active  polynpluscontact,pncontact,pnc
+  contact  genericcontact,gcontact,gc
+  metal1  metal1,m1,blue
+  metal1  pseudo_rmetal1,prm1
+  metal1  rmetal1,rm1
+  metal1  fillm1,fm1
+  metal1  m2contact,m2cut,m2c,via1,v1
+  metal1  pm12contact,pm12c
+  metal1  ppm12contact,ppm12c
+  metal1  pnm12contact,pnm12c
+  metal1  pdm12contact,pdm12c
+  metal1  psm12contact,psm12c,pom12c,pwm12c
+  metal1  ndm12contact,ndm12c
+  metal1  nsm12contact,nsm12c,nom12c,nwm12c
+  metal1  nwsm12contact,nwsm12c
+  metal2  metal2,m2,purple
+  metal2  pseudo_rmetal2,prm2
+  metal2  rmetal2,rm2
+  metal2  fillm2,fm2
+  via1  gv1
+  metal2  m3contact,m3cut,m3c,via2,v2
+  metal2  m123contact,m123c
+  metal3  metal3,m3,cyan
+  metal3  pseudo_rmetal3,prm3
+  metal3  rmetal3,rm3
+  metal3  fillm3,fm3
+  via2    gv2
+  metal3  m234contact,m234c
+  metal3  m4contact,m4cut,m4c,via3,v3
+  metal4  metal4,m4,yellow
+  metal4  pseudo_rmetal4,prm4
+  metal4  rmetal4,rm4
+  metal4  fillm4,fm4
+  via3    gv3
+  metal4  m345contact,m345c
+  metal4  m5contact,m5cut,m5c,via4,v4
+  metal5  metal5,m5
+  metal5  pseudo_rmetal5,prm5
+  metal5  rmetal5,rm5
+  metal5  fillm5,fm5
+  via4    gv4
+  metal5  m456contact,m456c
+  metal5  m6contact,m6cut,m6c,via5,v5
+  metal6  metal6,m6
+  metal6  pseudo_rmetal6,prm6
+  metal6  rmetal6,rm6
+  metal6  fillm6,fm6
+  via5    gv5
+  metal6  pad
+  metal6  micontact,micut,mic,viai,vi
+  metali  metali,mim,mi
+  mi  pseudo_rmetali,prmi
+  mi rmi
+  viai    gvi
+  oxide  glass
+  active  silicide_block,sb
+  active  poly_resist,pres
+  active  pseudo_rpoly,prp
+  active  rpoly,rp
+  active  pseudo_rndiffusion,prnd
+  active  rndiffusion,rndiff,rnd
+  active  pseudo_rpdiffusion,prpd
+  active  rpdiffusion,rpdiff,rpd
+  active  pseudo_rnwell,prnwell,prnw
+  active  rnwell,rnw
+  active  pseudo_nwr,pnwr
+  implant  filln,fn
+  fill  filla,fa
+  fill  fillb,fb
+  active  fillp,fp
+  active  fillapm,fapm
+  active  activen_resist,anres
+  active  activep_resist,apres
+  xp  xp
+  xp  m1p
+  xp  m2p
+  xp  m3p
+  xp  m4p
+  xp  m5p
+  xp  m6p
+  comment  comment
+  comment  bb
+end
+
+contact
+  pc  poly  metal1
+  ppc  pp  metal1
+  pnc  pn  metal1
+  ndc  ndiff  metal1
+  pdc  pdiff  metal1
+  nsc  nsd  metal1
+  nwsc  nwsd  metal1
+  psc  psd  metal1
+  m2c  metal1  metal2
+  m3c  metal2  metal3
+  m4c  metal3  metal4
+  m5c  metal4  metal5
+  m6c  metal5  metal6
+  mic  metal6  metali
+  pm12c  poly  metal1  metal2
+  ppm12c  pp  metal1  metal2
+  pnm12c  pn  metal1  metal2
+  pdm12c  pdiff  metal1  metal2
+  psm12c  psd  metal1  metal2
+  ndm12c  ndiff  metal1  metal2
+  nsm12c  nsd  metal1  metal2
+  nwsm12c  nwsd  metal1  metal2
+  m123c  metal1  metal2  metal3
+  m234c  metal2  metal3  metal4
+  m345c  metal3  metal4  metal5
+  m456c  metal4  metal5  metal6
+end
+
+styles
+ styletype  mos
+  nwr  54
+  pnwr  53
+  nwsd  3
+  nwsd  54
+  nwsc  3
+  nwsc  20
+  nwsc  32
+  nwsc  54
+  nwell  12
+  pwell  13
+  nfi  53
+  pfi  54
+  nselect  43
+  pselect  44
+  diff  25
+  tran  2
+  tran  4
+  ndiff  2
+  pdiff  4
+  nsd  3
+  psd  5
+  nfet  6
+  nfet  7
+  pfet  8
+  pfet  9
+  ndc  2
+  ndc  20
+  ndc  32
+  pdc  4
+  pdc  20
+  pdc  32
+  nsc  3
+  nsc  20
+  nsc  32
+  psc  5
+  psc  20
+  psc  32
+  poly  1
+  pp  1
+  pp  44
+  pn  1
+  pn  43
+  pcontact  1
+  pcontact  20
+  pcontact  32
+  gc  32
+  metal1  20
+  rm1  20
+  rm1  48
+  prm1  48
+  m1p  20
+  m1p  34
+  fm1  20
+  fm1  34
+  fp  1
+  fp  34
+  fa  32
+  fb  45
+  fb  34
+  fn  45
+  fn  34
+  fapm  1
+  fapm  20
+  fapm  21
+  fapm  34
+  gv1  55
+  m2contact  20
+  m2contact  21
+  m2contact  55
+  pm12contact  1
+  pm12contact  20
+  pm12contact  21
+  pm12contact  32
+  pm12contact  55
+  ppm12contact  1
+  ppm12contact  20
+  ppm12contact  21
+  ppm12contact  32
+  ppm12contact  55
+  ppm12contact  44
+  pnm12contact  1
+  pnm12contact  20
+  pnm12contact  21
+  pnm12contact  32
+  pnm12contact  55
+  pnm12contact  43
+  ndm12c  2
+  ndm12c  20
+  ndm12c  21
+  ndm12c  32
+  ndm12c  55
+  nsm12c  3
+  nsm12c  20
+  nsm12c  21
+  nsm12c  32
+  nsm12c  55
+  nwsm12c  3
+  nwsm12c  20
+  nwsm12c  21
+  nwsm12c  32
+  nwsm12c  55
+  nwsm12c  54
+  pdm12c  4
+  pdm12c  20
+  pdm12c  21
+  pdm12c  32
+  pdm12c  55
+  psm12c  5
+  psm12c  20
+  psm12c  21
+  psm12c  32
+  psm12c  55
+  metal2  21
+  rm2  21
+  rm2  48
+  prm2  48
+  m2p  21
+  m2p  34
+  fm2  21
+  fm2  34
+  gv2  56
+  m3contact  21
+  m3contact  22
+  m3contact  56
+  m123c  20
+  m123c  21
+  m123c  22
+  m123c  55
+  m123c  56
+  metal3  22
+  rm3  22
+  rm3  48
+  prm3  48
+  m3p  22
+  m3p  34
+  fm3  22
+  fm3  34
+  gv3  57
+  m4contact  22
+  m4contact  23
+  m4contact  57
+  m234contact  21
+  m234contact  22
+  m234contact  23
+  m234contact  56
+  m234contact  57
+  metal4  23
+  rm4  23
+  rm4  48
+  prm4  48
+  m4p  23
+  m4p  34
+  fm4  23
+  fm4  34
+  gv4  58
+  m5contact  23
+  m5contact  24
+  m5contact  58
+  m345contact  21
+  m345contact  22
+  m345contact  23
+  m345contact  24
+  m345contact  57
+  m345contact  58
+  metal5  24
+  rm5  24
+  rm5  48
+  m5p  24
+  m5p  34
+  fm5  24
+  fm5  34
+  prm5  48
+  gv5  60
+  m6contact  24
+  m6contact  26
+  m6contact  60
+  m456contact  23
+  m456contact  24
+  m456contact  26
+  m456contact  58
+  m456contact  60
+  metal6  26
+  rm6  26
+  rm6  48
+  m6p  26
+  m6p  34
+  fm6  26
+  fm6  34
+  prm6  48
+  gvi  61
+  micontact  26
+  micontact  27
+  micontact  61
+  mi  27
+  rmi  27
+  rmi  48
+  prmi  48
+  pad  22
+  pad  23
+  pad  34
+  pad  38
+  glass  34
+  xp  25
+  xp  34
+  sb  10
+  pres  47
+  pres  48
+  rp  47
+  rp  48
+  prp  48
+  anres  2
+  anres  48
+  rnd  2
+  rnd  48
+  prnd  48
+  apres  4
+  apres  53
+  rpd  4
+  rpd  53
+  prpd  53
+  rnw  12
+  rnw  53
+  prnw  54
+  comment  45
+  bb  32
+  error_p  42
+  error_s  42
+  error_ps  42
+  magnet  54
+  rotate  57
+  fence  59
+end
+
+compose
+  compose  nfet  poly  ndiff
+  compose  pfet  poly  pdiff
+  compose  nfet  pn  ndiff
+  compose  pfet  pp  pdiff
+  paint  diff  nselect ndiff
+  paint  diff  pselect pdiff
+  compose  tran  poly  diff
+  paint  tran  nselect nfet
+  paint  tran  pselect pfet
+  paint  psd ns  ndiff
+  paint  nsd ps  pdiff
+  paint  ndiff ps  psd
+  paint  pdiff ns  nsd
+  paint  pad  m1  pad
+  paint  pad  m2  pad
+  paint  pad  m2c  pad
+  paint  pfi  nwell  nfi
+  paint  nfi  pwell  pfi
+  paint  anres  nwell  apres
+  paint  apres  pwell  anres
+  paint  ndc  nwell  pdc
+  paint  nfet  nwell  pfet
+  paint  ndiff  nwell  pdiff
+  paint  psd  nwell  nsd
+  paint  psc  nwell  nsc
+  paint  pdc  pwell  ndc
+  paint  pfet  pwell  nfet
+  paint  pdiff  pwell  ndiff
+  paint  nsd  pwell  psd
+  paint  nsc  pwell  psc
+  paint  pad  m3  pad
+  paint  pad  m4  pad
+  paint  pad  m5  pad
+  paint  pad  m6  pad
+  compose  pres  poly  sb
+  paint  sb  poly  pres
+  paint  poly  sb  pres
+  erase  pres  sb  poly
+  compose  anres  ndiff  sb
+  paint  sb  ndiff  anres
+  paint  ndiff  sb  anres
+  erase  anres  sb  ndiff
+  compose  apres  pdiff  sb
+  paint  sb  pdiff  apres
+  paint  pdiff  sb  apres
+  erase  apres  sb  pdiff
+#CRE/CRM
+  compose  rm1  prm1 m1
+  compose  rm2  prm2 m2
+  compose  rm3  prm3 m3
+  compose  rm4  prm4 m4
+  compose  rm5  prm5 m5
+  compose  rm6  prm6 m6
+  compose  rmi  prmi mi
+  compose  rp  prp poly
+  compose  rnd  prnd ndiff
+  compose  rpd  prpd pdiff
+  paint  nwell  rnw space
+  paint  nwell  nwr space
+  paint  nwell  prnw space
+  paint poly fp fp
+  paint m1 fm1 fm1
+  paint m2 fm2 fm2
+  paint m3 fm3 fm3
+  paint m4 fm4 fm4
+  paint m5 fm5 fm5
+  paint m6 fm6 fm6
+end
+
+connect
+  nwell,nsc/a,nwsc/a,nsm12c/a,nwsm12c/a,nsd,nwsd  nwell,nsc/a,nwsc/a,nsm12c/a,nwsm12c/a,nsd,nwsd
+  pwell,psc/a,psm12c/a,psd  pwell,psc/a,psm12c/a,psd
+  m1,fm1,fapm,ndc/m1,ndm12c/m1,nsc/m1,nwsc/m1,nsm12c/m1,nwsm12c/m1,pdc/m1,pdm12c/m1,psc/m1,psm12c/m1,pc/m1,ppc/m1,pnc/m1,pm12c/m1,ppm12c/m1,pnm12c/m1,m2c/m1,pdm12c/m1,ndm12c/m1,psm12c/m1,nsm12c/m1,pm12c/m1,m123c/m1,nwsm12c/m1  m1,fm1,fapm,ndc/m1,ndm12c/m1,nsc/m1,nwsc/m1,nsm12c/m1,nwsm12c/m1,pdc/m1,pdm12c/m1,psc/m1,psm12c/m1,pc/m1,ppc/m1,pnc/m1,pm12c/m1,ppm12c/m1,pnm12c/m1,m2c/m1,pdm12c/m1,ndm12c/m1,psm12c/m1,nsm12c/m1,pm12c/m1,m123c/m1,nwsm12c/m1
+  m2,fm2,fapm,m2c/m2,pdm12c/m2,ndm12c/m2,psm12c/m2,nsm12c/m2,pm12c/m2,m123c/m2,nwsm12c/m2,m3c/m2,m123c/m2,m234c/m2,m3c/m2,m123c/m2,m234c/m2  m2,fm2,fapm,m2c/m2,pdm12c/m2,ndm12c/m2,psm12c/m2,nsm12c/m2,pm12c/m2,m123c/m2,nwsm12c/m2,m3c/m2,m123c/m2,m234c/m2,m3c/m2,m123c/m2,m234c/m2
+  m3,fm3,fapm,m3c/m3,m123c/m3,m234c/m3,m4c/m3,m234c/m3,m345c/m3,m4c/m3,m234c/m3,m345c/m3  m3,fm3,fapm,m3c/m3,m123c/m3,m234c/m3,m4c/m3,m234c/m3,m345c/m3,m4c/m3,m234c/m3,m345c/m3
+  m4,fm4,fapm,m4c/m4,m234c/m4,m345c/m4,m5c/m4,m345c/m4,m456c/m4,m5c/m4,m345c/m4,m456c/m4  m4,fm4,fapm,m4c/m4,m234c/m4,m345c/m4,m5c/m4,m345c/m4,m456c/m4,m5c/m4,m345c/m4,m456c/m4
+  m5,fm5,fapm,m5c/m5,m345c/m5,m456c/m5,m6c/m5,m456c/m5,m6c/m5,m456c/m5  m5,fm5,fapm,m5c/m5,m345c/m5,m456c/m5,m6c/m5,m456c/m5,m6c/m5,m456c/m5
+  m6,fm6,fapm,m6c/m6,m456c/m6,mic/m6  m6,fm6,fapm,m6c/m6,m456c/m6,mic/m6
+  mi,mic/mi  mi,mic/mi
+  ndiff,nsd,nwsd,ndc/a,ndm12c/a,nsc/a,nwsc/a,nsm12c/a,nwsm12c/a,pdiff,psd,pdc/a,pdm12c/a,psc/a,psm12c/a  ndiff,nsd,nwsd,ndc/a,ndm12c/a,nsc/a,nwsc/a,nsm12c/a,nwsm12c/a,pdiff,psd,pdc/a,pdm12c/a,psc/a,psm12c/a
+  poly,fp,pp,pn,nfet,pfet,fet,fapm,pc/a,ppc/a,pnc/a,pm12c/a,ppm12c/a,pnm12c/a  poly,fp,pp,pn,nfet,pfet,fet,fapm,pc/a,ppc/a,pnc/a,pm12c/a,ppm12c/a,pnm12c/a
+  gc  poly,fp,pp,pn,ndiff,pdiff,nsd,nwsd,psd,m1,fm1,fapm,m2c/m1,pdm12c/m1,ndm12c/m1,psm12c/m1,nsm12c/m1,pm12c/m1,m123c/m1,nwsm12c/m1
+  gv1  m1,fm1,fapm,ndc/m1,ndm12c/m1,nsc/m1,nwsc/m1,nsm12c/m1,nwsm12c/m1,pdc/m1,pdm12c/m1,psc/m1,psm12c/m1,pc/m1,ppc/m1,pnc/m1,pm12c/m1,ppm12c/m1,pnm12c/m1,m2,fm2,fapm,m3c/m2,m123c/m2,m234c/m2
+  gv2  m2,fm2,fapm,m2c/m2,pdm12c/m2,ndm12c/m2,psm12c/m2,nsm12c/m2,pm12c/m2,m123c/m2,nwsm12c/m2,m3c/m2,m123c/m2,m234c/m2,m3,fm3,fapm,m4c/m3,m234c/m3,m345c/m3
+  gv3  m3,fm3,fapm,m3c/m3,m123c/m3,m234c/m3,m4c/m3,m234c/m3,m345c/m3,m4,fm4,fapm,m5c/m4,m345c/m4,m456c/m4
+  gv4  m4,fm4,fapm,m4c/m4,m234c/m4,m345c/m4,m5c/m4,m345c/m4,m456c/m4,m5,fm5,fapm,m6c/m5,m456c/m5
+  gv5  m5,fm5,fapm,m5c/m5,m345c/m5,m456c/m5,m6c/m5,m456c/m5,m6,fm6,fapm
+  gvi  m6,fm6,fapm,m6c/m6,m456c/m6,mic/m6,mi
+  pad  m1,fm1,m2,fm2,m3,fm3,m4,fm4,m5,fm5,m6,fm6
+  rm1  prm1
+  rm2  prm2
+  rm3  prm3
+  rm4  prm4
+  rm5  prm5
+  rm6  prm6
+  rmi  prmi
+  rnw  prnw
+  nwr  pnwr
+  rp  prp
+  rnd  prnd
+  rpd  prpd
+  pres  sb
+  anres  sb
+  apres  sb
+end
+
+cifoutput
+
+style  lambda=0.09(p)
+ scalefactor  09 calmaonly
+
+ layer CWN nwell,rnw,nwr,nwsd,nwsc
+ bloat-or pdiff,apres,rpd,pdc/a,pdm12c/a,pfet * 54
+ bloat-or nsd,nsc/a,nsm12c/a * 27
+ bloat-or nfi * 36
+ grow 27
+ shrink 27
+ labels nwell,rnw,nwr,nwsd,nwsc
+ calma 42 0
+
+ layer CWNR nwsd,nwsc,nwr
+ grow 135
+ calma 91 0
+
+ layer CWND nwr
+ labels nwr
+ calma 92 0
+
+ layer CAA nwsd,nwsc,nwr
+ grow 108
+ labels nwsd,nwsc
+ calma 43 0
+
+ layer CSN
+ bloat-or nwsd,nwsc * 72 nwr 0
+ calma 43 0
+
+ templayer TNWR
+ bloat-or nwr * 108 nwsd,nwsc 45
+
+ templayer TCSB nwsd,nwsc
+ grow 27
+ and-not TNWR
+ 
+ layer CSB nwsd,nwsc,nwr
+ grow 135
+ and-not TCSB
+ calma 29 0
+
+ layer CRNW pnwr
+ labels pnwr
+ calma 93 0
+
+ layer CWP pwell
+ bloat-or ndiff,anres,rnd,ndc/a,ndm12c/a,nfet * 54
+ bloat-or psd,psc/a,psm12c/a * 27
+ bloat-or pfi * 36
+ grow 27
+ shrink 27
+ and-not CWN
+ labels pwell
+ calma 41 0
+
+ templayer TNS ndiff,anres,rnd,ndc/a,ndm12c/a,nsd,nsc/a,nsm12c/a
+ and gc
+ grow 9
+ or ndc/m1,ndm12c/m1,nsc/m1,nwsc/m1,nsm12c/m1,nwsm12c/m1
+ grow 5
+ or nselect
+
+ templayer TPS pdiff,apres,rpd,pdc/a,pdm12c/a,psd,psc/a,psm12c/a
+ and gc
+ grow 9
+ or pdc/m1,pdm12c/m1,psc/m1,psm12c/m1
+ grow 5
+ or pselect
+
+#we give priority to selects autogenerated around diffusions (vrs. ohmics)
+#XDP = (pdiff*18) Or ps
+#XDN = (ndiff*18) Or ns
+#FSP = ((pdiff*18,psc*18) Or XDP And-Not XDN Or ps shrink-grow
+#FSN = ((ndiff*18,nsc*18) Or XDN And-Not FDP Or ns shrink-grow
+#CSN = FSN
+#CSP = FSP
+
+#diffusion auto-nselect (will have priority)
+ templayer XDN
+ bloat-or ndiff,anres,rnd,ndc/a,ndm12c/a * 18 psd,psc/a,psm12c/a 0
+ bloat-or pn * 09 pp 0
+ or TNS
+
+#diffusion auto-pselect (will have priority)
+ templayer XDP
+ bloat-or pdiff,apres,rpd,pdc/a,pdm12c/a * 18 nsd,nsc/a,nsm12c/a 0
+ bloat-or pp * 09 pn 0
+ or TPS
+
+#final pselect 
+ templayer FSP
+ bloat-or pdiff,apres,rpd,pfet,psd,pdc/a,pdm12c/a,psc/a,psm12c/a,pfet * 18 ndiff,anres,rnd,ndc/a,ndm12c/a,nsd,nsc/a,nsm12c/a,nfet 0
+ or XDP
+#give diff nselect priority
+ and-not XDN
+ or TPS
+ shrink 14
+ grow 14
+ grow 14
+ shrink 14
+
+#final nselect
+ templayer FSN
+ bloat-or ndiff,anres,rnd,nfet,nsd,nwsd,ndc/a,ndm12c/a,nsc/a,nwsc/a,nsm12c/a,nwsm12c/a,nfet * 18 pdiff,apres,rpd,pdc/a,pdm12c/a,psd,psc/a,psm12c/a,pfet 0
+ and-not nwr
+ or XDN
+#never conflict with final pselect
+ and-not FSP
+#drawn select always goes
+ or TNS
+ shrink 14
+ grow 14
+ grow 14
+ shrink 14
+
+ layer CSN FSN
+ calma 45 0
+
+ layer CSP FSP
+ calma 44 0
+
+ layer CAA diff,ndiff,anres,rnd,nfet,nsd,nwsd,pdiff,apres,rpd,pfet,psd,ndc/a,ndm12c/a,nsc/a,nwsc/a,nsm12c/a,nwsm12c/a,pdc/a,pdm12c/a,psc/a,psm12c/a,pfet,pfet,fet
+ labels diff,ndiff,anres,rnd,nfet,nsd,nwsd,pdiff,apres,rpd,pfet,psd,ndc/a,ndm12c/a,nsc/a,nwsc/a,nsm12c/a,nwsm12c/a,pdc/a,pdm12c/a,psc/a,psm12c/a,pfet,pfet,fet
+ calma 43 0
+
+ layer CCA nwsc/m1,nwsm12c/m1
+ squares 18 18 36
+ calma 48 0
+
+ layer CCA ndc/m1,ndm12c/m1,nsc/m1,nsm12c/m1
+ squares 09 18 36
+ calma 48 0
+
+ layer CCA pdc/m1,pdm12c/m1,psc/m1,psm12c/m1
+ squares 09 18 36
+ calma 48 0
+
+ layer CPG poly,pp,pn,pres,rp,nfet,pfet,fet,pc/a,ppc/a,pnc/a,pm12c/a,ppm12c/a,pnm12c/a
+ labels poly,pp,pn,pres,rp,nfet,pfet,fet,pc/a,ppc/a,pnc/a,pm12c/a,ppm12c/a,pnm12c/a
+ calma 46 0
+
+ layer CCP pc/m1,ppc/m1,pnc/m1,pm12c/m1,ppm12c/m1,pnm12c/m1
+ squares 09 18 36
+ calma 47 0
+
+ layer CCC gc
+ squares 0 18 36
+ calma 25 0
+
+ layer CV1 m2c/m1,pdm12c/m1,ndm12c/m1,psm12c/m1,nsm12c/m1,pm12c/m1,m123c/m1,nwsm12c/m1
+ squares 09 27 27
+ calma 50 0
+
+ layer CV1 gv1
+ squares 0 27 27
+ calma 50 0
+
+ layer CV2 m3c/m2,m123c/m2,m234c/m2
+ squares 09 27 27
+ calma 61 0
+
+ layer CV2 gv2
+ squares 0 27 27
+ calma 61 0
+
+ layer CV3 m4c/m3,m234c/m3,m345c/m3
+ squares 09 27 27
+ calma 30 0
+
+ layer CV3 gv3
+ squares 0 27 27
+ calma 30 0
+
+ layer CV4 m5c/m4,m345c/m4,m456c/m4
+ squares 09 27 27
+ calma 32 0
+
+ layer CV4 gv4
+ squares 0 27 27
+ calma 32 0
+
+ layer CV5 m6c/m5,m456c/m5
+ squares 18 36 36
+ calma 36 0
+
+ layer CV5 gv5
+ squares 0 36 36
+ calma 36 0
+
+ layer CV5 mic/mi
+ squares 27 36 207
+ calma 36 0
+
+ layer CV5 gvi
+ squares 0 36 207
+ calma 36 0
+
+
+ templayer XPAD1 pad
+ shrink 54
+
+ templayer XPAD2 XPAD1
+ shrink 54
+
+ layer CM6 pad
+ labels pad
+ calma 37 0
+
+ layer CV5 XPAD2
+ squares 09 36 72
+ calma 36 0
+
+ layer CM5 pad
+ labels pad
+ calma 33 0
+
+ layer CV4 XPAD2
+ squares 72 27 81
+ calma 32 0
+
+ layer CM4 pad
+ labels pad
+ calma 31 0
+
+ layer CV3 XPAD2
+ squares 18 27 81
+ calma 30 0
+
+ layer CM3 pad
+ labels pad
+ calma 62 0
+
+ layer CV2 XPAD2
+ squares 72 27 81
+ calma 61 0
+
+ layer CM2 pad
+ labels pad
+ calma 51 0
+
+ layer CV1 XPAD2
+ squares 18 27 81
+ calma 50 0
+
+ layer CM1 pad
+ calma 49 0
+
+ layer CM1 m1,rm1,ndc/m1,ndm12c/m1,nsc/m1,nwsc/m1,nsm12c/m1,nwsm12c/m1,pdc/m1,pdm12c/m1,psc/m1,psm12c/m1,pc/m1,ppc/m1,pnc/m1,pm12c/m1,ppm12c/m1,pnm12c/m1,m2c/m1,pdm12c/m1,ndm12c/m1,psm12c/m1,nsm12c/m1,pm12c/m1,m123c/m1,nwsm12c/m1
+ labels m1,rm1,ndc/m1,ndm12c/m1,nsc/m1,nwsc/m1,nsm12c/m1,nwsm12c/m1,pdc/m1,pdm12c/m1,psc/m1,psm12c/m1,pc/m1,ppc/m1,pnc/m1,pm12c/m1,ppm12c/m1,pnm12c/m1,m2c/m1,pdm12c/m1,ndm12c/m1,psm12c/m1,nsm12c/m1,pm12c/m1,m123c/m1,nwsm12c/m1
+ calma 49 0
+
+ layer CM2 m2,rm2,m2c/m2,pdm12c/m2,ndm12c/m2,psm12c/m2,nsm12c/m2,pm12c/m2,m123c/m2,nwsm12c/m2,m3c/m2,m123c/m2,m234c/m2,m3c/m2,m123c/m2,m234c/m2
+ labels m2,rm2,m2c/m2,pdm12c/m2,ndm12c/m2,psm12c/m2,nsm12c/m2,pm12c/m2,m123c/m2,nwsm12c/m2,m3c/m2,m123c/m2,m234c/m2,m3c/m2,m123c/m2,m234c/m2
+ calma 51 0
+
+ layer CMFP m1p
+ labels m1p
+ calma 81 0
+
+ layer CMSP m2p
+ labels m2p
+ calma 82 0
+
+ layer 100 fp
+ labels fp
+ calma 100 0
+
+ layer 101 fm1
+ labels fm1
+ calma 101 0
+
+ layer 102 fm2
+ labels fm2
+ calma 102 0
+
+ layer 103 fm3
+ labels fm3
+ calma 103 0
+
+ layer 104 fm4
+ labels fm4
+ calma 104 0
+
+ layer 105 fm5
+ labels fm5
+ calma 105 0
+
+ layer 106 fm6
+ labels fm6
+ calma 106 0
+
+ layer 109 fa
+ or fb
+ squares 0 207 36
+ labels fa
+ calma 109 0
+
+ layer 119 fn
+ calma 119 0
+
+ layer 110 fapm
+ labels fapm
+ calma 110 0
+
+# layer CPG fp
+ layer CPG fp,fapm
+ squares 0 207 36
+ labels fp
+ calma 46 0
+
+# layer CM1 fm1
+ layer CM1 fm1,fapm
+ squares 0 207 36
+ labels fm1
+ calma 49 0
+
+# layer CM2 fm2
+ layer CM2 fm2,fapm
+
+ squares 0 207 36
+ labels fm2
+ calma 51 0
+
+# layer CM3 fm3
+ layer CM3 fm3,fapm
+
+ squares 0 207 36
+ labels fm3
+ calma 62 0
+
+ layer CM3 m3,rm3,m3c/m3,m123c/m3,m234c/m3,m4c/m3,m234c/m3,m345c/m3,m4c/m3,m234c/m3,m345c/m3
+ labels m3,rm3,m3c/m3,m123c/m3,m234c/m3,m4c/m3,m234c/m3,m345c/m3,m4c/m3,m234c/m3,m345c/m3
+ calma 62 0
+
+ layer CMTP m3p
+ labels m3p
+ calma 83 0
+
+ layer CM4 m4
