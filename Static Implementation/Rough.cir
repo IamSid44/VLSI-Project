@@ -3,7 +3,7 @@ NGSPICE Netlist for the Carry and Sum Logic of a 4-bit Carry Lookahead Adder
 .include "TSMC_180nm.txt"
 .param SUPPLY = 1.8
 .param LAMBDA = 0.09u
-.param width_N = {20 * LAMBDA} ; Vary the width (1)
+.param width_N = {10 * LAMBDA} ; Vary the width (1)
 .param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
 .global gnd vdd
 
@@ -15,14 +15,15 @@ Vdd vdd gnd 'SUPPLY'
 * 5 + 10 + 1 = 16
 
 VA3 A3 gnd 0
-VA2 A2 gnd 'SUPPLY'
+VA2 A2 gnd 0
 VA1 A1 gnd 0
-VA0 A0 gnd 'SUPPLY'
+VA0 A0 gnd 0
 
-VB3 B3 gnd 'SUPPLY'
-VB2 B2 gnd 0
+VB3 B3 gnd 0
+VB2 B2 gnd 'SUPPLY'
 VB1 B1 gnd 'SUPPLY'
-VB0 B0 gnd 0
+* VB0 B0 gnd pulse 'SUPPLY' 0 0 50p 50p 0.95ns 1.9ns
+VB0 B0 gnd pulse 0 'SUPPLY' 0 50p 50p 0.25ns 0.5ns ; Works at 2 GHz also!
 
 VCin Cin gnd 'SUPPLY'
 
@@ -50,19 +51,25 @@ VCin Cin gnd 'SUPPLY'
 
     XHelper30 G3_not P3_not G2_not P2_not C3_inter_nand C3_inter_nor vdd gnd Helper
     XAND31 C1_inter_nand C3_inter_nor C3_inter_01 vdd gnd AND_Gate
-    XNOR32 C3_inter_nand C3_inter_01 C3_inter_02 vdd gnd NOR_Gate
+    XNOR32 C3_inter_nand C3_inter_01 C3_inter_02 vdd gnd Small_NOR_Gate
     XNAND33 C3_inter_nor C1_inter_nor C3_inter_03 vdd gnd NAND_Gate
     XOR34 C3_inter_03 Cin_not C3_inter_04 vdd gnd OR_Gate
     XNAND35 C3_inter_02 C3_inter_04 C3 vdd gnd NAND_Gate
     XXOR36 C2 C2_not Inter_S3 S3 vdd gnd XOR_Gate
 
-.measure tran C_out_measured FIND V(C3) AT = 5n
-.measure tran S3_measured FIND V(S3) AT = 5n
-.measure tran S2_measured FIND V(S2) AT = 5n
-.measure tran S1_measured FIND V(S1) AT = 5n
-.measure tran S0_measured FIND V(S0) AT = 5n
+* .measure tran C_out_measured FIND V(C3) AT = 5n
+* .measure tran S3_measured FIND V(S3) AT = 5n
+* .measure tran S2_measured FIND V(S2) AT = 5n
+* .measure tran S1_measured FIND V(S1) AT = 5n
+* .measure tran S0_measured FIND V(S0) AT = 5n
 
-.tran 10p 10n
+.tran 1p 3n
+
+.ic V(S0) = 0
+.ic V(S1) = 0
+.ic V(S2) = 0
+.ic V(S3) = 0
+.ic V(C3) = 0
 
 .control
 
@@ -93,8 +100,8 @@ let out_S1 = 'S1 + 2'
 let out_S0 = 'S0'
 
 * plot in_A3 in_A2 in_A1 in_A0 in_B3 in_B2 in_B1 in_B0 in_Cin out_Cout out_S3 out_S2 out_S1 out_S0
-* plot out_Cout out_S3 out_S2 out_S1 out_S0
-plot
+plot (B0 + 12) out_Cout out_S3 out_S2 out_S1 out_S0
+* plot
 
 .endc
 

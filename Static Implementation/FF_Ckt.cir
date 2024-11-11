@@ -30,7 +30,7 @@
 * Repeater Tradeoff - Rise and Fall times vs C to Q delay
 .subckt TSPC_FF in out clk high low
     XMaster in inter1 clk high low TSPC_Latch_LowLevel
-    XInverter1 inter1 inter vdd gnd Inverter
-    XSlave inter inter2 clk high low TSPC_Latch_HighLevel
-    XInverter2 inter2 out vdd gnd Inverter
+    * XInverter1 inter1 inter vdd gnd Inverter
+    XSlave inter1 out clk high low TSPC_Latch_HighLevel
+    * XInverter2 inter2 out vdd gnd Inverter
 .ends TSPC_FF

@@ -3,7 +3,7 @@ NGSPCIE Netlist Integrating the CLA with the Flip FLops
 .include "TSMC_180nm.txt"
 .param SUPPLY = 1.8
 .param LAMBDA = 0.09u
-.param width_N = {20 * LAMBDA} ; Vary the width (1)
+.param width_N = {10 * LAMBDA} ; Vary the width (1)
 .param width_P = {2 * width_N}
 .global gnd vdd
 
@@ -35,10 +35,22 @@ NGSPCIE Netlist Integrating the CLA with the Flip FLops
 
 .ends Final
 
-Vdd vdd gnd 'SUPPLY'
+.subckt InverterLoad in out high low
+    M1 high in out high CMOSP W={20*LAMBDA} L={2*LAMBDA}
+    + AS={5*20*LAMBDA*LAMBDA} PS={10*LAMBDA+2*20*LAMBDA} AD={5*20*LAMBDA*LAMBDA} PD={10*LAMBDA+2*20*LAMBDA}
+    M2 out in low low CMOSN W={10*LAMBDA} L={2*LAMBDA}
+    + AS={5*10*LAMBDA*LAMBDA} PS={10*LAMBDA+2*10*LAMBDA} AD={5*10*LAMBDA*LAMBDA} PD={10*LAMBDA+2*10*LAMBDA}
+.ends InverterLoad
+
+Vdd vdd gnd 'SUPPLY' 
 
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
-VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 0.5ns 1ns
+* VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 0.45ns 0.9ns ; 1.11 GHz
+.param T_Period = 0.875n ; 1.143 GHz
+.param T_Period_half = {T_Period * 0.5}
+.param T_Period_Double = {T_Period * 2}
+
+VClk clk_line gnd pulse SUPPLY 0 0 50p 50p T_Period_half T_Period
 
 * VA3 A3 gnd pulse SUPPLY 0 0 1p 1p 160ns 320ns
 * VA2 A2 gnd pulse SUPPLY 0 0 1p 1p 80ns 160ns
@@ -52,7 +64,7 @@ VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 0.5ns 1ns
 
 * VCin Cin gnd 1
 
-* Finding the highest Frequency of operation - 8 and 1
+* Finding the highest Frequency of operation - 0 + 6->7 + 1 = 01111->10000
 VA3 A3 gnd 0
 VA2 A2 gnd 0
 VA1 A1 gnd 0
@@ -61,7 +73,8 @@ VA0 A0 gnd 0
 VB3 B3 gnd 0
 VB2 B2 gnd 'SUPPLY'
 VB1 B1 gnd 'SUPPLY'
-VB0 B0 gnd pulse 0 'SUPPLY' 0 0 0 1ns 2ns
+* VB0 B0 gnd pulse 0 SUPPLY 0 50p 50p 0.9ns 1.8ns ; 1.11 GHz
+VB0 B0 gnd pulse 0 'SUPPLY' 0 50p 50p T_Period T_Period_Double
 
 VCin Cin gnd 'SUPPLY'
 
@@ -82,11 +95,17 @@ VCin Cin gnd 'SUPPLY'
 
 XFinal clk_line A3 A2 A1 A0 B3 B2 B1 B0 Cin C_out_FF S3_FF S2_FF S1_FF S0_FF vdd gnd Final
 
-.measure tran C_out FIND V(C_out_FF) AT = 50n
-.measure tran S3 FIND V(S3_FF) AT = 50n
-.measure tran S2 FIND V(S2_FF) AT = 50n
-.measure tran S1 FIND V(S1_FF) AT = 50n
-.measure tran S0 FIND V(S0_FF) AT = 50n
+XLoad0 S0_FF Temp0 vdd gnd InverterLoad
+XLoad1 S1_FF Temp1 vdd gnd InverterLoad
+XLoad2 S2_FF Temp2 vdd gnd InverterLoad
+XLoad3 S3_FF Temp3 vdd gnd InverterLoad
+XLoad4 C_out_FF Temp4 vdd gnd InverterLoad
+
+* .measure tran C_out FIND V(C_out_FF) AT = 50n
+* .measure tran S3 FIND V(S3_FF) AT = 50n
+* .measure tran S2 FIND V(S2_FF) AT = 50n
+* .measure tran S1 FIND V(S1_FF) AT = 50n
+* .measure tran S0 FIND V(S0_FF) AT = 50n
 
 * .measure tran trise
 * + TRIG V(Q) VAL = 'SUPPLY / 10' TD = 5ns TO = 15ns RISE = 1

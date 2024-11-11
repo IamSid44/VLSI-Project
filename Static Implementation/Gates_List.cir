@@ -69,8 +69,8 @@
 
 .subckt OR_Gate A B out high low
 
-    XNOR A B out_inter vdd gnd Small_NOR_Gate
-    XInverter out_inter out vdd gnd Inverter
+    XNOR A B out_inter high low Small_NOR_Gate
+    XInverter out_inter out high low Inverter
 
 .ends OR_Gate
 
@@ -114,8 +114,8 @@
 
 .subckt AND_Gate A B out high low
 
-    XNAND A B out_inter vdd gnd NAND_Gate
-    XInverter out_inter out vdd gnd Inverter
+    XNAND A B out_inter high low NAND_Gate
+    XInverter out_inter out high low Inverter
 
 .ends AND_Gate
 
