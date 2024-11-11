@@ -1,0 +1,33 @@
+timestamp 1731349477
+version 8.3
+tech scmos
+style TSMC0.18um(tsmc18)from:t11b
+scale 1000 1 9
+resistclasses 6700 7500 929000 929000 1 7700 7700 80 80 80 70 70 40
+node "GND" 54 99.5187 6 -19 ndc 130 72 0 0 0 0 0 0 0 0 0 0 0 0 125 88 0 0 0 0 0 0 0 0 0 0
+node "low_latch_out" 78 37.4787 35 -19 ndif 65 36 200 90 0 0 0 0 0 0 0 0 0 0 83 60 0 0 0 0 0 0 0 0 0 0
+node "a_35_6#" 75 0 35 6 pdif 0 0 160 88 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "a_13_6#" 75 0 13 6 pdif 0 0 160 88 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "VDD" 138 103.309 6 6 pdif 0 0 400 180 0 0 0 0 0 0 0 0 0 0 191 132 0 0 0 0 0 0 0 0 0 0
+node "a_13_n19#" 352 155.811 13 -19 ndif 65 36 200 90 0 0 0 0 0 0 158 154 0 0 117 82 0 0 0 0 0 0 0 0 0 0
+node "clk" 383 197.577 17 3 p 0 0 0 0 0 0 0 0 0 0 226 216 0 0 50 40 125 80 0 0 0 0 0 0 0 0
+node "low_latch_in" 273 112.537 7 -5 pc 0 0 0 0 0 0 0 0 0 0 158 154 0 0 22 20 0 0 0 0 0 0 0 0 0 0
+node "w_0_0#" 929 2715.9 0 0 nw 0 0 0 0 2704 208 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cap "w_0_0#" "VDD" 63.1506
+cap "clk" "a_13_n19#" 33.993
+cap "low_latch_out" "w_0_0#" 22.7202
+cap "w_0_0#" "low_latch_in" 64.77
+cap "clk" "VDD" 173.145
+cap "GND" "low_latch_in" 24.12
+cap "w_0_0#" "clk" 401.622
+cap "low_latch_in" "clk" 33.993
+cap "w_0_0#" "a_13_n19#" 87.4902
+fet nfet 33 -19 34 -18 26 30 "Gnd!" "a_13_n19#" 4 0 "GND" 13 0 "low_latch_out" 13 0
+fet nfet 11 -19 12 -18 26 30 "Gnd!" "low_latch_in" 4 0 "GND" 13 0 "a_13_n19#" 13 0
+fet pfet 39 6 40 7 80 84 "w_0_0#" "clk" 4 0 "a_35_6#" 40 0 "low_latch_out" 40 0
+fet pfet 33 6 34 7 80 84 "w_0_0#" "a_13_n19#" 4 0 "VDD" 40 0 "a_35_6#" 40 0
+fet pfet 17 6 18 7 80 84 "w_0_0#" "clk" 4 0 "a_13_6#" 40 0 "a_13_n19#" 40 0
+fet pfet 11 6 12 7 80 84 "w_0_0#" "low_latch_in" 4 0 "VDD" 40 0 "a_13_6#" 40 0
+subcap "GND" -19.803
+subcap "VDD" -99.3015
+subcap "low_latch_in" -2.9517

@@ -1,4 +1,83 @@
 magic
 tech scmos
-timestamp 0
+timestamp 1731349477
+<< nwell >>
+rect 0 0 52 52
+<< ntransistor >>
+rect 11 -19 13 -6
+rect 33 -19 35 -6
+<< ptransistor >>
+rect 11 6 13 46
+rect 17 6 19 46
+rect 33 6 35 46
+rect 39 6 41 46
+<< ndiffusion >>
+rect 6 -15 11 -6
+rect 10 -19 11 -15
+rect 13 -10 14 -6
+rect 13 -19 18 -10
+rect 28 -15 33 -6
+rect 32 -19 33 -15
+rect 35 -10 36 -6
+rect 35 -19 40 -10
+<< pdiffusion >>
+rect 10 42 11 46
+rect 6 6 11 42
+rect 13 6 17 46
+rect 19 10 24 46
+rect 19 6 20 10
+rect 32 42 33 46
+rect 28 6 33 42
+rect 35 6 39 46
+rect 41 10 46 46
+rect 41 6 42 10
+<< ndcontact >>
+rect 6 -19 10 -15
+rect 14 -10 18 -6
+rect 28 -19 32 -15
+rect 36 -10 40 -6
+<< pdcontact >>
+rect 6 42 10 46
+rect 20 6 24 10
+rect 28 42 32 46
+rect 42 6 46 10
+<< polysilicon >>
+rect 11 46 13 49
+rect 17 46 19 47
+rect 33 46 35 49
+rect 39 46 41 47
+rect 11 -6 13 6
+rect 17 3 19 6
+rect 33 -6 35 6
+rect 39 3 41 6
+rect 11 -22 13 -19
+rect 33 -22 35 -19
+<< polycontact >>
+rect 7 -5 11 -1
+rect 29 -5 33 -1
+<< metal1 >>
+rect 3 57 28 60
+rect 3 43 6 57
+rect 25 43 28 57
+rect 20 -1 23 6
+rect 5 -4 7 -1
+rect 20 -4 29 -1
+rect 20 -6 23 -4
+rect 42 -6 45 6
+rect 18 -9 23 -6
+rect 40 -9 45 -6
+rect 6 -22 9 -19
+rect 28 -22 31 -19
+rect 6 -25 31 -22
+<< pm12contact >>
+rect 17 47 22 52
+rect 39 47 44 52
+<< metal2 >>
+rect 19 52 44 55
+<< labels >>
+rlabel metal1 14 58 14 58 5 VDD
+rlabel metal1 19 -23 19 -23 1 GND
+rlabel metal1 6 -2 6 -2 1 low_latch_in
+rlabel metal1 43 -5 43 -5 1 low_latch_out
+rlabel metal2 33 54 33 54 1 clk
 << end >>

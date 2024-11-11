@@ -1,0 +1,32 @@
+* SPICE3 file created from Low_Latch.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 a_13_n19# clk a_13_6# w_0_0# pfet w=40 l=2
++  ad=200 pd=90 as=160 ps=88
+M1001 a_13_6# low_latch_in VDD w_0_0# pfet w=40 l=2
++  ad=0 pd=0 as=400 ps=180
+M1002 low_latch_out clk a_35_6# w_0_0# pfet w=40 l=2
++  ad=200 pd=90 as=160 ps=88
+M1003 low_latch_out a_13_n19# GND Gnd nfet w=13 l=2
++  ad=65 pd=36 as=130 ps=72
+M1004 a_13_n19# low_latch_in GND Gnd nfet w=13 l=2
++  ad=65 pd=36 as=0 ps=0
+M1005 a_35_6# a_13_n19# VDD w_0_0# pfet w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+C0 low_latch_in w_0_0# 0.06fF
+C1 clk low_latch_in 0.03fF
+C2 VDD w_0_0# 0.06fF
+C3 clk VDD 0.17fF
+C4 w_0_0# low_latch_out 0.02fF
+C5 a_13_n19# w_0_0# 0.09fF
+C6 clk a_13_n19# 0.03fF
+C7 GND low_latch_in 0.02fF
+C8 clk w_0_0# 0.40fF
+C9 GND Gnd 0.08fF
+C10 low_latch_out Gnd 0.04fF
+C11 VDD Gnd 0.00fF
+C12 a_13_n19# Gnd 0.16fF
+C13 clk Gnd 0.20fF
+C14 low_latch_in Gnd 0.11fF
+C15 w_0_0# Gnd 2.72fF
