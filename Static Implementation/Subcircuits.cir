@@ -2,8 +2,8 @@
 
 .subckt Propagate_Generate A B G_not P_not Inter_Sum high low
 
-    XNAND A B G_not high low NAND_Gate
-    XNOR A B P_not high low NOR_Gate
+    XNAND A B G_not high low Bigger_NAND_Gate
+    XNOR A B P_not high low Bigger_NOR_Gate
 
     XInv A A_not high low Inverter
     XXOR A A_not B Inter_Sum high low XOR_Gate

@@ -5,22 +5,43 @@
     + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 .ends Inverter
 
-* Changed widths to make the circuit faster, NMOS to 1.5 times the size
 .subckt NOR_Gate A B out high low
 
-    MPUN_01 high A NOR_Inter high CMOSP W={2*width_P} L={2*LAMBDA}
-    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+    .param width_N_NOR = {2 * width_N}
+    .param width_P_NOR = {2 * width_P}
 
-    MPUN_02 NOR_Inter B out NOR_Inter CMOSP W={2*width_P} L={2*LAMBDA}
-    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+    MPUN_01 high A NOR_Inter high CMOSP W={width_P_NOR} L={2*LAMBDA}
+    + AS={5*width_P_NOR*LAMBDA} PS={10*LAMBDA+2*width_P_NOR} AD={5*width_P_NOR*LAMBDA} PD={10*LAMBDA+2*width_P_NOR}
 
-    MPDN_01 out A low low CMOSN W={1.5*width_N} L={2*LAMBDA}
-    + AS={5*1.5*width_N*LAMBDA} PS={10*LAMBDA+2*1.5*width_N} AD={5*1.5*width_N*LAMBDA} PD={10*LAMBDA+2*1.5*width_N}
+    MPUN_02 NOR_Inter B out NOR_Inter CMOSP W={width_P_NOR} L={2*LAMBDA}
+    + AS={5*width_P_NOR*LAMBDA} PS={10*LAMBDA+2*width_P_NOR} AD={5*width_P_NOR*LAMBDA} PD={10*LAMBDA+2*width_P_NOR}
 
-    MPDN_02 out B low low CMOSN W={1.5*width_N} L={2*LAMBDA}
-    + AS={5*1.5*width_N*LAMBDA} PS={10*LAMBDA+2*1.5*width_N} AD={5*1.5*width_N*LAMBDA} PD={10*LAMBDA+2*1.5*width_N}
+    MPDN_01 out A low low CMOSN W={width_N_NOR} L={2*LAMBDA}
+    + AS={5*width_N_NOR*LAMBDA} PS={10*LAMBDA+2*width_N_NOR} AD={5*width_N_NOR*LAMBDA} PD={10*LAMBDA+2*width_N_NOR}
+
+    MPDN_02 out B low low CMOSN W={width_N_NOR} L={2*LAMBDA}
+    + AS={5*width_N_NOR*LAMBDA} PS={10*LAMBDA+2*width_N_NOR} AD={5*width_N_NOR*LAMBDA} PD={10*LAMBDA+2*width_N_NOR}
 
 .ends NOR_Gate
+
+.subckt Bigger_NOR_Gate A B out high low
+
+    .param width_N_NOR = {4 * width_N}
+    .param width_P_NOR = {4 * width_P}
+
+    MPUN_01 high A NOR_Inter high CMOSP W={width_P_NOR} L={2*LAMBDA}
+    + AS={5*width_P_NOR*LAMBDA} PS={10*LAMBDA+2*width_P_NOR} AD={5*width_P_NOR*LAMBDA} PD={10*LAMBDA+2*width_P_NOR}
+
+    MPUN_02 NOR_Inter B out NOR_Inter CMOSP W={width_P_NOR} L={2*LAMBDA}
+    + AS={5*width_P_NOR*LAMBDA} PS={10*LAMBDA+2*width_P_NOR} AD={5*width_P_NOR*LAMBDA} PD={10*LAMBDA+2*width_P_NOR}
+
+    MPDN_01 out A low low CMOSN W={width_N_NOR} L={2*LAMBDA}
+    + AS={5*width_N_NOR*LAMBDA} PS={10*LAMBDA+2*width_N_NOR} AD={5*width_N_NOR*LAMBDA} PD={10*LAMBDA+2*width_N_NOR}
+
+    MPDN_02 out B low low CMOSN W={width_N_NOR} L={2*LAMBDA}
+    + AS={5*width_N_NOR*LAMBDA} PS={10*LAMBDA+2*width_N_NOR} AD={5*width_N_NOR*LAMBDA} PD={10*LAMBDA+2*width_N_NOR}
+
+.ends Bigger_NOR_Gate
 
 .subckt OR_Gate A B out high low
 
@@ -31,19 +52,41 @@
 
 .subckt NAND_Gate A B out high low
 
-    MPUN_01 high A out high CMOSP W={width_P} L={2*LAMBDA}
-    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    .param width_N_NAND = {2 * width_N}
+    .param width_P_NAND = {1 * width_P}
 
-    MPUN_02 high B out high CMOSP W={width_P} L={2*LAMBDA}
-    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    MPUN_01 high A out high CMOSP W={width_P_NAND} L={2*LAMBDA}
+    + AS={5*width_P_NAND*LAMBDA} PS={10*LAMBDA+2*width_P_NAND} AD={5*width_P_NAND*LAMBDA} PD={10*LAMBDA+2*width_P_NAND}
 
-    MPDN_01 out A NAND_PDN_Inter NAND_PDN_Inter CMOSN W={2*width_N} L={2*LAMBDA}
-    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+    MPUN_02 high B out high CMOSP W={width_P_NAND} L={2*LAMBDA}
+    + AS={5*width_P_NAND*LAMBDA} PS={10*LAMBDA+2*width_P_NAND} AD={5*width_P_NAND*LAMBDA} PD={10*LAMBDA+2*width_P_NAND}
 
-    MPDN_02 NAND_PDN_Inter B low low CMOSN W={2*width_N} L={2*LAMBDA}
-    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+    MPDN_01 out A NAND_PDN_Inter NAND_PDN_Inter CMOSN W={width_N_NAND} L={2*LAMBDA}
+    + AS={5*width_N_NAND*LAMBDA} PS={10*LAMBDA+2*width_N_NAND} AD={5*width_N_NAND*LAMBDA} PD={10*LAMBDA+2*width_N_NAND}
+
+    MPDN_02 NAND_PDN_Inter B low low CMOSN W={width_N_NAND} L={2*LAMBDA}
+    + AS={5*width_N_NAND*LAMBDA} PS={10*LAMBDA+2*width_N_NAND} AD={5*width_N_NAND*LAMBDA} PD={10*LAMBDA+2*width_N_NAND}
 
 .ends NAND_Gate
+
+.subckt Bigger_NAND_Gate A B out high low
+
+    .param width_N_NAND = {4 * width_N}
+    .param width_P_NAND = {2 * width_P}
+
+    MPUN_01 high A out high CMOSP W={width_P_NAND} L={2*LAMBDA}
+    + AS={5*width_P_NAND*LAMBDA} PS={10*LAMBDA+2*width_P_NAND} AD={5*width_P_NAND*LAMBDA} PD={10*LAMBDA+2*width_P_NAND}
+
+    MPUN_02 high B out high CMOSP W={width_P_NAND} L={2*LAMBDA}
+    + AS={5*width_P_NAND*LAMBDA} PS={10*LAMBDA+2*width_P_NAND} AD={5*width_P_NAND*LAMBDA} PD={10*LAMBDA+2*width_P_NAND}
+
+    MPDN_01 out A NAND_PDN_Inter NAND_PDN_Inter CMOSN W={width_N_NAND} L={2*LAMBDA}
+    + AS={5*width_N_NAND*LAMBDA} PS={10*LAMBDA+2*width_N_NAND} AD={5*width_N_NAND*LAMBDA} PD={10*LAMBDA+2*width_N_NAND}
+
+    MPDN_02 NAND_PDN_Inter B low low CMOSN W={width_N_NAND} L={2*LAMBDA}
+    + AS={5*width_N_NAND*LAMBDA} PS={10*LAMBDA+2*width_N_NAND} AD={5*width_N_NAND*LAMBDA} PD={10*LAMBDA+2*width_N_NAND}
+
+.ends Bigger_NAND_Gate
 
 .subckt AND_Gate A B out high low
 
@@ -52,14 +95,13 @@
 
 .ends AND_Gate
 
-* Changed widths to make the circuit faster, half the size
 .subckt XOR_Gate A A_not B out high low
 
     * Inverter logic - Careful with the body nodes
-    M3 A B out high CMOSP W={0.5*width_P} L={2*LAMBDA}
-    + AS={5*0.5*width_P*LAMBDA} PS={10*LAMBDA+2*0.5*width_P} AD={5*0.5*width_P*LAMBDA} PD={10*LAMBDA+2*0.5*width_P}
-    M4 out B A_not low CMOSN W={0.5*width_N} L={2*LAMBDA}
-    + AS={5*0.5*width_N*LAMBDA} PS={10*LAMBDA+2*0.5*width_N} AD={5*0.5*width_N*LAMBDA} PD={10*LAMBDA+2*0.5*width_N}
+    M3 A B out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M4 out B A_not low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
 
     * Analog Transmission gate
     M1 out A B high CMOSP W={0.5*width_P} L={2*LAMBDA}

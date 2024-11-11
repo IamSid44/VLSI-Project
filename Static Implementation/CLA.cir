@@ -3,8 +3,8 @@ NGSPICE Netlist for the Carry and Sum Logic of a 4-bit Carry Lookahead Adder
 .include "TSMC_180nm.txt"
 .param SUPPLY = 1.8
 .param LAMBDA = 0.09u
-.param width_N = {20 * LAMBDA} ; Vary the width (1)
-.param width_P = {1.5 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.param width_N = {10 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
 .global gnd vdd
 
 .include "Subcircuits.cir"
