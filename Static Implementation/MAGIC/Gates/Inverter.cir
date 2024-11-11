@@ -1,0 +1,45 @@
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.global gnd vdd
+
+* Supply
+Vdd vdd gnd 'SUPPLY'
+
+* SPICE3 file created from Inverter.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 Inverter_Out Inverter_In gnd Gnd CMOSN w=11 l=2
++  ad=55 pd=32 as=55 ps=32
+M1001 Inverter_Out Inverter_In vdd w_0_0# CMOSP w=22 l=2
++  ad=110 pd=54 as=110 ps=54
+C0 Inverter_Out w_0_0# 0.02fF
+C1 Inverter_In Inverter_Out 0.04fF
+C2 vdd w_0_0# 0.02fF
+C3 Inverter_In w_0_0# 0.06fF
+C4 gnd Gnd 0.01fF
+C5 Inverter_Out Gnd 0.02fF
+C6 vdd Gnd 0.01fF
+C7 Inverter_In Gnd 0.10fF
+C8 w_0_0# Gnd 0.82fF
+
+VD Inverter_In gnd pulse 0 SUPPLY 0 50p 50p 1.25ns 2.5ns
+
+.tran 1ps 5ns
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+let input = 'Inverter_In + 2'
+let output = 'Inverter_Out'
+plot input output
+
+.endc
+
+.end
