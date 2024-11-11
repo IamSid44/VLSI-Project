@@ -12,8 +12,8 @@
 
 .subckt Small_NOR_Gate A B out high low
 
-    .param width_N_NOR = {2 * width_N}
-    .param width_P_NOR = {2 * width_P}
+    .param width_P_NOR = {0.5 * width_P}
+    .param width_N_NOR = {0.5 * width_N}
 
     MPUN_01 high A NOR_Inter high CMOSP W={width_P_NOR} L={2*LAMBDA}
     + AS={5*width_P_NOR*LAMBDA} PS={10*LAMBDA+2*width_P_NOR} AD={5*width_P_NOR*LAMBDA} PD={10*LAMBDA+2*width_P_NOR}
@@ -31,8 +31,8 @@
 
 .subckt Medium_NOR_Gate A B out high low
 
-    .param width_N_NOR = {0.5 * width_N}
-    .param width_P_NOR = {0.5 * width_P}
+    .param width_N_NOR = {2 * width_N}
+    .param width_P_NOR = {2 * width_P}
 
     MPUN_01 high A NOR_Inter high CMOSP W={width_P_NOR} L={2*LAMBDA}
     + AS={5*width_P_NOR*LAMBDA} PS={10*LAMBDA+2*width_P_NOR} AD={5*width_P_NOR*LAMBDA} PD={10*LAMBDA+2*width_P_NOR}
@@ -69,7 +69,7 @@
 
 .subckt OR_Gate A B out high low
 
-    XNOR A B out_inter high low Small_NOR_Gate
+    XNOR A B out_inter high low Medium_NOR_Gate
     XInverter out_inter out high low Inverter
 
 .ends OR_Gate

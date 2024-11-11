@@ -23,7 +23,7 @@
 
     XOR Pi_not Gi_1_not temp high low OR_Gate
     XNAND Gi_not temp inter_nand high low NAND_Gate
-    XNOR Pi_not Pi_1_not inter_nor high low Medium_NOR_Gate
+    XNOR Pi_not Pi_1_not inter_nor high low Small_NOR_Gate
 
 .ends Helper
 
@@ -53,7 +53,7 @@
 
     XHelper30 G3_not P3_not G2_not P2_not C3_inter_nand C3_inter_nor high low Helper
     XAND31 C1_inter_nand C3_inter_nor C3_inter_01 high low AND_Gate
-    XNOR32 C3_inter_nand C3_inter_01 C3_inter_02 high low Small_NOR_Gate
+    XNOR32 C3_inter_nand C3_inter_01 C3_inter_02 high low Medium_NOR_Gate
     XNAND33 C3_inter_nor C1_inter_nor C3_inter_03 high low NAND_Gate
     XOR34 C3_inter_03 Cin_not C3_inter_04 high low OR_Gate
     XNAND35 C3_inter_02 C3_inter_04 C3 high low NAND_Gate
