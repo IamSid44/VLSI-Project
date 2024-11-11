@@ -4,29 +4,29 @@
 
 M1000 gnd high_latch_in a_39_6# Gnd nfet w=20 l=2
 +  ad=200 pd=100 as=120 ps=52
-M1001 a_11_n5# high_latch_in VDD w_1_n34# pfet w=20 l=2
+M1001 High_Inter high_latch_in VDD w_1_n34# pfet w=20 l=2
 +  ad=100 pd=50 as=200 ps=100
 M1002 a_39_n28# clk high_latch_out Gnd nfet w=20 l=2
 +  ad=120 pd=52 as=100 ps=50
-M1003 gnd a_11_n5# a_39_n28# Gnd nfet w=20 l=2
+M1003 gnd High_Inter a_39_n28# Gnd nfet w=20 l=2
 +  ad=0 pd=0 as=0 ps=0
-M1004 a_39_6# clk a_11_n5# Gnd nfet w=20 l=2
+M1004 a_39_6# clk High_Inter Gnd nfet w=20 l=2
 +  ad=0 pd=0 as=120 ps=52
-M1005 high_latch_out a_11_n5# VDD w_1_n34# pfet w=20 l=2
+M1005 high_latch_out High_Inter VDD w_1_n34# pfet w=20 l=2
 +  ad=100 pd=50 as=0 ps=0
-C0 w_1_n34# VDD 0.12fF
-C1 a_11_n5# clk 0.05fF
-C2 w_1_n34# a_11_n5# 0.15fF
-C3 a_11_n5# gnd 0.05fF
-C4 clk high_latch_in 0.16fF
-C5 w_1_n34# high_latch_in 0.08fF
-C6 w_1_n34# high_latch_out 0.02fF
-C7 a_11_n5# VDD 0.04fF
-C8 VDD high_latch_in 0.05fF
-C9 a_11_n5# high_latch_in 0.02fF
+C0 high_latch_in w_1_n34# 0.08fF
+C1 w_1_n34# High_Inter 0.15fF
+C2 w_1_n34# high_latch_out 0.02fF
+C3 high_latch_in VDD 0.05fF
+C4 VDD High_Inter 0.04fF
+C5 high_latch_in clk 0.16fF
+C6 High_Inter clk 0.05fF
+C7 high_latch_in High_Inter 0.02fF
+C8 w_1_n34# VDD 0.12fF
+C9 gnd High_Inter 0.05fF
 C10 high_latch_out Gnd 0.03fF
 C11 gnd Gnd 0.08fF
-C12 a_11_n5# Gnd 0.43fF
+C12 High_Inter Gnd 0.43fF
 C13 VDD Gnd 0.01fF
 C14 clk Gnd 0.32fF
 C15 high_latch_in Gnd 0.23fF

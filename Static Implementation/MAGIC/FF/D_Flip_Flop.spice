@@ -2,61 +2,54 @@
 
 .option scale=0.09u
 
-M1000 a_n17_47# clk a_n45_36# Gnd nfet w=20 l=2
+M1000 GND D_FF_High_Inter a_n17_12# Gnd nfet w=20 l=2
++  ad=330 pd=172 as=120 ps=52
+M1001 DFF_Inter clk a_n68_33# w_n103_27# pfet w=40 l=2
++  ad=200 pd=90 as=160 ps=88
+M1002 DFF_Inter a_n90_8# GND Gnd nfet w=13 l=2
++  ad=65 pd=36 as=0 ps=0
+M1003 a_n68_33# a_n90_8# VDD w_n103_27# pfet w=40 l=2
++  ad=0 pd=0 as=600 ps=280
+M1004 a_n17_46# clk D_FF_High_Inter Gnd nfet w=20 l=2
 +  ad=120 pd=52 as=120 ps=52
-M1001 a_n45_36# a_n45_70# VDD w_n103_27# pfet w=20 l=2
-+  ad=100 pd=50 as=600 ps=280
-M1002 a_n68_8# clk a_n68_33# w_n103_27# pfet w=40 l=2
-+  ad=200 pd=90 as=160 ps=88
-M1003 a_n68_8# a_n90_8# GND Gnd nfet w=13 l=2
-+  ad=65 pd=36 as=330 ps=172
-M1004 a_n68_33# a_n90_8# VDD w_n103_27# pfet w=40 l=2
-+  ad=0 pd=0 as=0 ps=0
-M1005 a_n17_13# clk DFF_Out Gnd nfet w=20 l=2
-+  ad=120 pd=52 as=100 ps=50
-M1006 DFF_Out a_n45_36# VDD w_n103_27# pfet w=20 l=2
+M1005 D_FF_High_Inter DFF_Inter VDD w_n103_27# pfet w=20 l=2
 +  ad=100 pd=50 as=0 ps=0
-M1007 GND a_n11_44# a_n17_47# Gnd nfet w=20 l=2
-+  ad=0 pd=0 as=0 ps=0
-M1008 GND a_n45_36# a_n17_13# Gnd nfet w=20 l=2
-+  ad=0 pd=0 as=0 ps=0
-M1009 a_n90_8# clk a_n90_33# w_n103_27# pfet w=40 l=2
+M1006 a_n17_12# clk DFF_Out Gnd nfet w=20 l=2
++  ad=0 pd=0 as=100 ps=50
+M1007 DFF_Out D_FF_High_Inter VDD w_n103_27# pfet w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1008 a_n90_8# clk a_n90_33# w_n103_27# pfet w=40 l=2
 +  ad=200 pd=90 as=160 ps=88
+M1009 GND DFF_Inter a_n17_46# Gnd nfet w=20 l=2
++  ad=0 pd=0 as=0 ps=0
 M1010 a_n90_8# DFF_In GND Gnd nfet w=13 l=2
 +  ad=65 pd=36 as=0 ps=0
 M1011 a_n90_33# DFF_In VDD w_n103_27# pfet w=40 l=2
 +  ad=0 pd=0 as=0 ps=0
-C0 w_n103_27# VDD 0.20fF
-C1 clk a_n11_44# 0.02fF
-C2 VDD a_n68_8# 0.15fF
-C3 a_n45_70# a_n45_36# 0.01fF
-C4 w_n103_27# clk 0.33fF
-C5 clk a_n68_8# 0.12fF
-C6 a_n68_8# a_n11_44# 0.03fF
-C7 w_n103_27# a_n68_8# 0.19fF
-C8 VDD a_n45_36# 0.04fF
-C9 clk a_n90_8# 0.03fF
-C10 clk a_n45_36# 0.05fF
-C11 a_n11_44# a_n45_36# 0.01fF
-C12 w_n103_27# a_n90_8# 0.09fF
-C13 DFF_In clk 0.03fF
-C14 w_n103_27# a_n45_36# 0.15fF
-C15 w_n103_27# DFF_In 0.06fF
-C16 w_n103_27# a_n45_70# 0.07fF
-C17 a_n90_8# GND 0.02fF
-C18 a_n68_8# a_n45_70# 0.07fF
-C19 a_n45_36# GND 0.05fF
-C20 clk VDD 0.31fF
-C21 w_n103_27# DFF_Out 0.02fF
-C22 DFF_In GND 0.02fF
-C23 DFF_Out Gnd 0.02fF
-C24 GND Gnd 0.18fF
-C25 a_n45_36# Gnd 0.02fF
-C26 a_n11_44# Gnd 0.05fF
-C27 a_n45_70# Gnd 0.02fF
-C28 a_n68_8# Gnd 0.14fF
-C29 VDD Gnd 0.16fF
-C30 a_n90_8# Gnd 0.16fF
-C31 clk Gnd 0.62fF
-C32 DFF_In Gnd 0.11fF
-C33 w_n103_27# Gnd 4.16fF
+C0 w_n103_27# clk 0.33fF
+C1 DFF_In w_n103_27# 0.06fF
+C2 DFF_Inter D_FF_High_Inter 0.02fF
+C3 D_FF_High_Inter w_n103_27# 0.15fF
+C4 VDD clk 0.31fF
+C5 GND DFF_In 0.02fF
+C6 DFF_Inter w_n103_27# 0.23fF
+C7 w_n103_27# a_n90_8# 0.09fF
+C8 DFF_In clk 0.03fF
+C9 D_FF_High_Inter VDD 0.04fF
+C10 D_FF_High_Inter GND 0.05fF
+C11 D_FF_High_Inter clk 0.05fF
+C12 DFF_Inter VDD 0.14fF
+C13 GND a_n90_8# 0.02fF
+C14 w_n103_27# VDD 0.20fF
+C15 DFF_Inter clk 0.25fF
+C16 a_n90_8# clk 0.03fF
+C17 w_n103_27# DFF_Out 0.02fF
+C18 DFF_Out Gnd 0.03fF
+C19 GND Gnd 0.19fF
+C20 D_FF_High_Inter Gnd 0.17fF
+C21 DFF_Inter Gnd 0.22fF
+C22 VDD Gnd 0.16fF
+C23 a_n90_8# Gnd 0.16fF
+C24 clk Gnd 0.64fF
+C25 DFF_In Gnd 0.11fF
+C26 w_n103_27# Gnd 4.17fF
