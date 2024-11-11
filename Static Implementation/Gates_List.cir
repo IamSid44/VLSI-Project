@@ -29,6 +29,25 @@
 
 .ends NOR_Gate
 
+.subckt Inter_NOR_Gate A B out high low
+
+    .param width_N_NOR = {0.5 * width_N}
+    .param width_P_NOR = {0.5 * width_P}
+
+    MPUN_01 high A NOR_Inter high CMOSP W={width_P_NOR} L={2*LAMBDA}
+    + AS={5*width_P_NOR*LAMBDA} PS={10*LAMBDA+2*width_P_NOR} AD={5*width_P_NOR*LAMBDA} PD={10*LAMBDA+2*width_P_NOR}
+
+    MPUN_02 NOR_Inter B out NOR_Inter CMOSP W={width_P_NOR} L={2*LAMBDA}
+    + AS={5*width_P_NOR*LAMBDA} PS={10*LAMBDA+2*width_P_NOR} AD={5*width_P_NOR*LAMBDA} PD={10*LAMBDA+2*width_P_NOR}
+
+    MPDN_01 out A low low CMOSN W={width_N_NOR} L={2*LAMBDA}
+    + AS={5*width_N_NOR*LAMBDA} PS={10*LAMBDA+2*width_N_NOR} AD={5*width_N_NOR*LAMBDA} PD={10*LAMBDA+2*width_N_NOR}
+
+    MPDN_02 out B low low CMOSN W={width_N_NOR} L={2*LAMBDA}
+    + AS={5*width_N_NOR*LAMBDA} PS={10*LAMBDA+2*width_N_NOR} AD={5*width_N_NOR*LAMBDA} PD={10*LAMBDA+2*width_N_NOR}
+
+.ends Inter_NOR_Gate
+
 .subckt Bigger_NOR_Gate A B out high low
 
     .param width_N_NOR = {4 * width_N}

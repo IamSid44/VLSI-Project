@@ -23,7 +23,7 @@
 
     XOR Pi_not Gi_1_not temp high low OR_Gate
     XNAND Gi_not temp inter_nand high low NAND_Gate
-    XNOR Pi_not Pi_1_not inter_nor high low NOR_Gate
+    XNOR Pi_not Pi_1_not inter_nor high low Inter_NOR_Gate
 
 .ends Helper
 
