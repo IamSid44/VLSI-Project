@@ -1,7 +1,7 @@
 .subckt Inverter in out high low
 
-    .param width_N_Inverter = {1 * width_N}
-    .param width_P_Inverter = {1 * width_P}
+    .param width_N_Inverter = {1.1 * width_N}
+    .param width_P_Inverter = {1.1 * width_P}
 
     M1 high in out high CMOSP W={width_P_Inverter} L={2*LAMBDA}
     + AS={5*width_P_Inverter*LAMBDA} PS={10*LAMBDA+2*width_P_Inverter} AD={5*width_P_Inverter*LAMBDA} PD={10*LAMBDA+2*width_P_Inverter}
@@ -10,7 +10,7 @@
 
 .ends Inverter
 
-.subckt NOR_Gate A B out high low
+.subckt Small_NOR_Gate A B out high low
 
     .param width_N_NOR = {2 * width_N}
     .param width_P_NOR = {2 * width_P}
@@ -27,9 +27,9 @@
     MPDN_02 out B low low CMOSN W={width_N_NOR} L={2*LAMBDA}
     + AS={5*width_N_NOR*LAMBDA} PS={10*LAMBDA+2*width_N_NOR} AD={5*width_N_NOR*LAMBDA} PD={10*LAMBDA+2*width_N_NOR}
 
-.ends NOR_Gate
+.ends Small_NOR_Gate
 
-.subckt Inter_NOR_Gate A B out high low
+.subckt Medium_NOR_Gate A B out high low
 
     .param width_N_NOR = {0.5 * width_N}
     .param width_P_NOR = {0.5 * width_P}
@@ -46,7 +46,7 @@
     MPDN_02 out B low low CMOSN W={width_N_NOR} L={2*LAMBDA}
     + AS={5*width_N_NOR*LAMBDA} PS={10*LAMBDA+2*width_N_NOR} AD={5*width_N_NOR*LAMBDA} PD={10*LAMBDA+2*width_N_NOR}
 
-.ends Inter_NOR_Gate
+.ends Medium_NOR_Gate
 
 .subckt Bigger_NOR_Gate A B out high low
 
@@ -69,7 +69,7 @@
 
 .subckt OR_Gate A B out high low
 
-    XNOR A B out_inter vdd gnd NOR_Gate
+    XNOR A B out_inter vdd gnd Small_NOR_Gate
     XInverter out_inter out vdd gnd Inverter
 
 .ends OR_Gate
