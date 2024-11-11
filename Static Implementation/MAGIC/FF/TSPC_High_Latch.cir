@@ -10,38 +10,38 @@ Vdd vdd gnd 'SUPPLY'
 
 .option scale=0.09u
 
-M1000 gnd in a_39_6# Gnd CMOSN w=20 l=2
+M1000 gnd high_latch_in a_39_6# Gnd CMOSN w=20 l=2
 +  ad=200 pd=100 as=120 ps=52
-M1001 a_11_n5# in VDD w_1_n34# CMOSP w=20 l=2
+M1001 a_11_n5# high_latch_in VDD w_1_n34# CMOSP w=20 l=2
 +  ad=100 pd=50 as=200 ps=100
-M1002 a_39_n28# clk out Gnd CMOSN w=20 l=2
+M1002 a_39_n28# clk high_latch_out Gnd CMOSN w=20 l=2
 +  ad=120 pd=52 as=100 ps=50
 M1003 gnd a_11_n5# a_39_n28# Gnd CMOSN w=20 l=2
 +  ad=0 pd=0 as=0 ps=0
 M1004 a_39_6# clk a_11_n5# Gnd CMOSN w=20 l=2
 +  ad=0 pd=0 as=120 ps=52
-M1005 out a_11_n5# VDD w_1_n34# CMOSP w=20 l=2
+M1005 high_latch_out a_11_n5# VDD w_1_n34# CMOSP w=20 l=2
 +  ad=100 pd=50 as=0 ps=0
-C0 clk a_11_n5# 0.05fF
-C1 w_1_n34# VDD 0.12fF
-C2 in clk 0.16fF
+C0 w_1_n34# VDD 0.12fF
+C1 a_11_n5# clk 0.05fF
+C2 w_1_n34# a_11_n5# 0.15fF
 C3 a_11_n5# gnd 0.05fF
-C4 VDD a_11_n5# 0.04fF
-C5 w_1_n34# out 0.02fF
-C6 in VDD 0.05fF
-C7 w_1_n34# a_11_n5# 0.15fF
-C8 w_1_n34# in 0.08fF
-C9 in a_11_n5# 0.02fF
-C10 out Gnd 0.03fF
+C4 clk high_latch_in 0.16fF
+C5 w_1_n34# high_latch_in 0.08fF
+C6 w_1_n34# high_latch_out 0.02fF
+C7 a_11_n5# VDD 0.04fF
+C8 VDD high_latch_in 0.05fF
+C9 a_11_n5# high_latch_in 0.02fF
+C10 high_latch_out Gnd 0.03fF
 C11 gnd Gnd 0.08fF
-C12 a_11_n5# Gnd 0.42fF
+C12 a_11_n5# Gnd 0.43fF
 C13 VDD Gnd 0.01fF
-C14 clk Gnd 0.31fF
-C15 in Gnd 0.22fF
+C14 clk Gnd 0.32fF
+C15 high_latch_in Gnd 0.23fF
 C16 w_1_n34# Gnd 1.59fF
 
 VClk clk gnd pulse SUPPLY 0 0 50p 50p 1ns 2ns
-VD in gnd pulse 0 SUPPLY 0 50p 50p 2ns 4ns
+VD high_latch_in gnd pulse 0 SUPPLY 0 50p 50p 2ns 4ns
 
 .tran 1ps 5ns
 
@@ -55,8 +55,8 @@ set curplottitle = "Siddarth Gottumukkula 2023102040"
 set xbrushwidth = 3
 
 let clock = 'clk + 4'
-let input = 'in + 2'
-let output = 'out'
+let input = 'high_latch_in + 2'
+let output = 'high_latch_out'
 plot clock input output
 
 .endc
