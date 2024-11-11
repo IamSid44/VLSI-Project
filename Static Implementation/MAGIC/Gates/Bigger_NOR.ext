@@ -1,0 +1,30 @@
+timestamp 1731361347
+version 8.3
+tech scmos
+style TSMC0.18um(tsmc18)from:t11b
+scale 1000 1 9
+resistclasses 6700 7500 929000 929000 1 7700 7700 80 80 80 70 70 40
+node "gnd" 123 94.563 53 -11 ndc 400 180 0 0 0 0 0 0 0 0 0 0 0 0 122 86 0 0 0 0 0 0 0 0 0 0
+node "out_NOR" 154 57.0843 60 -11 ndif 320 96 400 170 0 0 0 0 0 0 0 0 0 0 113 80 0 0 0 0 0 0 0 0 0 0
+node "a_60_48#" 75 0 60 48 pdif 0 0 640 176 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "vdd" 120 8.9094 53 48 pdif 0 0 400 170 0 0 0 0 0 0 0 0 0 0 40 32 0 0 0 0 0 0 0 0 0 0
+node "in_1_NOR" 563 188.534 64 37 pc 0 0 0 0 0 0 0 0 0 0 308 304 0 0 58 44 0 0 0 0 0 0 0 0 0 0
+node "in_2_NOR" 562 164.921 54 30 pc 0 0 0 0 0 0 0 0 0 0 308 304 0 0 28 24 0 0 0 0 0 0 0 0 0 0
+node "w_47_42#" 2514 3141.76 47 42 nw 0 0 0 0 3128 252 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cap "w_47_42#" "in_2_NOR" 64.77
+cap "in_2_NOR" "out_NOR" 32.9904
+cap "w_47_42#" "in_1_NOR" 64.77
+cap "in_1_NOR" "out_NOR" 187.173
+cap "in_2_NOR" "gnd" 24.12
+cap "w_47_42#" "out_NOR" 22.7202
+cap "w_47_42#" "vdd" 22.7202
+cap "in_2_NOR" "in_1_NOR" 182.343
+cap "in_1_NOR" "gnd" 24.12
+fet nfet 68 -11 69 -10 80 84 "Gnd!" "in_1_NOR" 4 0 "out_NOR" 40 0 "gnd" 40 0
+fet nfet 58 -11 59 -10 80 84 "Gnd!" "in_2_NOR" 4 0 "gnd" 40 0 "out_NOR" 40 0
+fet pfet 68 48 69 49 160 164 "w_47_42#" "in_1_NOR" 4 0 "a_60_48#" 80 0 "out_NOR" 80 0
+fet pfet 58 48 59 49 160 164 "w_47_42#" "in_2_NOR" 4 0 "vdd" 80 0 "a_60_48#" 80 0
+subcap "gnd" -38.6781
+subcap "out_NOR" -14.9115
+subcap "in_1_NOR" -26.2966
+subcap "in_2_NOR" -16.2217

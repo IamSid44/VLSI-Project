@@ -1,0 +1,27 @@
+* SPICE3 file created from Bigger_NOR.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 out_NOR in_2_NOR gnd Gnd nfet w=40 l=2
++  ad=320 pd=96 as=400 ps=180
+M1001 out_NOR in_1_NOR a_60_48# w_47_42# pfet w=80 l=2
++  ad=400 pd=170 as=640 ps=176
+M1002 gnd in_1_NOR out_NOR Gnd nfet w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+M1003 a_60_48# in_2_NOR vdd w_47_42# pfet w=80 l=2
++  ad=0 pd=0 as=400 ps=170
+C0 in_2_NOR w_47_42# 0.06fF
+C1 in_1_NOR gnd 0.02fF
+C2 in_1_NOR in_2_NOR 0.18fF
+C3 out_NOR w_47_42# 0.02fF
+C4 in_1_NOR out_NOR 0.19fF
+C5 in_2_NOR gnd 0.02fF
+C6 vdd w_47_42# 0.02fF
+C7 in_2_NOR out_NOR 0.03fF
+C8 in_1_NOR w_47_42# 0.06fF
+C9 gnd Gnd 0.06fF
+C10 out_NOR Gnd 0.04fF
+C11 vdd Gnd 0.01fF
+C12 in_1_NOR Gnd 0.16fF
+C13 in_2_NOR Gnd 0.15fF
+C14 w_47_42# Gnd 3.14fF
