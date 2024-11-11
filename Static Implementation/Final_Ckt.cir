@@ -38,7 +38,7 @@ NGSPCIE Netlist Integrating the CLA with the Flip FLops
 Vdd vdd gnd 'SUPPLY'
 
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
-VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 0.5ns 1ns ; No Skew Currently, add a skew for practical measurements (3)
+VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 0.5ns 1ns
 
 * VA3 A3 gnd pulse SUPPLY 0 0 1p 1p 160ns 320ns
 * VA2 A2 gnd pulse SUPPLY 0 0 1p 1p 80ns 160ns
@@ -53,17 +53,17 @@ VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 0.5ns 1ns ; No Skew Currently, add a 
 * VCin Cin gnd 1
 
 * Finding the highest Frequency of operation - 8 and 1
-VA3 A3 gnd pulse 0 SUPPLY 0.125n 1p 1p 0.5ns 1ns
+VA3 A3 gnd 0
 VA2 A2 gnd 0
 VA1 A1 gnd 0
 VA0 A0 gnd 0
 
 VB3 B3 gnd 0
-VB2 B2 gnd 0
-VB1 B1 gnd 0
-VB0 B0 gnd pulse 0 SUPPLY 0.125n 1p 1p 0.5ns 1ns
+VB2 B2 gnd 'SUPPLY'
+VB1 B1 gnd 'SUPPLY'
+VB0 B0 gnd pulse 0 'SUPPLY' 0 0 0 1ns 2ns
 
-VCin Cin gnd 0
+VCin Cin gnd 'SUPPLY'
 
 * 0110 + 0111 + 1 = 01110
 * 6 + 7 + 1 = 14
