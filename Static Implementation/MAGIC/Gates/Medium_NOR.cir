@@ -1,0 +1,58 @@
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.global gnd vdd
+
+* Supply
+Vdd vdd gnd 'SUPPLY'
+
+* SPICE3 file created from Medium_NOR.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 out_NOR in_2_NOR gnd Gnd CMOSN w=21 l=2
++  ad=168 pd=58 as=210 ps=104
+M1001 a_13_6# in_2_NOR vdd w_0_0# CMOSP w=40 l=2
++  ad=320 pd=96 as=200 ps=90
+M1002 out_NOR in_1_NOR a_13_6# w_0_0# CMOSP w=40 l=2
++  ad=200 pd=90 as=0 ps=0
+M1003 gnd in_1_NOR out_NOR Gnd CMOSN w=21 l=2
++  ad=0 pd=0 as=0 ps=0
+C0 in_2_NOR gnd 0.02fF
+C1 vdd w_0_0# 0.02fF
+C2 w_0_0# out_NOR 0.02fF
+C3 in_1_NOR out_NOR 0.19fF
+C4 in_2_NOR out_NOR 0.03fF
+C5 w_0_0# in_1_NOR 0.06fF
+C6 w_0_0# in_2_NOR 0.06fF
+C7 in_2_NOR in_1_NOR 0.16fF
+C8 in_1_NOR gnd 0.02fF
+C9 gnd Gnd 0.06fF
+C10 out_NOR Gnd 0.06fF
+C11 vdd Gnd 0.01fF
+C12 in_1_NOR Gnd 0.19fF
+C13 in_2_NOR Gnd 0.17fF
+C14 w_0_0# Gnd 1.78fF
+
+VD1 in_1_NOR gnd pulse 0 SUPPLY 0 50p 50p 1ns 2ns
+VD2 in_2_NOR gnd pulse 0 SUPPLY 0 50p 50p 1.25ns 2.5ns
+
+.tran 1ps 5ns
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+
+let in1 = 'in_1_NOR + 4'
+let in2 = 'in_2_NOR + 2'
+let output = 'out_NOR'
+plot in1 in2 output
+
+.endc
+
+.end
