@@ -1,4 +1,4 @@
-timestamp 1731356220
+timestamp 1731395297
 version 8.3
 tech scmos
 style TSMC0.18um(tsmc18)from:t11b
@@ -9,10 +9,10 @@ node "Inverter_Out" 48 22.7202 13 -17 ndif 55 32 110 54 0 0 0 0 0 0 0 0 0 0 68 5
 node "vdd" 33 8.9094 6 6 pdif 0 0 110 54 0 0 0 0 0 0 0 0 0 0 40 32 0 0 0 0 0 0 0 0 0 0
 node "Inverter_In" 196 112.537 7 -5 pc 0 0 0 0 0 0 0 0 0 0 118 114 0 0 22 20 0 0 0 0 0 0 0 0 0 0
 node "w_0_0#" 1316 819.59 0 0 nw 0 0 0 0 816 116 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-cap "vdd" "w_0_0#" 22.7202
+cap "Inverter_Out" "Inverter_In" 41.238
+cap "w_0_0#" "Inverter_In" 64.77
 cap "Inverter_Out" "w_0_0#" 22.7202
-cap "Inverter_In" "Inverter_Out" 41.238
-cap "Inverter_In" "w_0_0#" 64.77
+cap "vdd" "w_0_0#" 22.7202
 fet nfet 11 -17 12 -16 22 26 "Gnd!" "Inverter_In" 4 0 "gnd" 11 0 "Inverter_Out" 11 0
 fet pfet 11 6 12 7 44 48 "w_0_0#" "Inverter_In" 4 0 "vdd" 22 0 "Inverter_Out" 22 0
 subcap "gnd" -2.9517

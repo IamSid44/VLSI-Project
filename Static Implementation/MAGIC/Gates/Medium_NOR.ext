@@ -1,30 +1,29 @@
-timestamp 1731359979
+timestamp 1731361417
 version 8.3
 tech scmos
 style TSMC0.18um(tsmc18)from:t11b
 scale 1000 1 9
 resistclasses 6700 7500 929000 929000 1 7700 7700 80 80 80 70 70 40
-node "gnd" 73 94.563 6 -35 ndc 210 104 0 0 0 0 0 0 0 0 0 0 0 0 122 86 0 0 0 0 0 0 0 0 0 0
-node "out_NOR" 79 60.036 13 -35 ndif 168 58 200 90 0 0 0 0 0 0 0 0 0 0 116 82 0 0 0 0 0 0 0 0 0 0
+node "gnd" 78 92.7762 6 -41 poc 200 100 16 16 0 0 0 0 0 0 0 0 0 0 126 88 0 0 0 0 0 0 0 0 0 0
+node "out_NOR" 78 57.0843 13 -33 ndif 160 56 200 90 0 0 0 0 0 0 0 0 0 0 113 80 0 0 0 0 0 0 0 0 0 0
 node "a_13_6#" 38 0 13 6 pdif 0 0 320 96 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-node "vdd" 60 8.9094 6 6 pdif 0 0 200 90 0 0 0 0 0 0 0 0 0 0 40 32 0 0 0 0 0 0 0 0 0 0
-node "in_1_NOR" 339 194.344 17 -5 pc 0 0 0 0 0 0 0 0 0 0 192 188 0 0 58 44 0 0 0 0 0 0 0 0 0 0
-node "in_2_NOR" 339 170.731 7 -13 pc 0 0 0 0 0 0 0 0 0 0 192 188 0 0 28 24 0 0 0 0 0 0 0 0 0 0
+node "in_1_NOR" 332 188.534 17 -5 pc 0 0 0 0 0 0 0 0 0 0 188 184 0 0 58 44 0 0 0 0 0 0 0 0 0 0
+node "in_2_NOR" 331 164.921 7 -12 pc 0 0 0 0 0 0 0 0 0 0 188 184 0 0 28 24 0 0 0 0 0 0 0 0 0 0
+node "vdd" 82 21.8811 6 6 pdif 0 0 216 106 0 0 0 0 0 0 0 0 0 0 59 44 0 0 0 0 0 0 0 0 0 0
 node "w_0_0#" 1421 1775.78 0 0 nw 0 0 0 0 1768 172 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-cap "w_0_0#" "in_2_NOR" 64.77
-cap "w_0_0#" "in_1_NOR" 64.77
-cap "in_2_NOR" "out_NOR" 32.9904
-cap "in_1_NOR" "out_NOR" 187.173
-cap "in_2_NOR" "gnd" 24.12
+cap "in_1_NOR" "w_0_0#" 64.77
 cap "in_1_NOR" "gnd" 24.12
-cap "w_0_0#" "vdd" 22.7202
-cap "in_2_NOR" "in_1_NOR" 160.349
-cap "w_0_0#" "out_NOR" 22.7202
-fet nfet 21 -35 22 -34 42 46 "Gnd!" "in_1_NOR" 4 0 "out_NOR" 21 0 "gnd" 21 0
-fet nfet 11 -35 12 -34 42 46 "Gnd!" "in_2_NOR" 4 0 "gnd" 21 0 "out_NOR" 21 0
+cap "in_2_NOR" "w_0_0#" 64.77
+cap "gnd" "in_2_NOR" 24.12
+cap "out_NOR" "w_0_0#" 22.7202
+cap "in_1_NOR" "in_2_NOR" 182.343
+cap "out_NOR" "in_1_NOR" 187.173
+cap "out_NOR" "in_2_NOR" 32.9904
+cap "vdd" "w_0_0#" 22.7202
+fet nfet 21 -33 22 -32 40 44 "Gnd!" "in_1_NOR" 4 0 "out_NOR" 20 0 "gnd" 20 0
+fet nfet 11 -33 12 -32 40 44 "Gnd!" "in_2_NOR" 4 0 "gnd" 20 0 "out_NOR" 20 0
 fet pfet 21 6 22 7 80 84 "w_0_0#" "in_1_NOR" 4 0 "a_13_6#" 40 0 "out_NOR" 40 0
 fet pfet 11 6 12 7 80 84 "w_0_0#" "in_2_NOR" 4 0 "vdd" 40 0 "a_13_6#" 40 0
-subcap "gnd" -38.6781
-subcap "vdd" -2.9517
 subcap "in_1_NOR" -2.9517
 subcap "in_2_NOR" -2.9517
+subcap "vdd" -15.9234
