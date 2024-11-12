@@ -1,0 +1,26 @@
+timestamp 1731384868
+version 8.3
+tech scmos
+style TSMC0.18um(tsmc18)from:t11b
+scale 1000 1 9
+resistclasses 6700 7500 929000 929000 1 7700 7700 80 80 80 70 70 40
+node "a_52_7#" 17 0 52 7 ndif 160 56 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "gnd" 27 13.9194 45 7 ndc 100 50 0 0 0 0 0 0 0 0 0 0 0 0 22 20 0 0 0 0 0 0 0 0 0 0
+node "NAND_Out" 43 188.282 52 46 pdif 120 52 160 56 0 0 0 0 0 0 0 0 0 0 50 40 131 88 0 0 0 0 0 0 0 0
+node "vdd" 79 39.9516 45 46 pdif 0 0 200 100 0 0 0 0 0 0 0 0 0 0 128 90 0 0 0 0 0 0 0 0 0 0
+node "NAND_In_1" 255 188.534 56 35 pc 0 0 0 0 0 0 0 0 0 0 148 144 0 0 58 44 0 0 0 0 0 0 0 0 0 0
+node "NAND_In_2" 254 164.921 46 28 pc 0 0 0 0 0 0 0 0 0 0 148 144 0 0 28 24 0 0 0 0 0 0 0 0 0 0
+node "w_39_40#" 987 1092.79 39 40 nw 0 0 0 0 1088 132 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cap "NAND_In_1" "NAND_Out" 16.2703
+cap "w_39_40#" "NAND_Out" 146.27
+cap "w_39_40#" "NAND_In_1" 64.77
+cap "NAND_In_2" "NAND_In_1" 182.343
+cap "w_39_40#" "vdd" 64.5228
+cap "w_39_40#" "NAND_In_2" 64.77
+fet nfet 60 7 61 8 40 44 "Gnd!" "NAND_In_1" 4 0 "a_52_7#" 20 0 "NAND_Out" 20 0
+fet nfet 50 7 51 8 40 44 "Gnd!" "NAND_In_2" 4 0 "gnd" 20 0 "a_52_7#" 20 0
+fet pfet 60 46 61 47 40 44 "w_39_40#" "NAND_In_1" 4 0 "NAND_Out" 20 0 "vdd" 20 0
+fet pfet 50 46 51 47 40 44 "w_39_40#" "NAND_In_2" 4 0 "vdd" 20 0 "NAND_Out" 20 0
+subcap "vdd" -1.5696
+subcap "NAND_In_1" -14.5717
+subcap "NAND_In_2" -14.5717
