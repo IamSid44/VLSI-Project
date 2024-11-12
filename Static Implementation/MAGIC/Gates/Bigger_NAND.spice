@@ -1,0 +1,24 @@
+* SPICE3 file created from Bigger_NAND.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 NAND_Out NAND_In_2 vdd w_46_37# pfet w=40 l=2
++  ad=320 pd=96 as=400 ps=180
+M1001 NAND_Out NAND_In_1 a_59_n16# Gnd nfet w=40 l=2
++  ad=240 pd=92 as=320 ps=96
+M1002 a_59_n16# NAND_In_2 gnd Gnd nfet w=40 l=2
++  ad=0 pd=0 as=200 ps=90
+M1003 vdd NAND_In_1 NAND_Out w_46_37# pfet w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+C0 NAND_In_1 w_46_37# 0.06fF
+C1 NAND_In_1 NAND_Out 0.02fF
+C2 NAND_In_2 NAND_In_1 0.18fF
+C3 NAND_Out w_46_37# 0.15fF
+C4 NAND_In_2 w_46_37# 0.06fF
+C5 vdd w_46_37# 0.06fF
+C6 gnd Gnd 0.01fF
+C7 NAND_Out Gnd 0.19fF
+C8 vdd Gnd 0.04fF
+C9 NAND_In_1 Gnd 0.16fF
+C10 NAND_In_2 Gnd 0.14fF
+C11 w_46_37# Gnd 1.78fF
