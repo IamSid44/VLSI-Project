@@ -1,0 +1,34 @@
+* SPICE3 file created from OR.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 a_n33_57# OR_in_2 vdd w_n46_51# pfet w=40 l=2
++  ad=320 pd=96 as=310 ps=144
+M1001 OR_out a_n33_18# gnd Gnd nfet w=11 l=2
++  ad=55 pd=32 as=255 ps=132
+M1002 a_n33_18# OR_in_1 a_n33_57# w_n46_51# pfet w=40 l=2
++  ad=200 pd=90 as=0 ps=0
+M1003 a_n33_18# OR_in_2 gnd Gnd nfet w=20 l=2
++  ad=160 pd=56 as=0 ps=0
+M1004 OR_out a_n33_18# vdd w_n46_51# pfet w=22 l=2
++  ad=110 pd=54 as=0 ps=0
+M1005 gnd OR_in_1 a_n33_18# Gnd nfet w=20 l=2
++  ad=0 pd=0 as=0 ps=0
+C0 a_n33_18# OR_out 0.04fF
+C1 OR_in_2 gnd 0.02fF
+C2 w_n46_51# a_n33_18# 0.09fF
+C3 w_n46_51# OR_in_1 0.06fF
+C4 OR_in_1 a_n33_18# 0.19fF
+C5 w_n46_51# OR_in_2 0.06fF
+C6 OR_in_1 gnd 0.02fF
+C7 OR_in_2 a_n33_18# 0.03fF
+C8 w_n46_51# OR_out 0.02fF
+C9 w_n46_51# vdd 0.11fF
+C10 OR_in_2 OR_in_1 0.18fF
+C11 gnd Gnd 0.15fF
+C12 OR_out Gnd 0.02fF
+C13 a_n33_18# Gnd 0.17fF
+C14 vdd Gnd 0.07fF
+C15 OR_in_1 Gnd 0.19fF
+C16 OR_in_2 Gnd 0.16fF
+C17 w_n46_51# Gnd 2.34fF
