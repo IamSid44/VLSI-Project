@@ -1,0 +1,86 @@
+timestamp 1731409005
+version 8.3
+tech scmos
+style TSMC0.18um(tsmc18)from:t11b
+scale 1000 1 9
+resistclasses 6700 7500 929000 929000 1 7700 7700 80 80 80 70 70 40
+node "a_1_1#" 9 0 1 1 pdif 0 0 80 36 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "Pi_1_not" 158 661.011 -28 9 p 0 0 0 0 0 0 0 0 0 0 104 96 0 0 25 20 319 216 0 0 0 0 0 0 0 0
+node "inter_NOR" 28 159.979 -24 1 ndif 40 26 50 30 0 0 0 0 0 0 0 0 0 0 260 178 0 0 0 0 0 0 0 0 0 0
+node "gnd" 196 514.761 -57 6 ndc 405 222 0 0 0 0 0 0 0 0 0 0 0 0 624 418 0 0 0 0 0 0 0 0 0 0
+node "NAND_In_2" 304 341.075 -26 74 p 55 32 110 54 0 0 0 0 0 0 148 144 0 0 273 186 0 0 0 0 0 0 0 0 0 0
+equiv "NAND_In_2" "OR_out"
+node "a_16_76#" 17 0 16 76 ndif 160 56 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "Gi_not" 257 297.77 -26 84 p 0 0 0 0 0 0 0 0 0 0 148 144 0 0 83 58 25 20 238 162 0 0 0 0 0 0
+node "a_n50_6#" 274 172.149 -50 6 ndif 160 56 200 90 0 0 0 0 0 0 118 114 0 0 147 102 0 0 0 0 0 0 0 0 0 0
+node "a_n50_45#" 38 0 -50 45 pdif 0 0 320 96 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "inter_NAND" 44 634.008 -23 76 pdif 120 52 160 56 0 0 0 0 0 0 0 0 0 0 50 40 287 192 0 0 0 0 0 0 0 0
+node "vdd" 241 364.502 -57 45 pdif 0 0 570 276 0 0 0 0 0 0 0 0 0 0 440 292 200 134 0 0 0 0 0 0 0 0
+equiv "vdd" "vdd"
+node "Pi_not" 497 1666.76 -46 33 pm12c 0 0 0 0 0 0 0 0 0 0 301 282 0 0 50 40 392 262 0 0 0 0 0 0 0 0
+node "Gi_1_not" 331 164.921 -56 27 pc 0 0 0 0 0 0 0 0 0 0 188 184 0 0 28 24 0 0 0 0 0 0 0 0 0 0
+node "w_n5_n13#" 1562 817.582 -5 -13 nw 0 0 0 0 814 118 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+node "w_n63_39#" 2243 3302.47 -63 39 nw 0 0 0 0 3288 252 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+cap "a_n50_6#" "Gi_1_not" 24.7428
+cap "Pi_not" "w_n5_n13#" 64.77
+cap "Gi_not" "w_n63_39#" 94.929
+cap "Pi_not" "vdd" 4.488
+cap "vdd" "gnd" 63.1773
+cap "inter_NAND" "gnd" 63.1773
+cap "a_n50_6#" "w_n63_39#" 90.7578
+cap "NAND_In_2" "vdd" 116.198
+cap "inter_NAND" "NAND_In_2" 85.0578
+cap "Pi_not" "Pi_1_not" 32.8155
+cap "gnd" "Pi_1_not" 87.2973
+cap "NAND_In_2" "Pi_1_not" 69.2473
+cap "w_n63_39#" "vdd" 218.796
+cap "inter_NAND" "w_n63_39#" 146.27
+cap "a_n50_6#" "Gi_not" 6.631
+cap "Pi_not" "gnd" 103.224
+cap "Gi_1_not" "Pi_1_not" 4.488
+cap "Gi_not" "a_n50_45#" 6.216
+cap "Pi_not" "Gi_1_not" 32.8155
+cap "NAND_In_2" "gnd" 951.43
+cap "w_n63_39#" "Pi_1_not" 174.427
+cap "w_n5_n13#" "inter_NOR" 64.4586
+cap "Gi_1_not" "gnd" 24.12
+cap "vdd" "inter_NOR" 133.132
+cap "Gi_not" "vdd" 131.578
+cap "inter_NAND" "Gi_not" 33.8083
+cap "Pi_not" "w_n63_39#" 64.77
+cap "NAND_In_2" "w_n63_39#" 102.194
+cap "inter_NOR" "Pi_1_not" 264.096
+cap "w_n63_39#" "Gi_1_not" 64.77
+cap "w_n5_n13#" "vdd" 185.05
+cap "a_n50_6#" "Pi_1_not" 18.112
+cap "Pi_not" "inter_NOR" 24.7428
+cap "Gi_not" "Pi_not" 2.746
+cap "gnd" "inter_NOR" 365.251
+cap "a_n50_6#" "Pi_not" 200.919
+cap "a_n50_45#" "Pi_1_not" 9.712
+cap "Gi_not" "NAND_In_2" 237.775
+cap "Gi_not" "Gi_1_not" 2.746
+cap "w_n5_n13#" "Pi_1_not" 64.77
+cap "vdd" "a_1_1#" 6.704
+cap "a_n50_6#" "NAND_In_2" 48.792
+cap "vdd" "Pi_1_not" 32.7851
+fet pfet 1 -1 2 0 20 24 "w_n5_n13#" "Pi_not" 4 0 "vdd" 10 0 "a_1_1#" 10 0
+fet nfet -24 -1 -23 0 10 14 "Gnd!" "Pi_not" 4 0 "gnd" 5 0 "inter_NOR" 5 0
+fet pfet 1 9 2 10 20 24 "w_n5_n13#" "Pi_1_not" 4 0 "a_1_1#" 10 0 "inter_NOR" 10 0
+fet nfet -24 9 -23 10 10 14 "Gnd!" "Pi_1_not" 4 0 "inter_NOR" 5 0 "gnd" 5 0
+fet nfet -26 20 -25 21 22 26 "Gnd!" "a_n50_6#" 4 0 "gnd" 11 0 "NAND_In_2" 11 0
+fet nfet -42 6 -41 7 40 44 "Gnd!" "Pi_not" 4 0 "a_n50_6#" 20 0 "gnd" 20 0
+fet nfet -52 6 -51 7 40 44 "Gnd!" "Gi_1_not" 4 0 "gnd" 20 0 "a_n50_6#" 20 0
+fet pfet -26 43 -25 44 44 48 "w_n63_39#" "a_n50_6#" 4 0 "vdd" 22 0 "NAND_In_2" 22 0
+fet nfet 16 74 17 75 40 44 "Gnd!" "NAND_In_2" 4 0 "gnd" 20 0 "a_16_76#" 20 0
+fet pfet -23 74 -22 75 40 44 "w_n63_39#" "NAND_In_2" 4 0 "vdd" 20 0 "inter_NAND" 20 0
+fet nfet 16 84 17 85 40 44 "Gnd!" "Gi_not" 4 0 "a_16_76#" 20 0 "inter_NAND" 20 0
+fet pfet -23 84 -22 85 40 44 "w_n63_39#" "Gi_not" 4 0 "inter_NAND" 20 0 "vdd" 20 0
+fet pfet -42 45 -41 46 80 84 "w_n63_39#" "Pi_not" 4 0 "a_n50_45#" 40 0 "a_n50_6#" 40 0
+fet pfet -52 45 -51 46 80 84 "w_n63_39#" "Gi_1_not" 4 0 "vdd" 40 0 "a_n50_45#" 40 0
+subcap "Pi_1_not" -10.9017
+subcap "inter_NOR" -11.8068
+subcap "gnd" -71.5614
+subcap "vdd" -364.502
+subcap "Pi_not" -912.381
+subcap "w_n63_39#" -1584.94

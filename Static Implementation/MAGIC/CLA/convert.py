@@ -2,6 +2,7 @@ import sys
 
 def convert_spice_to_cir(input_file, output_file):
     with open(input_file, 'r') as infile, open(output_file, 'w') as outfile:
+        outfile.write("* Extracted Netlist\n")
         outfile.write(".include TSMC_180nm.txt\n")
         outfile.write(".param SUPPLY=1.8\n")
         outfile.write(".global gnd vdd\n\n")

@@ -1,3 +1,4 @@
+*Extracted Netlist
 .include TSMC_180nm.txt
 .param SUPPLY=1.8
 .global gnd vdd
