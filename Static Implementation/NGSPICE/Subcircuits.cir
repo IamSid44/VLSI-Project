@@ -43,12 +43,12 @@
 
         XHelper10 G1_not P1_not G0_not P0_not C1_inter_nand C1_inter_nor high low Helper
         XAND11 Cin C1_inter_nor C1_inter_01 high low AND_Gate
-    XOR12 C1_inter_nand C1_inter_01 C1 high low OR_Gate
+        XOR12 C1_inter_nand C1_inter_01 C1 high low OR_Gate
     XXOR13 C0 C0_not Inter_S1 S1 high low XOR_Gate
 
         XHelper20 G2_not P2_not G1_not P1_not C2_inter_nand C2_inter_nor high low Helper
-    XAND21 C0 C2_inter_nor C2_inter_01 high low AND_Gate
-    XOR22 C2_inter_nand C2_inter_01 C2 high low OR_Gate
+        XAND21 C0 C2_inter_nor C2_inter_01 high low AND_Gate
+        XOR22 C2_inter_nand C2_inter_01 C2 high low OR_Gate
     XXOR23 C1 C1_not Inter_S2 S2 high low XOR_Gate
 
         XHelper30 G3_not P3_not G2_not P2_not C3_inter_nand C3_inter_nor high low Helper
