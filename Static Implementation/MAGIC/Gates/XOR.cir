@@ -1,0 +1,65 @@
+* Extracted Netlist
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.global gnd vdd
+
+* Supply
+Vdd vdd gnd 'SUPPLY'
+
+* SPICE3 file created from XOR.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 a_n48_n1# XOR_in_1 gnd Gnd CMOSN w=11 l=2
++  ad=90 pd=56 as=55 ps=32
+M1001 XOR_in_2 XOR_in_1 XOR_out w_n61_17# CMOSP w=10 l=2
++  ad=60 pd=32 as=60 ps=32
+M1002 XOR_in_2 a_n48_n1# XOR_out Gnd CMOSN w=5 l=2
++  ad=30 pd=22 as=30 ps=22
+M1003 XOR_out XOR_in_2 XOR_in_1 w_n61_17# CMOSP w=10 l=2
++  ad=0 pd=0 as=50 ps=30
+M1004 XOR_out XOR_in_2 a_n48_n1# Gnd CMOSN w=5 l=2
++  ad=0 pd=0 as=0 ps=0
+M1005 a_n48_n1# XOR_in_1 vdd w_n61_17# CMOSP w=22 l=2
++  ad=110 pd=54 as=110 ps=54
+C0 XOR_out a_n48_n1# 0.05fF
+C1 XOR_in_2 w_n61_17# 0.18fF
+C2 XOR_in_2 a_n48_n1# 0.12fF
+C3 w_n61_17# a_n48_n1# 0.02fF
+C4 XOR_in_2 XOR_in_1 0.05fF
+C5 w_n61_17# vdd 0.02fF
+C6 w_n61_17# XOR_in_1 0.26fF
+C7 XOR_in_2 XOR_out 0.35fF
+C8 a_n48_n1# XOR_in_1 0.18fF
+C9 w_n61_17# XOR_out 0.02fF
+C10 gnd Gnd 0.01fF
+C11 XOR_out Gnd 0.06fF
+C12 XOR_in_2 Gnd 0.40fF
+C13 a_n48_n1# Gnd 0.57fF
+C14 vdd Gnd 0.01fF
+C15 XOR_in_1 Gnd 0.11fF
+C16 w_n61_17# Gnd 1.44fF
+
+VD2 XOR_in_1 gnd pulse 0 SUPPLY 0 50p 50p 1.25ns 2.5ns
+VD1 XOR_in_2 gnd pulse 0 SUPPLY 0 50p 50p 1ns 2ns
+
+.tran 1ps 5ns
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+
+let in1 = 'XOR_in_1 + 4'
+let in2 = 'XOR_in_2 + 2'
+let output = 'XOR_out'
+plot in1 in2 output
+
+.endc
+
+.end
