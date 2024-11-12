@@ -42,7 +42,7 @@
     XXOR03 Cin Cin_not Inter_S0 S0 high low XOR_Gate
 
         XHelper10 G1_not P1_not G0_not P0_not C1_inter_nand C1_inter_nor high low Helper
-    XAND11 Cin C1_inter_nor C1_inter_01 high low AND_Gate
+        XAND11 Cin C1_inter_nor C1_inter_01 high low AND_Gate
     XOR12 C1_inter_nand C1_inter_01 C1 high low OR_Gate
     XXOR13 C0 C0_not Inter_S1 S1 high low XOR_Gate
 
