@@ -53,10 +53,10 @@ module CLA(input [3:0] A, input [3:0] B, input Cin, output [3:0] S, output Cout)
     nand Gate12(C[3], C3_Inter_02, C3_Inter_04);
 
     //Sum Bits
-    xor Gate13(S[0], C[0], Inter_Sum[0]);
-    xor Gate14(S[1], C[1], Inter_Sum[1]);
-    xor Gate15(S[2], C[2], Inter_Sum[2]);
-    xor Gate16(S[3], C[3], Inter_Sum[3]);
+    xor Gate13(S[0], Cin, Inter_Sum[0]);
+    xor Gate14(S[1], C[0], Inter_Sum[1]);
+    xor Gate15(S[2], C[1], Inter_Sum[2]);
+    xor Gate16(S[3], C[2], Inter_Sum[3]);
 
     // Cout is C[3]
     assign Cout = C[3];
