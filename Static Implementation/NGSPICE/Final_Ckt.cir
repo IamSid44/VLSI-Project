@@ -46,7 +46,8 @@ Vdd vdd gnd 'SUPPLY'
 
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
 * VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 0.45ns 0.9ns ; 1.11 GHz
-.param T_Period = 0.875n ; 1.143 GHz
+* .param T_Period = 0.875n ; 1.143 GHz
+.param T_Period = 20n ; 1.143 GHz
 .param T_Period_half = {T_Period * 0.5}
 .param T_Period_Double = {T_Period * 2}
 
@@ -127,7 +128,7 @@ XLoad4 C_out_FF Temp4 vdd gnd InverterLoad
 
 * .measure tran tcq param = '(tcqrise + tcqfall) / 2'
 
-.tran 1p 5n
+.tran 10p 50n
 
 .ic V(C_out_FF) = 0
 .ic V(S3_FF) = 0
