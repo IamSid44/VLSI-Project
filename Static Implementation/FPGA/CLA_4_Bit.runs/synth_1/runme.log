@@ -1,0 +1,312 @@
+
+*** Running vivado
+    with args -log Adder.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Adder.tcl
+
+
+****** Vivado v2019.2 (64-bit)
+  **** SW Build 2708876 on Wed Nov  6 21:40:23 MST 2019
+  **** IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+    ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+
+source Adder.tcl -notrace
+Command: synth_design -top Adder -part xc7s50csga324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7s50'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7s50'
+INFO: [Device 21-403] Loading part xc7s50csga324-1
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 25448 
+WARNING: [Synth 8-2490] overwriting previous definition of module PG_Block [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/CLA.v:4]
+WARNING: [Synth 8-2490] overwriting previous definition of module Helper_Block [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/CLA.v:12]
+WARNING: [Synth 8-2490] overwriting previous definition of module CLA [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/CLA.v:20]
+WARNING: [Synth 8-2611] redeclaration of ansi port Ain is not allowed [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/Final.v:26]
+WARNING: [Synth 8-2611] redeclaration of ansi port Bin is not allowed [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/Final.v:27]
+WARNING: [Synth 8-2611] redeclaration of ansi port Cin_in is not allowed [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/Final.v:28]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 948.059 ; gain = 237.559
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'Adder' [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/Final.v:24]
+INFO: [Synth 8-6157] synthesizing module 'DFF' [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/Final.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'DFF' (1#1) [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/Final.v:6]
+INFO: [Synth 8-6157] synthesizing module 'CLA' [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/CLA.v:20]
+INFO: [Synth 8-6157] synthesizing module 'PG_Block' [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/CLA.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'PG_Block' (2#1) [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/CLA.v:4]
+INFO: [Synth 8-6157] synthesizing module 'Helper_Block' [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/CLA.v:12]
+INFO: [Synth 8-6155] done synthesizing module 'Helper_Block' (3#1) [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/CLA.v:12]
+INFO: [Synth 8-6155] done synthesizing module 'CLA' (4#1) [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/CLA.v:20]
+INFO: [Synth 8-6155] done synthesizing module 'Adder' (5#1) [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/sources_1/imports/Verilog/Final.v:24]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 995.000 ; gain = 284.500
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 995.000 ; gain = 284.500
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 995.000 ; gain = 284.500
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 995.000 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/constrs_1/new/CLA_Constraint_File.xdc]
+WARNING: [Vivado 12-507] No nets matched 'Clk_IBUF'. [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/constrs_1/new/CLA_Constraint_File.xdc:3]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/constrs_1/new/CLA_Constraint_File.xdc:3]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/constrs_1/new/CLA_Constraint_File.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.srcs/constrs_1/new/CLA_Constraint_File.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/Adder_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/Adder_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1106.441 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1106.441 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1106.441 ; gain = 395.941
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7s50csga324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1106.441 ; gain = 395.941
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1106.441 ; gain = 395.941
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1106.441 ; gain = 395.941
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 8     
++---Registers : 
+	                1 Bit    Registers := 14    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module DFF 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 1     
+Module PG_Block 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
+Module CLA 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 4     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 120 (col length:60)
+BRAMs: 150 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1106.441 ; gain = 395.941
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1106.441 ; gain = 395.941
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1106.441 ; gain = 395.941
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1106.441 ; gain = 395.941
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1116.340 ; gain = 405.840
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1116.340 ; gain = 405.840
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1116.340 ; gain = 405.840
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1116.340 ; gain = 405.840
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1116.340 ; gain = 405.840
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1116.340 ; gain = 405.840
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-----+------+
+|      |Cell |Count |
++------+-----+------+
+|1     |BUFG |     1|
+|2     |LUT1 |     1|
+|3     |LUT3 |     1|
+|4     |LUT4 |     1|
+|5     |LUT5 |     4|
+|6     |LUT6 |     1|
+|7     |FDCE |    14|
+|8     |IBUF |    11|
+|9     |OBUF |    14|
++------+-----+------+
+
+Report Instance Areas: 
++------+---------+-------+------+
+|      |Instance |Module |Cells |
++------+---------+-------+------+
+|1     |top      |       |    48|
+|2     |  DFF0   |DFF    |     1|
+|3     |  DFF1   |DFF_0  |     1|
+|4     |  DFF10  |DFF_1  |     1|
+|5     |  DFF11  |DFF_2  |     1|
+|6     |  DFF12  |DFF_3  |     1|
+|7     |  DFF13  |DFF_4  |     2|
+|8     |  DFF2   |DFF_5  |     1|
+|9     |  DFF3   |DFF_6  |     2|
+|10    |  DFF4   |DFF_7  |     1|
+|11    |  DFF5   |DFF_8  |     6|
+|12    |  DFF6   |DFF_9  |     1|
+|13    |  DFF7   |DFF_10 |     1|
+|14    |  DFF8   |DFF_11 |     2|
+|15    |  DFF9   |DFF_12 |     1|
++------+---------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1116.340 ; gain = 405.840
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:10 ; elapsed = 00:00:15 . Memory (MB): peak = 1116.340 ; gain = 294.398
+Synthesis Optimization Complete : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1116.340 ; gain = 405.840
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1128.414 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1134.316 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+20 Infos, 7 Warnings, 1 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 1134.316 ; gain = 709.750
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1134.316 ; gain = 0.000
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint 'C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.runs/synth_1/Adder.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file Adder_utilization_synth.rpt -pb Adder_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Nov 13 23:45:44 2024...
