@@ -922,18 +922,38 @@ C544 w_n110_87# Gnd 0.90fF
 C545 w_n162_127# Gnd 1.78fF
 
 VA3 A3 gnd 0
-VA2 A2 gnd 'SUPPLY'
-VA1 A1 gnd 'SUPPLY'
-VA0 A0 gnd 'SUPPLY'
+VA2 A2 gnd 0
+VA1 A1 gnd 0
+VA0 A0 gnd 0
 
-VB3 B3 gnd 'SUPPLY'
-VB2 B2 gnd 0
+VB3 B3 gnd 0
+VB2 B2 gnd 'SUPPLY'
 VB1 B1 gnd 'SUPPLY'
-VB0 B0 gnd pulse 0 'SUPPLY' 0 10p 10p 1n 2n
+VB0 B0 gnd pulse 0 'SUPPLY' 0 0 0 1ns 2ns
 
 VCin Cin gnd 'SUPPLY'
 
-.tran 10p 10n
+.measure tran trise
++ TRIG V(S3) VAL = 'SUPPLY / 10' RISE = 1
++ TARG V(S3) VAL = '9 * SUPPLY / 10' RISE = 1
+
+.measure tran tfall
++ TRIG V(S3) VAL = '9 * SUPPLY / 10' FALL = 1
++ TARG V(S3) VAL = 'SUPPLY / 10' FALL = 1
+
+.measure tran delay param = '(trise + tfall) / 2'
+
+.measure tran tpdrise
++ TRIG V(B0) VAL = 'SUPPLY / 2' RISE = 1
++ TARG V(S3) VAL = 'SUPPLY / 2' RISE = 1
+
+.measure tran tpdfall
++ TRIG V(B0) VAL = 'SUPPLY / 2' FALL = 1
++ TARG V(S3) VAL = 'SUPPLY / 2' FALL = 1
+
+.measure tran tpd param = '(tpdrise + tpdfall) / 2'
+
+.tran 1p 5n
 
 .control
 

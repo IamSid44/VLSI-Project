@@ -36,11 +36,11 @@ VCin Cin gnd 'SUPPLY'
 XCarry_Sum_Logic A3 A2 A1 A0 B3 B2 B1 B0 Cin Cout S3 S2 S1 S0 vdd gnd Carry_Sum_Logic
 
 * Load Inverters
-XLoadS0 S0 S0_Load vdd gnd InverterLoad
-XLoadS1 S1 S1_Load vdd gnd InverterLoad
-XLoadS2 S2 S2_Load vdd gnd InverterLoad
-XLoadS3 S3 S3_Load vdd gnd InverterLoad
-XLoadCout Cout Cout_Load vdd gnd InverterLoad
+* XLoadS0 S0 S0_Load vdd gnd InverterLoad
+* XLoadS1 S1 S1_Load vdd gnd InverterLoad
+* XLoadS2 S2 S2_Load vdd gnd InverterLoad
+* XLoadS3 S3 S3_Load vdd gnd InverterLoad
+* XLoadCout Cout Cout_Load vdd gnd InverterLoad
 
 * .measure tran C_out_measured FIND V(Cout) AT = 5n
 * .measure tran S3_measured FIND V(S3) AT = 5n

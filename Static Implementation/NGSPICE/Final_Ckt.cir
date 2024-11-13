@@ -154,7 +154,7 @@ let in_A0 = 'A0 + 20'
 let in_B3 = 'B3 + 18'
 let in_B2 = 'B2 + 16'
 let in_B1 = 'B1 + 14'
-let in_B0 = 'B0 + 12'
+let in_B0 = 'B0  + 12'
 
 let in_Cin = 'Cin + 10'
 
