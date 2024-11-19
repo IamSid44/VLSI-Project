@@ -1,0 +1,81 @@
+NGSPICE Netlist for the Propagate and Generate Bit generation os the 4-Bit CLA
+
+.include "TSMC_180nm.txt"
+.param SUPPLY = 1.8
+.param LAMBDA = 0.09u
+.param width_N = {20 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.global gnd vdd
+
+.include "Gates_List.cir"
+
+.subckt Propagate_Generate A B G_not P_not Inter_Sum high low
+
+    XNAND A B G_not high low NAND_Gate
+    XNOR A B P_not high low NOR_Gate
+
+    XInv A A_not high low Inverter
+    XXOR A A_not B Inter_Sum high low XOR_Gate
+
+.ends Propagate_Generate
+
+.subckt PG_Ckt A3 A2 A1 A0 B3 B2 B1 B0 G3_not G2_not G1_not G0_not P3_not P2_not P1_not P0_not Inter_S0 Inter_S1 Inter_S2 Inter_S3 high low
+
+    XPG0 A0 B0 G0_not P0_not Inter_S0 high low Propagate_Generate
+    XPG1 A1 B1 G1_not P1_not Inter_S1 high low Propagate_Generate
+    XPG2 A2 B2 G2_not P2_not Inter_S2 high low Propagate_Generate
+    XPG3 A3 B3 G3_not P3_not Inter_S3 high low Propagate_Generate
+
+.ends PG_Ckt
+
+* vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
+VDD vdd gnd 'SUPPLY'
+
+VA3 A3 gnd pulse 0 'SUPPLY' 0 1p 1p 1.5ns 3ns
+VA2 A2 gnd pulse 0 'SUPPLY' 0 1p 1p 1.5ns 3ns
+VA1 A1 gnd pulse 0 'SUPPLY' 0 1p 1p 1.5ns 3ns
+VA0 A0 gnd pulse 0 'SUPPLY' 0 1p 1p 1.5ns 3ns
+
+VB3 B3 gnd pulse 0 'SUPPLY' 0 1p 1p 2.5ns 5ns
+VB2 B2 gnd pulse 0 'SUPPLY' 0 1p 1p 2.5ns 5ns
+VB1 B1 gnd pulse 0 'SUPPLY' 0 1p 1p 2.5ns 5ns
+VB0 B0 gnd pulse 0 'SUPPLY' 0 1p 1p 2.5ns 5ns
+
+XPG A3 A2 A1 A0 B3 B2 B1 B0 G3_not G2_not G1_not G0_not P3_not P2_not P1_not P0_not vdd gnd PG_Ckt
+
+.tran 10ps 16ns
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+let in_A3 = 'A3 + 30'
+let in_A2 = 'A2 + 28'
+let in_A1 = 'A1 + 26'
+let in_A0 = 'A0 + 24'
+
+let in_B3 = 'B3 + 22'
+let in_B2 = 'B2 + 20'
+let in_B1 = 'B1 + 18'
+let in_B0 = 'B0 + 16'
+
+let out_G3 = 'G3_not + 14'
+let out_G2 = 'G2_not + 12'
+let out_G1 = 'G1_not + 10'
+let out_G0 = 'G0_not + 8'
+
+let out_P3 = 'P3_not + 6'
+let out_P2 = 'P2_not + 4'
+let out_P1 = 'P1_not + 2'
+let out_P0 = 'P0_not'
+
+plot in_A3 in_A2 in_A1 in_A0 in_B3 in_B2 in_B1 in_B0 out_G3 out_G2 out_G1 out_G0 out_P3 out_P2 out_P1 out_P0
+
+.endc
+
+.end

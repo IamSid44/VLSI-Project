@@ -1,0 +1,62 @@
+.include "Gates_List.cir"
+
+.subckt Propagate_Generate A B G_not P_not Inter_Sum high low
+
+    XNAND A B G_not high low Bigger_NAND_Gate
+    XNOR A B P_not high low Bigger_NOR_Gate
+
+    XInv A A_not high low Inverter
+    XXOR A A_not B Inter_Sum high low XOR_Gate
+
+.ends Propagate_Generate
+
+.subckt PG_Ckt A3 A2 A1 A0 B3 B2 B1 B0 G3_not G2_not G1_not G0_not P3_not P2_not P1_not P0_not Inter_S0 Inter_S1 Inter_S2 Inter_S3 high low
+
+    XPG0 A0 B0 G0_not P0_not Inter_S0 high low Propagate_Generate
+    XPG1 A1 B1 G1_not P1_not Inter_S1 high low Propagate_Generate
+    XPG2 A2 B2 G2_not P2_not Inter_S2 high low Propagate_Generate
+    XPG3 A3 B3 G3_not P3_not Inter_S3 high low Propagate_Generate
+
+.ends PG_Ckt
+
+.subckt Helper Gi_not Pi_not Gi_1_not Pi_1_not inter_nand inter_nor high low 
+
+    XOR Pi_not Gi_1_not temp high low OR_Gate
+    XNAND Gi_not temp inter_nand high low NAND_Gate
+    XNOR Pi_not Pi_1_not inter_nor high low Small_NOR_Gate
+
+.ends Helper
+
+.subckt Carry_Sum_Logic A3 A2 A1 A0 B3 B2 B1 B0 Cin C3 S3 S2 S1 S0 high low
+
+        XPG_Block A3 A2 A1 A0 B3 B2 B1 B0 G3_not G2_not G1_not G0_not P3_not P2_not P1_not P0_not Inter_S0 Inter_S1 Inter_S2 Inter_S3 high low PG_Ckt
+
+        XInv100 Cin Cin_not high low Inverter
+    XInv101 C0 C0_not high low Inverter
+    XInv102 C1 C1_not high low Inverter
+    XInv103 C2 C2_not high low Inverter
+    XInv104 C3 C3_not high low Inverter
+
+        XOR01 P0_not Cin_not C0_inter_01 high low OR_Gate
+        XNAND02 G0_not C0_inter_01 C0 high low NAND_Gate
+    XXOR03 Cin Cin_not Inter_S0 S0 high low XOR_Gate
+
+        XHelper10 G1_not P1_not G0_not P0_not C1_inter_nand C1_inter_nor high low Helper
+        XAND11 Cin C1_inter_nor C1_inter_01 high low AND_Gate
+        XOR12 C1_inter_nand C1_inter_01 C1 high low OR_Gate
+    XXOR13 C0 C0_not Inter_S1 S1 high low XOR_Gate
+
+        XHelper20 G2_not P2_not G1_not P1_not C2_inter_nand C2_inter_nor high low Helper
+        XAND21 C0 C2_inter_nor C2_inter_01 high low AND_Gate
+        XOR22 C2_inter_nand C2_inter_01 C2 high low OR_Gate
+    XXOR23 C1 C1_not Inter_S2 S2 high low XOR_Gate
+
+        XHelper30 G3_not P3_not G2_not P2_not C3_inter_nand C3_inter_nor high low Helper
+        XAND31 C1_inter_nand C3_inter_nor C3_inter_01 high low AND_Gate
+        XNOR32 C3_inter_nand C3_inter_01 C3_inter_02 high low Medium_NOR_Gate
+        XNAND33 C3_inter_nor C1_inter_nor C3_inter_03 high low NAND_Gate
+        XOR34 C3_inter_03 Cin_not C3_inter_04 high low OR_Gate
+        XNAND35 C3_inter_02 C3_inter_04 C3 high low NAND_Gate
+    XXOR36 C2 C2_not Inter_S3 S3 high low XOR_Gate
+
+.ends Carry_Sum_Logic

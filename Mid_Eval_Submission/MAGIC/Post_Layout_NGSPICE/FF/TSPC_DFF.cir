@@ -1,0 +1,86 @@
+* Extracted Netlist
+.include TSMC_180nm.txt
+.param SUPPLY=1.8
+.global gnd vdd
+
+* Supply
+Vdd vdd gnd 'SUPPLY'
+
+* SPICE3 file created from D_Flip_Flop.ext - technology: scmos
+
+.option scale=0.09u
+
+M1000 GND D_FF_High_Inter a_n17_12# Gnd CMOSN w=20 l=2
++  ad=330 pd=172 as=120 ps=52
+M1001 DFF_Inter clk a_n68_33# w_n103_27# CMOSP w=40 l=2
++  ad=200 pd=90 as=160 ps=88
+M1002 DFF_Inter a_n90_8# GND Gnd CMOSN w=13 l=2
++  ad=65 pd=36 as=0 ps=0
+M1003 a_n68_33# a_n90_8# VDD w_n103_27# CMOSP w=40 l=2
++  ad=0 pd=0 as=600 ps=280
+M1004 a_n17_46# clk D_FF_High_Inter Gnd CMOSN w=20 l=2
++  ad=120 pd=52 as=120 ps=52
+M1005 D_FF_High_Inter DFF_Inter VDD w_n103_27# CMOSP w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1006 a_n17_12# clk DFF_Out Gnd CMOSN w=20 l=2
++  ad=0 pd=0 as=100 ps=50
+M1007 DFF_Out D_FF_High_Inter VDD w_n103_27# CMOSP w=20 l=2
++  ad=100 pd=50 as=0 ps=0
+M1008 a_n90_8# clk a_n90_33# w_n103_27# CMOSP w=40 l=2
++  ad=200 pd=90 as=160 ps=88
+M1009 GND DFF_Inter a_n17_46# Gnd CMOSN w=20 l=2
++  ad=0 pd=0 as=0 ps=0
+M1010 a_n90_8# DFF_In GND Gnd CMOSN w=13 l=2
++  ad=65 pd=36 as=0 ps=0
+M1011 a_n90_33# DFF_In VDD w_n103_27# CMOSP w=40 l=2
++  ad=0 pd=0 as=0 ps=0
+C0 w_n103_27# clk 0.33fF
+C1 DFF_In w_n103_27# 0.06fF
+C2 DFF_Inter D_FF_High_Inter 0.02fF
+C3 D_FF_High_Inter w_n103_27# 0.15fF
+C4 VDD clk 0.31fF
+C5 GND DFF_In 0.02fF
+C6 DFF_Inter w_n103_27# 0.23fF
+C7 w_n103_27# a_n90_8# 0.09fF
+C8 DFF_In clk 0.03fF
+C9 D_FF_High_Inter VDD 0.04fF
+C10 D_FF_High_Inter GND 0.05fF
+C11 D_FF_High_Inter clk 0.05fF
+C12 DFF_Inter VDD 0.14fF
+C13 GND a_n90_8# 0.02fF
+C14 w_n103_27# VDD 0.20fF
+C15 DFF_Inter clk 0.25fF
+C16 a_n90_8# clk 0.03fF
+C17 w_n103_27# DFF_Out 0.02fF
+C18 DFF_Out Gnd 0.03fF
+C19 GND Gnd 0.19fF
+C20 D_FF_High_Inter Gnd 0.17fF
+C21 DFF_Inter Gnd 0.22fF
+C22 VDD Gnd 0.16fF
+C23 a_n90_8# Gnd 0.16fF
+C24 clk Gnd 0.64fF
+C25 DFF_In Gnd 0.11fF
+C26 w_n103_27# Gnd 4.17fF
+
+VClk clk gnd pulse SUPPLY 0 0 50p 50p 0.5ns 1ns
+VD DFF_in gnd pulse 0 SUPPLY 0 50p 50p 0.9ns 1.8ns
+
+.tran 1ps 5ns
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+let clock = 'clk + 4'
+let input = 'DFF_in + 2'
+let output = 'DFF_out'
+plot clock input output
+
+.endc
+
+.end

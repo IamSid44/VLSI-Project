@@ -1,0 +1,173 @@
+NGSPCIE Netlist Integrating the CLA with the Flip FLops
+
+.include "TSMC_180nm.txt"
+.param SUPPLY = 1.8
+.param LAMBDA = 0.09u
+.param width_N = {10 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N}
+.global gnd vdd
+
+.include "Subcircuits.cir"
+.include "FF_Ckt.cir"
+
+.subckt Final clk A3 A2 A1 A0 B3 B2 B1 B0 Cin C_out_FF S3_FF S2_FF S1_FF S0_FF high low
+
+    XFF_A3 A3 A3_FF clk high low TSPC_FF
+    XFF_A2 A2 A2_FF clk high low TSPC_FF
+    XFF_A1 A1 A1_FF clk high low TSPC_FF
+    XFF_A0 A0 A0_FF clk high low TSPC_FF
+
+    XFF_B3 B3 B3_FF clk high low TSPC_FF
+    XFF_B2 B2 B2_FF clk high low TSPC_FF
+    XFF_B1 B1 B1_FF clk high low TSPC_FF
+    XFF_B0 B0 B0_FF clk high low TSPC_FF
+
+    XFF_Cin Cin Cin_FF clk high low TSPC_FF
+
+    XCarry_Sum_Logic A3_FF A2_FF A1_FF A0_FF B3_FF B2_FF B1_FF B0_FF Cin_FF Cout S3 S2 S1 S0 high low Carry_Sum_Logic
+
+    XFF_Cout Cout C_out_FF clk high low TSPC_FF
+
+    XFF_S3 S3 S3_FF clk high low TSPC_FF
+    XFF_S2 S2 S2_FF clk high low TSPC_FF
+    XFF_S1 S1 S1_FF clk high low TSPC_FF
+    XFF_S0 S0 S0_FF clk high low TSPC_FF
+
+.ends Final
+
+.subckt InverterLoad in out high low
+    M1 high in out high CMOSP W={20*LAMBDA} L={2*LAMBDA}
+    + AS={5*20*LAMBDA*LAMBDA} PS={10*LAMBDA+2*20*LAMBDA} AD={5*20*LAMBDA*LAMBDA} PD={10*LAMBDA+2*20*LAMBDA}
+    M2 out in low low CMOSN W={10*LAMBDA} L={2*LAMBDA}
+    + AS={5*10*LAMBDA*LAMBDA} PS={10*LAMBDA+2*10*LAMBDA} AD={5*10*LAMBDA*LAMBDA} PD={10*LAMBDA+2*10*LAMBDA}
+.ends InverterLoad
+
+Vdd vdd gnd 'SUPPLY' 
+
+* vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
+* VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 0.45ns 0.9ns ; 1.11 GHz
+* .param T_Period = 0.875n ; 1.143 GHz
+.param T_Period = 20n ; 1.143 GHz
+.param T_Period_half = {T_Period * 0.5}
+.param T_Period_Double = {T_Period * 2}
+
+VClk clk_line gnd pulse SUPPLY 0 0 50p 50p T_Period_half T_Period
+
+* VA3 A3 gnd pulse SUPPLY 0 0 1p 1p 160ns 320ns
+* VA2 A2 gnd pulse SUPPLY 0 0 1p 1p 80ns 160ns
+* VA1 A1 gnd pulse SUPPLY 0 0 1p 1p 40ns 80ns
+* VA0 A0 gnd pulse SUPPLY 0 0 1p 1p 20ns 40ns
+
+* VB3 B3 gnd pulse SUPPLY 0 10n 1p 1p 160ns 320ns
+* VB2 B2 gnd pulse SUPPLY 0 10n 1p 1p 80ns 160ns
+* VB1 B1 gnd pulse SUPPLY 0 10n 1p 1p 40ns 80ns
+* VB0 B0 gnd pulse SUPPLY 0 10n 1p 1p 20ns 40ns
+
+* VCin Cin gnd 1
+
+* Finding the highest Frequency of operation - 0 + 6->7 + 1 = 01111->10000
+VA3 A3 gnd 0
+VA2 A2 gnd 0
+VA1 A1 gnd 0
+VA0 A0 gnd 0
+
+VB3 B3 gnd 0
+VB2 B2 gnd 'SUPPLY'
+VB1 B1 gnd 'SUPPLY'
+* VB0 B0 gnd pulse 0 SUPPLY 0 50p 50p 0.9ns 1.8ns ; 1.11 GHz
+VB0 B0 gnd pulse 0 'SUPPLY' 0 50p 50p T_Period T_Period_Double
+
+VCin Cin gnd 'SUPPLY'
+
+* 0110 + 0111 + 1 = 01110
+* 6 + 7 + 1 = 14
+
+* VA3 A3 gnd 0
+* VA2 A2 gnd 'SUPPLY'
+* VA1 A1 gnd 'SUPPLY'
+* VA0 A0 gnd 0
+
+* VB3 B3 gnd 0
+* VB2 B2 gnd 0
+* VB1 B1 gnd 0
+* VB0 B0 gnd 0
+
+* VCin Cin gnd 'SUPPLY'
+
+XFinal clk_line A3 A2 A1 A0 B3 B2 B1 B0 Cin C_out_FF S3_FF S2_FF S1_FF S0_FF vdd gnd Final
+
+XLoad0 S0_FF Temp0 vdd gnd InverterLoad
+XLoad1 S1_FF Temp1 vdd gnd InverterLoad
+XLoad2 S2_FF Temp2 vdd gnd InverterLoad
+XLoad3 S3_FF Temp3 vdd gnd InverterLoad
+XLoad4 C_out_FF Temp4 vdd gnd InverterLoad
+
+* .measure tran C_out FIND V(C_out_FF) AT = 50n
+* .measure tran S3 FIND V(S3_FF) AT = 50n
+* .measure tran S2 FIND V(S2_FF) AT = 50n
+* .measure tran S1 FIND V(S1_FF) AT = 50n
+* .measure tran S0 FIND V(S0_FF) AT = 50n
+
+* .measure tran trise
+* + TRIG V(Q) VAL = 'SUPPLY / 10' TD = 5ns TO = 15ns RISE = 1
+* + TARG V(Q) VAL = '9 * SUPPLY / 10' TD = 5ns TO = 15ns RISE = 1
+
+* .measure tran tfall
+* + TRIG V(Q) VAL = '9 * SUPPLY / 10' TD = 25ns TO = 35ns FALL = 1
+* + TARG V(Q) VAL = 'SUPPLY / 10' TD = 25ns TO = 35ns FALL = 1
+
+* .measure tran delay param = '(trise + tfall) / 2'
+
+* .measure tran tcqrise
+* + TRIG V(clk_line) VAL = 'SUPPLY / 2' RISE = 1
+* + TARG V(Q) VAL = 'SUPPLY / 2' RISE = 1
+
+* .measure tran tcqfall
+* + TRIG V(clk_line) VAL = 'SUPPLY / 2' RISE = 2
+* + TARG V(Q) VAL = 'SUPPLY / 2' FALL = 1
+
+* .measure tran tcq param = '(tcqrise + tcqfall) / 2'
+
+.tran 10p 50n
+
+.ic V(C_out_FF) = 0
+.ic V(S3_FF) = 0
+.ic V(S2_FF) = 0
+.ic V(S1_FF) = 0
+.ic V(S0_FF) = 0
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+let clock = 'clk_line + 28'
+
+let in_A3 = 'A3 + 26'
+let in_A2 = 'A2 + 24'
+let in_A1 = 'A1 + 22'
+let in_A0 = 'A0 + 20'
+
+let in_B3 = 'B3 + 18'
+let in_B2 = 'B2 + 16'
+let in_B1 = 'B1 + 14'
+let in_B0 = 'B0  + 12'
+
+let in_Cin = 'Cin + 10'
+
+let out_Cout = 'C_out_FF + 8'
+let out_S3 = 'S3_FF + 6'
+let out_S2 = 'S2_FF + 4'
+let out_S1 = 'S1_FF + 2'
+let out_S0 = 'S0_FF'
+
+plot clock in_A3 in_A2 in_A1 in_A0 in_B3 in_B2 in_B1 in_B0 in_Cin out_Cout out_S3 out_S2 out_S1 out_S0
+* plot clock out_Cout out_S3 out_S2 out_S1 out_S0
+
+.endc
+
+.end

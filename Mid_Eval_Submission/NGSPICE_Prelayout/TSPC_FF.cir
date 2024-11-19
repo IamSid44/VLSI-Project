@@ -1,0 +1,114 @@
+Implementing a TSPC Flipflop using 180nm technology
+
+.include "TSMC_180nm.txt"
+.param SUPPLY = 1.8
+.param LAMBDA = 0.09u
+.param width_N = {10 * LAMBDA}
+.param width_P = {2 * width_N}
+.global gnd vdd
+
+.subckt Inverter in out high low
+    M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out in low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends Inverter
+
+.subckt HighLevelLatchElement in out clk high low
+    M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out clk inter inter CMOSN W={2*width_N} L={2*LAMBDA} ; Reduced the effect of Body effect
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+    M3 inter in low low CMOSN W={2*width_N} L={2*LAMBDA}
+    + AS={5*2*width_N*LAMBDA} PS={10*LAMBDA+2*2*width_N} AD={5*2*width_N*LAMBDA} PD={10*LAMBDA+2*2*width_N}
+.ends HighLevelLatchElement
+
+.subckt TSPC_Latch_HighLevel in out clk high low
+    XMaster in inter clk high low HighLevelLatchElement
+    XSlave inter out clk high low HighLevelLatchElement
+.ends TSPC_Latch_HighLevel
+
+* Equate path resistances in sizing to inverter
+.subckt LowLevelLatchElement in out clk high low
+    M1 high in inter high CMOSP W={2*width_P} L={2*LAMBDA}
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+    M2 inter clk out inter CMOSP W={2*width_P} L={2*LAMBDA} ; Reduced the effect of Body effect
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+    M3 out in low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends LowLevelLatchElement
+
+.subckt TSPC_Latch_LowLevel in out clk high low
+    XMaster in inter clk high low LowLevelLatchElement
+    XSlave inter out clk high low LowLevelLatchElement
+.ends TSPC_Latch_LowLevel
+
+* Repeater Tradeoff - Rise and Fall times vs C to Q delay
+* We want a smaller CQ delay value
+.subckt TSPC_FF in out clk high low
+    XMaster in inter1 clk high low TSPC_Latch_LowLevel
+    * XInverter1 inter1 inter vdd gnd Inverter
+    XSlave inter1 out clk high low TSPC_Latch_HighLevel
+    * XInverter2 inter2 out vdd gnd Inverter
+.ends TSPC_FF
+
+.subckt InverterLoad in out high low
+    M1 high in out high CMOSP W={20*LAMBDA} L={2*LAMBDA}
+    + AS={5*20*LAMBDA*LAMBDA} PS={10*LAMBDA+2*20*LAMBDA} AD={5*20*LAMBDA*LAMBDA} PD={10*LAMBDA+2*20*LAMBDA}
+    M2 out in low low CMOSN W={10*LAMBDA} L={2*LAMBDA}
+    + AS={5*10*LAMBDA*LAMBDA} PS={10*LAMBDA+2*10*LAMBDA} AD={5*10*LAMBDA*LAMBDA} PD={10*LAMBDA+2*10*LAMBDA}
+.ends InverterLoad
+
+* Input source description (square waveform)
+* vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
+Vdd vdd gnd 'SUPPLY'
+VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 1ns 2ns
+VD D gnd pulse 0 SUPPLY 0 50p 50p 2ns 4ns
+
+* Load 
+XInverterL1 Q temp vdd gnd InverterLoad
+* XInverterL2 Q temp2 vdd gnd InverterLoad
+* XInverterL Q temp vdd gnd InverterLoad
+* CLoad Q gnd 10f
+
+XFlipFlop D Q clk_line vdd gnd TSPC_FF
+
+.measure tran trise
++ TRIG V(Q) VAL = 'SUPPLY / 10' RISE = 1
++ TARG V(Q) VAL = '9 * SUPPLY / 10' RISE = 1
+
+.measure tran tfall
++ TRIG V(Q) VAL = '9 * SUPPLY / 10' FALL = 1
++ TARG V(Q) VAL = 'SUPPLY / 10' FALL = 1
+
+.measure tran delay param = '(trise + tfall) / 2'
+
+.measure tran tcqrise
++ TRIG V(clk_line) VAL = 'SUPPLY / 2' RISE = 1
++ TARG V(Q) VAL = 'SUPPLY / 2' RISE = 1
+
+.measure tran tcqfall
++ TRIG V(clk_line) VAL = 'SUPPLY / 2' RISE = 2
++ TARG V(Q) VAL = 'SUPPLY / 2' FALL = 1
+
+.measure tran tcq param = '(tcqrise + tcqfall) / 2'
+
+.tran 1ps 5ns
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+let clock = 'clk_line + 4'
+let input = 'D + 2'
+let output = 'Q'
+plot clock input output
+
+.endc
+
+.end

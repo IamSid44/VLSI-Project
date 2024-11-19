@@ -1,0 +1,106 @@
+NGSPICE Netlist for the Carry and Sum Logic of a 4-bit Carry Lookahead Adder
+
+.include "TSMC_180nm.txt"
+.param SUPPLY = 1.8
+.param LAMBDA = 0.09u
+.param width_N = {10 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.global gnd vdd
+
+.include "Subcircuits.cir"
+
+.subckt InverterLoad in out high low
+    M1 high in out high CMOSP W={20*LAMBDA} L={2*LAMBDA}
+    + AS={5*20*LAMBDA*LAMBDA} PS={10*LAMBDA+2*20*LAMBDA} AD={5*20*LAMBDA*LAMBDA} PD={10*LAMBDA+2*20*LAMBDA}
+    M2 out in low low CMOSN W={10*LAMBDA} L={2*LAMBDA}
+    + AS={5*10*LAMBDA*LAMBDA} PS={10*LAMBDA+2*10*LAMBDA} AD={5*10*LAMBDA*LAMBDA} PD={10*LAMBDA+2*10*LAMBDA}
+.ends InverterLoad
+
+Vdd vdd gnd 'SUPPLY'
+
+* 0101 + 1010 + 1 = 10000
+* 5 + 10 + 1 = 16
+
+VA3 A3 gnd 0
+VA2 A2 gnd 0
+VA1 A1 gnd 0
+VA0 A0 gnd 0
+
+VB3 B3 gnd 0
+VB2 B2 gnd 'SUPPLY'
+VB1 B1 gnd 'SUPPLY'
+VB0 B0 gnd pulse 0 'SUPPLY' 0 0 0 1ns 2ns
+
+VCin Cin gnd 'SUPPLY'
+
+XCarry_Sum_Logic A3 A2 A1 A0 B3 B2 B1 B0 Cin Cout S3 S2 S1 S0 vdd gnd Carry_Sum_Logic
+
+* Load Inverters
+* XLoadS0 S0 S0_Load vdd gnd InverterLoad
+* XLoadS1 S1 S1_Load vdd gnd InverterLoad
+* XLoadS2 S2 S2_Load vdd gnd InverterLoad
+* XLoadS3 S3 S3_Load vdd gnd InverterLoad
+* XLoadCout Cout Cout_Load vdd gnd InverterLoad
+
+* .measure tran C_out_measured FIND V(Cout) AT = 5n
+* .measure tran S3_measured FIND V(S3) AT = 5n
+* .measure tran S2_measured FIND V(S2) AT = 5n
+* .measure tran S1_measured FIND V(S1) AT = 5n
+* .measure tran S0_measured FIND V(S0) AT = 5n
+
+.measure tran trise
++ TRIG V(S3) VAL = 'SUPPLY / 10' RISE = 1
++ TARG V(S3) VAL = '9 * SUPPLY / 10' RISE = 1
+
+.measure tran tfall
++ TRIG V(S3) VAL = '9 * SUPPLY / 10' FALL = 1
++ TARG V(S3) VAL = 'SUPPLY / 10' FALL = 1
+
+.measure tran delay param = '(trise + tfall) / 2'
+
+.measure tran tpdrise
++ TRIG V(B0) VAL = 'SUPPLY / 2' RISE = 1
++ TARG V(S3) VAL = 'SUPPLY / 2' RISE = 1
+
+.measure tran tpdfall
++ TRIG V(B0) VAL = 'SUPPLY / 2' FALL = 1
++ TARG V(S3) VAL = 'SUPPLY / 2' FALL = 1
+
+.measure tran tpd param = '(tpdrise + tpdfall) / 2'
+
+.tran 1p 5n
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+let in_A3 = 'A3 + 26'
+let in_A2 = 'A2 + 24'
+let in_A1 = 'A1 + 22'
+let in_A0 = 'A0 + 20'
+
+let in_B3 = 'B3 + 18'
+let in_B2 = 'B2 + 16'
+let in_B1 = 'B1 + 14'
+let in_B0 = 'B0 + 12'
+
+let in_Cin = 'Cin + 10'
+
+let out_Cout = 'Cout + 8'
+let out_S3 = 'S3 + 6'
+let out_S2 = 'S2 + 4'
+let out_S1 = 'S1 + 2'
+let out_S0 = 'S0'
+
+* plot in_A3 in_A2 in_A1 in_A0 in_B3 in_B2 in_B1 in_B0 in_Cin out_Cout out_S3 out_S2 out_S1 out_S0
+plot out_Cout out_S3 out_S2 out_S1 out_S0
+plot out_S3 B0
+
+.endc
+
+.end

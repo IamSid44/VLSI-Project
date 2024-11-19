@@ -1,0 +1,66 @@
+NGSPICE Netlist for a 2 Input NOR gate 
+
+.include "TSMC_180nm.txt"
+.param SUPPLY = 1.8
+.param LAMBDA = 0.09u
+.param width_N = {20 * LAMBDA} ; Vary the width (1)
+.param width_P = {2 * width_N} ; Assuming ratio of mobilites is 2, change it (2)
+.global gnd vdd
+
+.subckt Inverter in out high low
+    M1 high in out high CMOSP W={width_P} L={2*LAMBDA}
+    + AS={5*width_P*LAMBDA} PS={10*LAMBDA+2*width_P} AD={5*width_P*LAMBDA} PD={10*LAMBDA+2*width_P}
+    M2 out in low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+.ends Inverter
+
+.subckt NOR_Gate A B out high low
+
+    MPUN_01 high A NOR_Inter high CMOSP W={2*width_P} L={2*LAMBDA}
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+
+    MPUN_02 NOR_Inter B out NOR_Inter CMOSP W={2*width_P} L={2*LAMBDA}
+    + AS={5*2*width_P*LAMBDA} PS={10*LAMBDA+2*2*width_P} AD={5*2*width_P*LAMBDA} PD={10*LAMBDA+2*2*width_P}
+
+    MPDN_01 out A low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+    MPDN_02 out B low low CMOSN W={width_N} L={2*LAMBDA}
+    + AS={5*width_N*LAMBDA} PS={10*LAMBDA+2*width_N} AD={5*width_N*LAMBDA} PD={10*LAMBDA+2*width_N}
+
+.ends NOR_Gate
+
+.subckt OR_Gate A B out high low
+
+    XNOR A B out_inter vdd gnd NOR_Gate
+    XInverter out_inter out vdd gnd Inverter
+
+.ends OR_Gate
+
+* vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
+VDD vdd gnd 'SUPPLY'
+VA A gnd pulse 0 'SUPPLY' 0 1p 1p 1.5ns 3ns
+VB B gnd pulse 0 'SUPPLY' 0 1p 1p 2.5ns 5ns
+
+XOR A B out vdd gnd OR_Gate
+
+.tran 10ps 16ns
+
+.control
+
+run
+set hcopypscolor = 1
+set color0 = white
+set color1 = black
+set curplottitle = "Siddarth Gottumukkula 2023102040"
+set xbrushwidth = 3
+
+let in_A = 'A + 4'
+let in_B = 'B + 2'
+let output = 'out'
+
+plot in_A in_B output
+
+.endc
+
+.end
