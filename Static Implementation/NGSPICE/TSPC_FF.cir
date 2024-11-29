@@ -43,13 +43,9 @@ Implementing a TSPC Flipflop using 180nm technology
     XSlave inter out clk high low LowLevelLatchElement
 .ends TSPC_Latch_LowLevel
 
-* Repeater Tradeoff - Rise and Fall times vs C to Q delay
-* We want a smaller CQ delay value
 .subckt TSPC_FF in out clk high low
     XMaster in inter1 clk high low TSPC_Latch_LowLevel
-    * XInverter1 inter1 inter vdd gnd Inverter
     XSlave inter1 out clk high low TSPC_Latch_HighLevel
-    * XInverter2 inter2 out vdd gnd Inverter
 .ends TSPC_FF
 
 .subckt InverterLoad in out high low
@@ -67,9 +63,6 @@ VD D gnd pulse 0 SUPPLY 0 50p 50p 2ns 4ns
 
 * Load 
 XInverterL1 Q temp vdd gnd InverterLoad
-* XInverterL2 Q temp2 vdd gnd InverterLoad
-* XInverterL Q temp vdd gnd InverterLoad
-* CLoad Q gnd 10f
 
 XFlipFlop D Q clk_line vdd gnd TSPC_FF
 
