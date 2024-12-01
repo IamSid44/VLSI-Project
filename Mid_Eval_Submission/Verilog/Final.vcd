@@ -1,0 +1,551 @@
+$date
+	Sun Dec  1 18:13:21 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module Final_TB $end
+$scope module uut $end
+$var wire 4 ! A [3:0] $end
+$var wire 4 " B [3:0] $end
+$var wire 1 # Cin $end
+$var wire 1 $ Clk $end
+$var wire 1 % Rst $end
+$var wire 4 & Sout [3:0] $end
+$var wire 4 ' S [3:0] $end
+$var wire 1 ( Cout_out $end
+$var wire 1 ) Cout $end
+$var wire 1 * Cin_in $end
+$var wire 4 + Bin [3:0] $end
+$var wire 4 , Ain [3:0] $end
+$scope module CLA0 $end
+$var wire 4 - A [3:0] $end
+$var wire 4 . B [3:0] $end
+$var wire 1 / C0_Inter_01 $end
+$var wire 1 0 C1_Inter_01 $end
+$var wire 1 1 C2_Inter_01 $end
+$var wire 1 2 C3_Inter_01 $end
+$var wire 1 3 C3_Inter_02 $end
+$var wire 1 4 C3_Inter_03 $end
+$var wire 1 5 C3_Inter_04 $end
+$var wire 1 6 Cin_Not $end
+$var wire 4 7 S [3:0] $end
+$var wire 4 8 P_Not [3:0] $end
+$var wire 4 9 Inter_Sum [3:0] $end
+$var wire 4 : G_Not [3:0] $end
+$var wire 1 ( Cout $end
+$var wire 1 * Cin $end
+$var wire 1 ; C3_NOR $end
+$var wire 1 < C3_NAND $end
+$var wire 1 = C2_NOR $end
+$var wire 1 > C2_NAND $end
+$var wire 1 ? C1_NOR $end
+$var wire 1 @ C1_NAND $end
+$var wire 4 A C [3:0] $end
+$scope module Helper_1 $end
+$var wire 1 B Gi_1_Not $end
+$var wire 1 C Gi_Not $end
+$var wire 1 D Inter_1 $end
+$var wire 1 @ Out_NAND $end
+$var wire 1 ? Out_NOR $end
+$var wire 1 E Pi_1_Not $end
+$var wire 1 F Pi_Not $end
+$upscope $end
+$scope module Helper_2 $end
+$var wire 1 G Gi_1_Not $end
+$var wire 1 H Gi_Not $end
+$var wire 1 I Inter_1 $end
+$var wire 1 > Out_NAND $end
+$var wire 1 = Out_NOR $end
+$var wire 1 J Pi_1_Not $end
+$var wire 1 K Pi_Not $end
+$upscope $end
+$scope module Helper_3 $end
+$var wire 1 L Gi_1_Not $end
+$var wire 1 M Gi_Not $end
+$var wire 1 N Inter_1 $end
+$var wire 1 < Out_NAND $end
+$var wire 1 ; Out_NOR $end
+$var wire 1 O Pi_1_Not $end
+$var wire 1 P Pi_Not $end
+$upscope $end
+$scope module PG_0 $end
+$var wire 1 Q A $end
+$var wire 1 R B $end
+$var wire 1 S G_Not $end
+$var wire 1 T P_Not $end
+$var wire 1 U S $end
+$upscope $end
+$scope module PG_1 $end
+$var wire 1 V A $end
+$var wire 1 W B $end
+$var wire 1 X G_Not $end
+$var wire 1 Y P_Not $end
+$var wire 1 Z S $end
+$upscope $end
+$scope module PG_2 $end
+$var wire 1 [ A $end
+$var wire 1 \ B $end
+$var wire 1 ] G_Not $end
+$var wire 1 ^ P_Not $end
+$var wire 1 _ S $end
+$upscope $end
+$scope module PG_3 $end
+$var wire 1 ` A $end
+$var wire 1 a B $end
+$var wire 1 b G_Not $end
+$var wire 1 c P_Not $end
+$var wire 1 d S $end
+$upscope $end
+$upscope $end
+$scope module DFF0 $end
+$var wire 1 $ Clk $end
+$var wire 1 e D $end
+$var wire 1 % Reset $end
+$var reg 1 f Q $end
+$upscope $end
+$scope module DFF1 $end
+$var wire 1 $ Clk $end
+$var wire 1 g D $end
+$var wire 1 % Reset $end
+$var reg 1 h Q $end
+$upscope $end
+$scope module DFF10 $end
+$var wire 1 $ Clk $end
+$var wire 1 i D $end
+$var wire 1 % Reset $end
+$var reg 1 j Q $end
+$upscope $end
+$scope module DFF11 $end
+$var wire 1 $ Clk $end
+$var wire 1 k D $end
+$var wire 1 % Reset $end
+$var reg 1 l Q $end
+$upscope $end
+$scope module DFF12 $end
+$var wire 1 $ Clk $end
+$var wire 1 m D $end
+$var wire 1 % Reset $end
+$var reg 1 n Q $end
+$upscope $end
+$scope module DFF13 $end
+$var wire 1 $ Clk $end
+$var wire 1 ( D $end
+$var wire 1 % Reset $end
+$var reg 1 ) Q $end
+$upscope $end
+$scope module DFF2 $end
+$var wire 1 $ Clk $end
+$var wire 1 o D $end
+$var wire 1 % Reset $end
+$var reg 1 p Q $end
+$upscope $end
+$scope module DFF3 $end
+$var wire 1 $ Clk $end
+$var wire 1 q D $end
+$var wire 1 % Reset $end
+$var reg 1 r Q $end
+$upscope $end
+$scope module DFF4 $end
+$var wire 1 $ Clk $end
+$var wire 1 s D $end
+$var wire 1 % Reset $end
+$var reg 1 t Q $end
+$upscope $end
+$scope module DFF5 $end
+$var wire 1 $ Clk $end
+$var wire 1 u D $end
+$var wire 1 % Reset $end
+$var reg 1 v Q $end
+$upscope $end
+$scope module DFF6 $end
+$var wire 1 $ Clk $end
+$var wire 1 w D $end
+$var wire 1 % Reset $end
+$var reg 1 x Q $end
+$upscope $end
+$scope module DFF7 $end
+$var wire 1 $ Clk $end
+$var wire 1 y D $end
+$var wire 1 % Reset $end
+$var reg 1 z Q $end
+$upscope $end
+$scope module DFF8 $end
+$var wire 1 $ Clk $end
+$var wire 1 # D $end
+$var wire 1 % Reset $end
+$var reg 1 * Q $end
+$upscope $end
+$scope module DFF9 $end
+$var wire 1 $ Clk $end
+$var wire 1 { D $end
+$var wire 1 % Reset $end
+$var reg 1 | Q $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+0|
+0{
+0z
+0y
+0x
+0w
+0v
+0u
+0t
+0s
+0r
+0q
+0p
+0o
+0n
+0m
+0l
+0k
+0j
+0i
+0h
+0g
+0f
+0e
+0d
+1c
+1b
+0a
+0`
+0_
+1^
+1]
+0\
+0[
+0Z
+1Y
+1X
+0W
+0V
+0U
+1T
+1S
+0R
+0Q
+1P
+1O
+1N
+1M
+1L
+1K
+1J
+1I
+1H
+1G
+1F
+1E
+1D
+1C
+1B
+b0 A
+0@
+0?
+0>
+0=
+0<
+0;
+b1111 :
+b0 9
+b1111 8
+b0 7
+16
+15
+14
+13
+02
+01
+00
+1/
+b0 .
+b0 -
+b0 ,
+b0 +
+0*
+0)
+0(
+b0 '
+b0 &
+0%
+0$
+0#
+b0 "
+b0 !
+$end
+#1000
+1%
+#6000
+1$
+#10000
+1s
+1u
+1w
+1y
+1e
+1g
+1o
+1q
+b1111 "
+b1111 !
+#11000
+0$
+#16000
+1k
+1m
+1i
+1(
+b1110 &
+b1110 7
+11
+04
+12
+03
+b1111 A
+0D
+1?
+1@
+0I
+1=
+1>
+0N
+1;
+1<
+0E
+0B
+0F
+0J
+0C
+0G
+0K
+0O
+0H
+0L
+0P
+0M
+0T
+0S
+0Y
+0X
+0^
+0]
+b0 8
+0c
+b0 :
+0b
+1Q
+1V
+1[
+1`
+1R
+1W
+1\
+1a
+1f
+1h
+1p
+b1111 ,
+b1111 -
+1r
+1t
+1v
+1x
+b1111 +
+b1111 .
+1z
+1$
+#20000
+1#
+#21000
+0$
+#26000
+1{
+0/
+05
+b1111 &
+b1111 7
+10
+06
+1)
+1n
+1l
+b1110 '
+1j
+1*
+1$
+#30000
+0s
+0w
+0g
+0q
+0#
+b1010 "
+b101 !
+#31000
+0$
+#36000
+0(
+13
+01
+02
+0>
+1i
+1m
+1k
+0@
+1I
+0<
+b0 A
+1D
+1N
+1C
+1G
+1M
+1B
+1H
+1L
+1X
+1Z
+1b
+1d
+1S
+1U
+b1111 :
+1]
+b1111 9
+1_
+1{
+1/
+15
+0V
+0`
+0R
+0\
+b1111 &
+b1111 7
+00
+16
+0h
+b101 ,
+b101 -
+0r
+0t
+b1010 +
+b1010 .
+0x
+0*
+b1111 '
+1|
+1$
+#40000
+1#
+#41000
+0$
+#46000
+0m
+0i
+0k
+11
+1(
+0{
+b1111 A
+0/
+05
+b0 &
+b0 7
+10
+06
+0)
+1*
+1$
+#50000
+1s
+1w
+0y
+0e
+0o
+0#
+b111 "
+b0 !
+#51000
+0$
+#56000
+1i
+14
+0m
+1k
+01
+0;
+0(
+1P
+b1000 8
+1c
+b111 9
+0d
+1{
+b0 A
+1/
+15
+0Q
+0[
+1R
+1\
+0a
+b111 &
+b111 7
+00
+16
+0f
+b0 ,
+b0 -
+0p
+1t
+1x
+b111 +
+b111 .
+0z
+0*
+0|
+0j
+0l
+b0 '
+0n
+1)
+1$
+#60000
+1#
+#61000
+0$
+#66000
+1m
+0i
+0k
+11
+0{
+b111 A
+0/
+b1000 &
+b1000 7
+10
+06
+0)
+1l
+1j
+b111 '
+1|
+1*
+1$
+#70000
