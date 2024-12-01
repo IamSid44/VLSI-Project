@@ -65,6 +65,26 @@ C26 w_n103_27# Gnd 4.17fF
 VClk clk gnd pulse SUPPLY 0 0 50p 50p 0.5ns 1ns
 VD DFF_in gnd pulse 0 SUPPLY 0 50p 50p 0.9ns 1.8ns
 
+.measure tran trise
++ TRIG V(DFF_out) VAL = 'SUPPLY / 10' RISE = 1
++ TARG V(DFF_out) VAL = '9 * SUPPLY / 10' RISE = 1
+
+.measure tran tfall
++ TRIG V(DFF_out) VAL = '9 * SUPPLY / 10' FALL = 1
++ TARG V(DFF_out) VAL = 'SUPPLY / 10' FALL = 1
+
+.measure tran delay param = '(trise + tfall) / 2'
+
+.measure tran tcqrise
++ TRIG V(clk) VAL = 'SUPPLY / 2' RISE = 1
++ TARG V(DFF_out) VAL = 'SUPPLY / 2' RISE = 1
+
+.measure tran tcqfall
++ TRIG V(clk) VAL = 'SUPPLY / 2' RISE = 2
++ TARG V(DFF_out) VAL = 'SUPPLY / 2' FALL = 1
+
+.measure tran tcq param = '(tcqrise + tcqfall) / 2'
+
 .tran 1ps 5ns
 
 .control
