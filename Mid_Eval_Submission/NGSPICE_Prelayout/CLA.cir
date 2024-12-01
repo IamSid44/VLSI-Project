@@ -98,8 +98,12 @@ let out_S1 = 'S1 + 2'
 let out_S0 = 'S0'
 
 * plot in_A3 in_A2 in_A1 in_A0 in_B3 in_B2 in_B1 in_B0 in_Cin out_Cout out_S3 out_S2 out_S1 out_S0
+plot in_A3 in_A2 in_A1 in_A0 in_B3 in_B2 in_B1 in_B0 in_Cin
 plot out_Cout out_S3 out_S2 out_S1 out_S0
-plot out_S3 B0
+let curr = (-Vdd#branch)
+plot curr
+* meas dc current_max max curr
+* .measure tran integral_val INTEG (V(in)*) FROM=0 TO=1.5m  ;* Measure the integral of the input signal over 2m
 
 .endc
 
