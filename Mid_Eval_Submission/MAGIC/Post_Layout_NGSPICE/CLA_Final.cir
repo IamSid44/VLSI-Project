@@ -991,6 +991,8 @@ plot out_Cout out_S3 out_S2 out_S1 out_S0
 * plot P0_Not   P1_Not+2 P2_Not+4 P3_Not+6
 * plot G0_Not G1_Not+2 G2_Not+4 G3_Not+6
 * plot C1_inter_NAND + 4 C1_inter_01 + 2 Intermediate
+let curr = (-Vdd#branch)
+plot curr
 
 .endc
 

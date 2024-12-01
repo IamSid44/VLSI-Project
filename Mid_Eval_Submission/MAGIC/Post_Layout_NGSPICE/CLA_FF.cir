@@ -1668,7 +1668,7 @@ C932 w_n930_152# Gnd 4.17fF
 .param T_Period_half = {T_Period * 0.5}
 .param T_Period_Double = {T_Period * 2}
 
-VClk clk gnd pulse SUPPLY 0 0 50p 50p T_Period_half T_Period
+VClk clk gnd pulse 0 SUPPLY 0 50p 50p T_Period_half T_Period
 
 VA3 A3 gnd 'SUPPLY'
 VA2 A2 gnd 0
@@ -1684,7 +1684,7 @@ VB0 B0 gnd pulse 0 'SUPPLY' 0 50p 50p T_Period T_Period_Double
 
 VCin Cin gnd 'SUPPLY'
 
-.tran 100p 50n
+.tran 10p 5n
 
 .ic V(C_out_FF) = 0
 .ic V(S3_FF) = 0
