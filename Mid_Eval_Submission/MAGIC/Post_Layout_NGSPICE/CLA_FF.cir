@@ -1664,22 +1664,21 @@ C930 w_n912_72# Gnd 1.78fF
 C931 w_n1039_61# Gnd 4.17fF
 C932 w_n930_152# Gnd 4.17fF
 
-.param T_Period = 0.9n ; 1.143 GHz
+.param T_Period = 0.84n ; 1.143 GHz
 .param T_Period_half = {T_Period * 0.5}
 .param T_Period_Double = {T_Period * 2}
 
 VClk clk gnd pulse 0 SUPPLY 0 50p 50p T_Period_half T_Period
 
-VA3 A3 gnd 'SUPPLY'
+VA3 A3 gnd 0
 VA2 A2 gnd 0
-VA1 A1 gnd 'SUPPLY'
+VA1 A1 gnd 0
 VA0 A0 gnd 0
 
 VB3 B3 gnd 0
 VB2 B2 gnd 'SUPPLY'
-VB1 B1 gnd 0
+VB1 B1 gnd 'SUPPLY'
 * VB0 B0 gnd 'SUPPLY'
-* VB0 B0 gnd pulse 0 SUPPLY 0 50p 50p 0.9ns 1.8ns ; 1.11 GHz
 VB0 B0 gnd pulse 0 'SUPPLY' 0 50p 50p T_Period T_Period_Double
 
 VCin Cin gnd 'SUPPLY'
@@ -1730,7 +1729,7 @@ let out_S2 = 'S2_FF + 4'
 let out_S1 = 'S1_FF + 2'
 let out_S0 = 'S0_FF'
 
-plot clock in_A3 in_A2 in_A1 in_A0 in_B3 in_B2 in_B1 in_B0 in_Cin
+* plot clock in_A3 in_A2 in_A1 in_A0 in_B3 in_B2 in_B1 in_B0 in_Cin
 plot out_Cout out_S3 out_S2 out_S1 out_S0
 * plot clock out_Cout out_S3 out_S2 out_S1 out_S0
 

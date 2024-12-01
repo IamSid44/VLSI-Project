@@ -50,7 +50,7 @@ Vdd vdd gnd 'SUPPLY'
 .param T_Period_half = {T_Period * 0.5}
 .param T_Period_Double = {T_Period * 2}
 
-VClk clk_line gnd pulse SUPPLY 0 0 50p 50p T_Period_half T_Period
+VClk clk_line gnd pulse 0 SUPPLY 0 50p 50p T_Period_half T_Period
 
 * VA3 A3 gnd pulse SUPPLY 0 0 1p 1p 160ns 320ns
 * VA2 A2 gnd pulse SUPPLY 0 0 1p 1p 80ns 160ns
@@ -134,6 +134,15 @@ XLoad4 C_out_FF Temp4 vdd gnd InverterLoad
 .ic V(S2_FF) = 0
 .ic V(S1_FF) = 0
 .ic V(S0_FF) = 0
+.ic V(FA0) = 0
+.ic V(FA1) = 0
+.ic V(FA2) = 0
+.ic V(FA3) = 0
+.ic V(FB0) = 0
+.ic V(FB1) = 0
+.ic V(FB2) = 0
+.ic V(FB3) = 0
+.ic V(FCin) = 0
 
 .control
 
