@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
-| Date             : Wed Nov 13 23:46:26 2024
+| Date             : Mon Dec  2 16:48:43 2024
 | Host             : Asus-Vivobook running 64-bit major release  (build 9200)
 | Command          : report_power -file Adder_power_routed.rpt -pb Adder_power_summary_routed.pb -rpx Adder_power_routed.rpx
 | Design           : Adder
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+----------------------------------+
-| Total On-Chip Power (W)  | 14.866 (Junction temp exceeded!) |
+| Total On-Chip Power (W)  | 14.933 (Junction temp exceeded!) |
 | Design Power Budget (W)  | Unspecified*                     |
 | Power Budget Margin (W)  | NA                               |
-| Dynamic (W)              | 14.621                           |
-| Device Static (W)        | 0.245                            |
+| Dynamic (W)              | 14.685                           |
+| Device Static (W)        | 0.248                            |
 | Effective TJA (C/W)      | 4.9                              |
-| Max Ambient (C)          | 11.6                             |
-| Junction Temperature (C) | 98.4                             |
+| Max Ambient (C)          | 11.2                             |
+| Junction Temperature (C) | 98.8                             |
 | Confidence Level         | Low                              |
 | Setting File             | ---                              |
 | Simulation Activity File | ---                              |
@@ -52,15 +52,15 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Slice Logic    |     0.041 |       37 |       --- |             --- |
-|   LUT as Logic |     0.030 |        7 |     32600 |            0.02 |
+| Slice Logic    |     0.040 |       37 |       --- |             --- |
+|   LUT as Logic |     0.029 |        7 |     32600 |            0.02 |
 |   BUFG         |     0.006 |        1 |        32 |            3.13 |
 |   Register     |     0.006 |       14 |     65200 |            0.02 |
 |   Others       |     0.000 |       14 |       --- |             --- |
-| Signals        |     0.164 |       30 |       --- |             --- |
+| Signals        |     0.229 |       29 |       --- |             --- |
 | I/O            |    14.416 |       25 |       210 |           11.90 |
-| Static Power   |     0.245 |          |           |                 |
-| Total          |    14.866 |          |           |                 |
+| Static Power   |     0.248 |          |           |                 |
+| Total          |    14.933 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -70,7 +70,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.395 |       0.245 |      0.150 |
+| Vccint    |       1.000 |     0.461 |       0.310 |      0.151 |
 | Vccaux    |       1.800 |     0.556 |       0.527 |      0.029 |
 | Vcco33    |       3.300 |     4.070 |       4.069 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
@@ -135,21 +135,21 @@ Table of Contents
 +---------+-----------+
 | Name    | Power (W) |
 +---------+-----------+
-| Adder   |    14.621 |
-|   DFF0  |     0.006 |
-|   DFF1  |     0.009 |
-|   DFF10 |     0.008 |
-|   DFF11 |     0.006 |
-|   DFF12 |     0.007 |
-|   DFF13 |     0.007 |
-|   DFF2  |     0.009 |
+| Adder   |    14.685 |
+|   DFF0  |     0.007 |
+|   DFF1  |     0.007 |
+|   DFF10 |     0.026 |
+|   DFF11 |     0.020 |
+|   DFF12 |     0.023 |
+|   DFF13 |     0.016 |
+|   DFF2  |     0.007 |
 |   DFF3  |     0.011 |
-|   DFF4  |     0.008 |
-|   DFF5  |     0.041 |
+|   DFF4  |     0.005 |
+|   DFF5  |     0.031 |
 |   DFF6  |     0.007 |
-|   DFF7  |     0.007 |
-|   DFF8  |     0.012 |
-|   DFF9  |     0.007 |
+|   DFF7  |     0.006 |
+|   DFF8  |     0.009 |
+|   DFF9  |     0.024 |
 +---------+-----------+
 
 

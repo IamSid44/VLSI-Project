@@ -2,8 +2,8 @@
 # Vivado v2019.2 (64-bit)
 # SW Build 2708876 on Wed Nov  6 21:40:23 MST 2019
 # IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
-# Start of session at: Wed Nov 13 23:45:51 2024
-# Process ID: 79452
+# Start of session at: Mon Dec  2 16:47:16 2024
+# Process ID: 15584
 # Current directory: C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.runs/impl_1
 # Command line: vivado.exe -log Adder.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source Adder.tcl -notrace
 # Log file: C:/Users/sidda/OneDrive/Desktop/Academics/Sem 3/VLSI Design/Project Files/VLSI-Project/Static Implementation/FPGA/CLA_4_Bit.runs/impl_1/Adder.vdi
