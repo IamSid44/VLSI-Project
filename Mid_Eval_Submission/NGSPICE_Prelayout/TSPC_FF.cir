@@ -45,11 +45,9 @@ Implementing a TSPC Flipflop using 180nm technology
 
 * Repeater Tradeoff - Rise and Fall times vs C to Q delay
 * We want a smaller CQ delay value
-.subckt TSPC_FF in out clk high low
-    XMaster in inter1 clk high low TSPC_Latch_LowLevel
-    * XInverter1 inter1 inter vdd gnd Inverter
-    XSlave inter1 out clk high low TSPC_Latch_HighLevel
-    * XInverter2 inter2 out vdd gnd Inverter
+.subckt TSPC_FF in out clk high low inter
+    XMaster in inter clk high low TSPC_Latch_LowLevel
+    XSlave inter out clk high low TSPC_Latch_HighLevel
 .ends TSPC_FF
 
 .subckt InverterLoad in out high low
@@ -63,7 +61,7 @@ Implementing a TSPC Flipflop using 180nm technology
 * vin in+ in- pulse VLow VHigh delay rise-time fall-time on-period time-period
 Vdd vdd gnd 'SUPPLY'
 VClk clk_line gnd pulse SUPPLY 0 0 50p 50p 1ns 2ns
-VD D gnd pulse 0 SUPPLY 0 50p 50p 2ns 4ns
+VD D gnd pulse 0 SUPPLY 0.5n 50p 50p 2ns 4ns
 
 * Load 
 XInverterL1 Q temp vdd gnd InverterLoad
@@ -71,7 +69,7 @@ XInverterL1 Q temp vdd gnd InverterLoad
 * XInverterL Q temp vdd gnd InverterLoad
 * CLoad Q gnd 10f
 
-XFlipFlop D Q clk_line vdd gnd TSPC_FF
+XFlipFlop D Q clk_line vdd gnd In_Between_Latch TSPC_FF
 
 .measure tran trise
 + TRIG V(Q) VAL = 'SUPPLY / 10' RISE = 1
@@ -93,6 +91,16 @@ XFlipFlop D Q clk_line vdd gnd TSPC_FF
 
 .measure tran tcq param = '(tcqrise + tcqfall) / 2'
 
+.measure tran tsetuprise
++ TRIG V(D) VAL = 'SUPPLY / 2' RISE = 1
++ TARG V(In_Between_Latch) VAL = 'SUPPLY / 2' RISE = 1
+
+.measure tran tsetupfall
++ TRIG V(D) VAL = 'SUPPLY / 2' FALL = 1
++ TARG V(In_Between_Latch) VAL = 'SUPPLY / 2' FALL = 1
+
+.measure tran delay param = '(tsetuprise + tsetupfall) / 2'
+
 .tran 1ps 5ns
 
 .control
@@ -107,7 +115,7 @@ set xbrushwidth = 3
 let clock = 'clk_line + 4'
 let input = 'D + 2'
 let output = 'Q'
-plot clock input output
+plot clock input output v(In_Between_Latch) + 6
 
 .endc
 

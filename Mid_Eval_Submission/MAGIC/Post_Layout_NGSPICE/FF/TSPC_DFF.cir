@@ -63,7 +63,7 @@ C25 DFF_In Gnd 0.11fF
 C26 w_n103_27# Gnd 4.17fF
 
 VClk clk gnd pulse SUPPLY 0 0 50p 50p 0.5ns 1ns
-VD DFF_in gnd pulse 0 SUPPLY 0 50p 50p 0.9ns 1.8ns
+VD DFF_in gnd pulse 0 SUPPLY 0.25n 50p 50p 0.9ns 1.8ns
 
 .measure tran trise
 + TRIG V(DFF_out) VAL = 'SUPPLY / 10' RISE = 1
@@ -85,6 +85,16 @@ VD DFF_in gnd pulse 0 SUPPLY 0 50p 50p 0.9ns 1.8ns
 
 .measure tran tcq param = '(tcqrise + tcqfall) / 2'
 
+.measure tran tsetuprise
++ TRIG V(DFF_In) VAL = 'SUPPLY / 2' RISE = 1
++ TARG V(DFF_Inter) VAL = 'SUPPLY / 2' RISE = 1
+
+.measure tran tsetupfall
++ TRIG V(DFF_In) VAL = 'SUPPLY / 2' FALL = 1
++ TARG V(DFF_Inter) VAL = 'SUPPLY / 2' FALL = 1
+
+.measure tran tsetup param = '(tsetuprise + tsetupfall) / 2'
+
 .tran 1ps 5ns
 
 .control
@@ -99,7 +109,7 @@ set xbrushwidth = 3
 let clock = 'clk + 4'
 let input = 'DFF_in + 2'
 let output = 'DFF_out'
-plot clock input output
+plot clock input output v(DFF_Inter) + 6
 
 .endc
 
