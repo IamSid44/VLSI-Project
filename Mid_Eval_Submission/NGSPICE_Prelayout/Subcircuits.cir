@@ -35,7 +35,7 @@
     XInv101 C0 C0_not high low Inverter
     XInv102 C1 C1_not high low Inverter
     XInv103 C2 C2_not high low Inverter
-    XInv104 C3 C3_not high low Inverter
+    * XInv104 C3 C3_not high low Inverter
 
         XOR01 P0_not Cin_not C0_inter_01 high low OR_Gate
         XNAND02 G0_not C0_inter_01 C0 high low NAND_Gate
