@@ -62,8 +62,6 @@ VClk clk_line gnd pulse 0 SUPPLY 0 50p 50p T_Period_half T_Period
 * VB1 B1 gnd pulse SUPPLY 0 10n 1p 1p 40ns 80ns
 * VB0 B0 gnd pulse SUPPLY 0 10n 1p 1p 20ns 40ns
 
-* VCin Cin gnd 1
-
 * Finding the highest Frequency of operation - 0 + 6->7 + 1 = 01111->10000
 VA3 A3 gnd 0
 VA2 A2 gnd 0
@@ -73,24 +71,9 @@ VA0 A0 gnd 0
 VB3 B3 gnd 0
 VB2 B2 gnd 'SUPPLY'
 VB1 B1 gnd 'SUPPLY'
-* VB0 B0 gnd pulse 0 SUPPLY 0 50p 50p 0.9ns 1.8ns ; 1.11 GHz
 VB0 B0 gnd pulse 0 'SUPPLY' 0 50p 50p T_Period T_Period_Double
 
 VCin Cin gnd 'SUPPLY'
-
-* 0110 + 0111 + 1 = 01110
-* 6 + 7 + 1 = 14
-
-* VA3 A3 gnd 0
-* VA2 A2 gnd 'SUPPLY'
-* VA1 A1 gnd 'SUPPLY'
-* VA0 A0 gnd 0
-
-* VB3 B3 gnd 0
-* VB2 B2 gnd 0
-* VB1 B1 gnd 0
-* VB0 B0 gnd 0
-
 * VCin Cin gnd 'SUPPLY'
 
 XFinal clk_line A3 A2 A1 A0 B3 B2 B1 B0 Cin C_out_FF S3_FF S2_FF S1_FF S0_FF vdd gnd Final
@@ -100,12 +83,6 @@ XLoad1 S1_FF Temp1 vdd gnd InverterLoad
 XLoad2 S2_FF Temp2 vdd gnd InverterLoad
 XLoad3 S3_FF Temp3 vdd gnd InverterLoad
 XLoad4 C_out_FF Temp4 vdd gnd InverterLoad
-
-* .measure tran C_out FIND V(C_out_FF) AT = 50n
-* .measure tran S3 FIND V(S3_FF) AT = 50n
-* .measure tran S2 FIND V(S2_FF) AT = 50n
-* .measure tran S1 FIND V(S1_FF) AT = 50n
-* .measure tran S0 FIND V(S0_FF) AT = 50n
 
 * .measure tran trise
 * + TRIG V(Q) VAL = 'SUPPLY / 10' TD = 5ns TO = 15ns RISE = 1

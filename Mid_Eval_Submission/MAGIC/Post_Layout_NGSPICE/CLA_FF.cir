@@ -1664,7 +1664,7 @@ C930 w_n912_72# Gnd 1.78fF
 C931 w_n1039_61# Gnd 4.17fF
 C932 w_n930_152# Gnd 4.17fF
 
-.param T_Period = 0.84n ; 1.143 GHz
+.param T_Period = 0.84n ; 1.19 GHz
 .param T_Period_half = {T_Period * 0.5}
 .param T_Period_Double = {T_Period * 2}
 
